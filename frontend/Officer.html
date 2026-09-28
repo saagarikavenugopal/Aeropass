@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        name="viewport" />
+    <meta content="airport-security-platform" name="description" />
+    <title>AeroPass | Security Officer Operations &amp; Turnstile Station</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        @layer base {
+            html,
+            body {
+                width: 100vw;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                overscroll-behavior: none;
+                font-family: 'Inter', sans-serif;
+            }
+
+            .pb-safe {
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+            }
+
+            .pt-safe {
+                padding-top: env(safe-area-inset-top, 0px);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(229, 238, 255, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #93ccff;
+            border-radius: 9999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #006194;
+        }
+
+        @keyframes scanLaser {
+            0% {
+                top: 5%;
+                opacity: 0.8;
+            }
+            50% {
+                top: 90%;
+                opacity: 1;
+            }
+            100% {
+                top: 5%;
+                opacity: 0.8;
+            }
+        }
+
+        .animate-scan-laser {
+            animation: scanLaser 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(0, 105, 72, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 105, 72, 0.65);
+            }
+        }
+
+        .pulse-glow-emerald {
+            animation: pulseGlow 2s infinite;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed": "#002114",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#cce5ff",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-tint": "#006398",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#3f4850",
+                        "inverse-primary": "#93ccff",
+                        "on-primary-container": "#fdfcff",
+                        "primary-container": "#007bb9",
+                        "secondary-container": "#dae2fd",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed": "#85f8c4",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary": "#006948",
+                        "primary": "#006194",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed-dim": "#68dba9",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004b73",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#f5fff7",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "surface-container": "#e5eeff",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-fixed-dim": "#93ccff",
+                        "tertiary-container": "#00855d",
+                        "outline": "#707881",
+                        "error": "#ba1a1a",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed": "#001d31",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bfc7d2",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface": "#f8f9ff",
+                        "on-background": "#0b1c30"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "title-md": ["Inter", "sans-serif"],
+                        "label-mono-sm": ["JetBrains Mono", "monospace"],
+                        "label-mono-lg": ["JetBrains Mono", "monospace"],
+                        "headline-sm": ["Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface font-body-sm text-body-sm text-on-surface flex flex-col min-h-screen pt-safe pb-safe selection:bg-primary selection:text-on-primary">
+
+    <!-- Top Officer Station Header -->
+    <header class="w-full bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-container-high sticky top-0 z-40 px-4 md:px-8 py-3 shadow-xs">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            
+            <!-- Left: Officer Identity & Station Badge -->
+            <div class="flex items-center justify-between w-full md:w-auto gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center p-1 text-primary shadow-sm shrink-0">
+                        <span class="material-symbols-outlined text-2xl">shield</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-headline-sm text-lg font-bold text-on-surface tracking-tight">AeroPass Officer</span>
+                            <span id="officer-role-pill" class="font-label-mono-sm text-[10px] px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold uppercase">SEC-01 Active</span>
+                        </div>
+                        <p class="font-label-mono-sm text-[11px] text-outline flex items-center gap-1.5" id="officer-session-label">
+                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                            Airport Security &amp; Turnstile Operations • Terminal 1
+                        </p>
+                    </div>
+                </div>
+
+                <div class="md:hidden">
+                    <button onclick="officerSignOut()" class="text-xs font-semibold text-error flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">logout</span>
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+
+            <!-- Center: Mode Switcher (Admin Command Centre vs Gate Turnstile) -->
+            <nav class="flex items-center p-1 bg-surface-container-low rounded-xl border border-surface-container-high w-full md:w-auto">
+                <button id="nav-btn-command" onclick="switchOfficerView('command')"
+                    class="officer-nav-btn flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+                    <span>Admin Command Centre</span>
+                    <span id="badge-alert-count" class="text-[10px] px-1.5 py-0.2 rounded-full bg-error text-white font-label-mono-sm font-bold">3 Alert</span>
+                </button>
+
+                <button id="nav-btn-turnstile" onclick="switchOfficerView('turnstile')"
+                    class="officer-nav-btn flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all">
+                    <span class="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+                    <span>Gate Turnstile Scanner</span>
+                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-mono-sm font-bold">Gate A1</span>
+                </button>
+            </nav>
+
+            <!-- Right: Authenticated Officer Controls & Sign Out -->
+            <div class="hidden lg:flex items-center gap-3">
+                <div id="backend-status-pill" onclick="checkBackendConnectivity()" title="Click to test live Express API"
+                    class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-mono-sm text-[11px] transition-colors border border-outline-variant/40">
+                    <span id="status-indicator-dot" class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                    <span id="status-indicator-text">API Online (Port 4000)</span>
+                </div>
+
+                <!-- Sign Out & Lock Terminal Button -->
+                <button onclick="officerSignOut()" class="px-3 py-1.5 rounded-lg border border-error/30 bg-error/10 hover:bg-error hover:text-white text-error font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-xs" title="Sign out and lock command console">
+                    <span class="material-symbols-outlined text-sm">lock</span>
+                    <span>Lock Station &amp; Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Application Body -->
+    <main class="flex-1 w-full flex flex-col justify-start relative px-4 py-6 md:py-8 max-w-7xl mx-auto">
+
+        <!-- ==================================================================== -->
+        <!-- VIEW 1: ADMIN COMMAND CENTRE (AI REVIEW, PASSES, MANIFEST, AUDIT) -->
+        <!-- ==================================================================== -->
+        <section id="officer-view-command" class="w-full flex flex-col gap-6">
+            
+            <!-- Dashboard Title & Quick Simulator Toolbar -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-surface-container-high">
+                <div>
+                    <h1 class="font-headline-sm text-2xl font-bold text-on-surface flex items-center gap-2">
+                        <span>Security Command Centre &amp; Adjudication</span>
+                    </h1>
+                    <p class="text-xs text-on-surface-variant mt-1">
+                        Human-in-the-loop document verification, active turnstile pass registry, passenger manifest, and compliance logs.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="refreshDashboardData()" class="px-3 py-1.5 bg-surface-container-lowest border border-surface-container-high hover:bg-surface-container-low rounded-lg text-xs font-semibold text-on-surface flex items-center gap-1.5 shadow-xs transition-colors">
+                        <span class="material-symbols-outlined text-base">refresh</span>
+                        Refresh Data
+                    </button>
+                    <button onclick="simulateFlaggedDocument()" class="px-3 py-1.5 bg-primary text-on-primary hover:bg-primary-container rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-colors">
+                        <span class="material-symbols-outlined text-base">add_alert</span>
+                        Simulate Flagged Upload
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPI Metric Summary Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-xs flex flex-col">
+                    <div class="flex items-center justify-between text-outline mb-1">
+                        <span class="font-label-mono-sm text-xs uppercase">Registered Travelers</span>
+                        <span class="material-symbols-outlined text-primary text-lg">group</span>
+                    </div>
+                    <div class="font-headline-sm text-2xl font-bold text-on-surface">1,428</div>
+                    <span class="text-[11px] text-tertiary font-semibold flex items-center gap-1 mt-1">
+                        <span class="material-symbols-outlined text-xs">trending_up</span> +14 today
+                    </span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-surface-container-lowest border border-error-container shadow-xs flex flex-col relative overflow-hidden">
+                    <div class="flex items-center justify-between text-outline mb-1">
+                        <span class="font-label-mono-sm text-xs uppercase text-error font-bold">AI Flagged Queue</span>
+                        <span class="material-symbols-outlined text-error text-lg animate-pulse">pending_actions</span>
+                    </div>
+                    <div class="font-headline-sm text-2xl font-bold text-error" id="kpi-queue-count">3 Pending</div>
+                    <span class="text-[11px] text-on-surface-variant mt-1">Requires Officer Adjudication</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-xs flex flex-col">
+                    <div class="flex items-center justify-between text-outline mb-1">
+                        <span class="font-label-mono-sm text-xs uppercase">Active Turnstile Passes</span>
+                        <span class="material-symbols-outlined text-tertiary text-lg">vpn_key</span>
+                    </div>
+                    <div class="font-headline-sm text-2xl font-bold text-on-surface" id="kpi-active-passes">844</div>
+                    <span class="text-[11px] text-tertiary font-semibold flex items-center gap-1 mt-1">
+                        <span class="material-symbols-outlined text-xs">check_circle</span> 99.2% Cleared
+                    </span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-xs flex flex-col">
+                    <div class="flex items-center justify-between text-outline mb-1">
+                        <span class="font-label-mono-sm text-xs uppercase">Ancillary Baggage Revenue</span>
+                        <span class="material-symbols-outlined text-primary text-lg">payments</span>
+                    </div>
+                    <div class="font-headline-sm text-2xl font-bold text-on-surface">$42,650</div>
+                    <span class="text-[11px] text-outline mt-1">Baggage &amp; Priority Clearance</span>
+                </div>
+            </div>
+
+            <!-- Command Center Sub-Tabs -->
+            <div class="flex items-center gap-2 border-b border-surface-container-high overflow-x-auto pb-1">
+                <button onclick="switchCommandSubTab('reviews')" id="cmd-subtab-btn-reviews"
+                    class="cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-primary text-primary flex items-center gap-1.5 bg-surface-container-low">
+                    <span class="material-symbols-outlined text-[16px]">rate_review</span>
+                    <span>Document Review Queue</span>
+                    <span id="tab-review-badge" class="text-[10px] px-1.5 py-0.2 rounded-full bg-error text-white font-bold">3</span>
+                </button>
+
+                <button onclick="switchCommandSubTab('passes')" id="cmd-subtab-btn-passes"
+                    class="cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-secondary hover:text-on-surface flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">badge</span>
+                    <span>Security Passes &amp; Revocation</span>
+                </button>
+
+                <button onclick="switchCommandSubTab('manifest')" id="cmd-subtab-btn-manifest"
+                    class="cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-secondary hover:text-on-surface flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">flight</span>
+                    <span>Flight Manifest Roster</span>
+                </button>
+
+                <button onclick="switchCommandSubTab('map')" id="cmd-subtab-btn-map"
+                    class="cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-secondary hover:text-on-surface flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">map</span>
+                    <span>Terminal 1 Map &amp; Gates</span>
+                </button>
+
+                <button onclick="switchCommandSubTab('audit')" id="cmd-subtab-btn-audit"
+                    class="cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-secondary hover:text-on-surface flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">history</span>
+                    <span>Live Audit Logs</span>
+                </button>
+            </div>
+
+            <!-- SUB-TAB 1: DOCUMENT REVIEW QUEUE -->
+            <div id="cmd-pane-reviews" class="cmd-pane flex flex-col gap-4">
+                <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+                    <span class="text-xs text-on-surface-variant">
+                        Travelers with <strong class="text-error font-bold">ai_uncertain</strong> status require manual review before their security pass can unlock gate turnstiles.
+                    </span>
+                    <span class="text-xs font-label-mono-sm text-outline">Real-time sync active</span>
+                </div>
+
+                <div id="pending-reviews-container" class="space-y-3">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- SUB-TAB 2: SECURITY PASSES & REVOCATION -->
+            <div id="cmd-pane-passes" class="cmd-pane hidden flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                    <div class="relative flex-1 max-w-sm">
+                        <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-lg">search</span>
+                        <input id="search-passes-input" onkeyup="filterPasses()" placeholder="Search pass code or passenger..."
+                            class="w-full bg-surface-container-lowest border border-surface-container-high pl-9 pr-3 py-2 rounded-lg text-xs text-on-surface focus:outline-none focus:border-primary" />
+                    </div>
+                    <span class="text-xs text-outline font-label-mono-sm">Total Passes: <strong id="passes-count-display">4</strong></span>
+                </div>
+
+                <div class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden shadow-xs">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-surface-container-low text-on-surface-variant font-label-mono-sm uppercase border-b border-surface-container-high">
+                                <tr>
+                                    <th class="py-3 px-4">Pass Code</th>
+                                    <th class="py-3 px-4">Passenger</th>
+                                    <th class="py-3 px-4">Flight &amp; Gate</th>
+                                    <th class="py-3 px-4">Tier / PreCheck</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="passes-table-tbody" class="divide-y divide-surface-container-high">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 3: FLIGHT MANIFEST ROSTER -->
+            <div id="cmd-pane-manifest" class="cmd-pane hidden flex flex-col gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high shadow-xs">
+                        <span class="text-xs text-outline uppercase font-label-mono-sm">Active Gate</span>
+                        <h4 class="font-headline-sm text-base font-bold text-primary mt-1">Flight SK-492 • London Heathrow</h4>
+                        <p class="text-xs text-on-surface-variant">Gate A1 • Boarding at 10:45 AM • 184 Manifested</p>
+                    </div>
+                    <div class="bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high shadow-xs">
+                        <span class="text-xs text-outline uppercase font-label-mono-sm">Next Gate</span>
+                        <h4 class="font-headline-sm text-base font-bold text-primary mt-1">Flight DL-108 • Tokyo Haneda</h4>
+                        <p class="text-xs text-on-surface-variant">Gate A2 • Boarding at 11:30 AM • 220 Manifested</p>
+                    </div>
+                    <div class="bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high shadow-xs">
+                        <span class="text-xs text-outline uppercase font-label-mono-sm">Concourse B</span>
+                        <h4 class="font-headline-sm text-base font-bold text-primary mt-1">Flight AA-772 • Frankfurt</h4>
+                        <p class="text-xs text-on-surface-variant">Gate A3 • Boarding at 01:15 PM • 160 Manifested</p>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden shadow-xs">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-surface-container-low text-on-surface-variant font-label-mono-sm uppercase border-b border-surface-container-high">
+                                <tr>
+                                    <th class="py-3 px-4">Passenger</th>
+                                    <th class="py-3 px-4">Email / Contact</th>
+                                    <th class="py-3 px-4">Flight</th>
+                                    <th class="py-3 px-4">Baggage</th>
+                                    <th class="py-3 px-4">Biometric Status</th>
+                                    <th class="py-3 px-4">Security Pass</th>
+                                </tr>
+                            </thead>
+                            <tbody id="manifest-table-tbody" class="divide-y divide-surface-container-high">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 4: TERMINAL 1 MAP & GATES -->
+            <div id="cmd-pane-map" class="cmd-pane hidden flex flex-col gap-4">
+                <div class="bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high shadow-xs flex flex-col gap-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-headline-sm text-base font-bold text-on-surface">Terminal 1 Concourse Map</h3>
+                            <p class="text-xs text-on-surface-variant">Checkpoints, gate corridors, security turnstiles, and transit times.</p>
+                        </div>
+                        <span class="flex items-center gap-1 text-[11px] font-label-mono-sm text-tertiary">
+                            <span class="w-2 h-2 rounded-full bg-tertiary"></span> Concourse Clear
+                        </span>
+                    </div>
+
+                    <div class="w-full h-80 bg-surface-container-low rounded-xl border border-surface-container-high relative overflow-hidden flex items-center justify-center p-4">
+                        <svg viewBox="0 0 800 400" class="w-full h-full">
+                            <pattern id="officer-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#dce9ff" stroke-width="0.8" />
+                            </pattern>
+                            <rect width="800" height="400" fill="url(#officer-grid)" />
+
+                            <rect x="50" y="80" width="700" height="240" rx="20" fill="#ffffff" stroke="#93ccff" stroke-width="2" />
+                            <path d="M 120 200 L 260 200 L 400 140 L 620 140" fill="none" stroke="#006194" stroke-width="3" stroke-dasharray="6,6" class="animate-pulse" />
+                            <path d="M 260 200 L 400 260 L 620 260" fill="none" stroke="#006194" stroke-width="3" stroke-dasharray="6,6" />
+
+                            <rect x="200" y="160" width="120" height="80" rx="10" fill="#eff4ff" stroke="#006194" stroke-width="2" />
+                            <text x="260" y="195" font-family="Space Grotesk" font-size="12" font-weight="bold" fill="#006194" text-anchor="middle">SECURITY CHECKPOINT A</text>
+                            <text x="260" y="215" font-family="JetBrains Mono" font-size="10" fill="#707881" text-anchor="middle">Turnstiles 1-4 Active</text>
+
+                            <g class="cursor-pointer hover:opacity-80" onclick="showToast('Gate A1: Flight SK-492 • Turnstile clearance required')">
+                                <circle cx="620" cy="140" r="28" fill="#006948" />
+                                <text x="620" y="145" font-family="Space Grotesk" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GATE A1</text>
+                            </g>
+
+                            <g class="cursor-pointer hover:opacity-80" onclick="showToast('Gate A2: Flight DL-108')">
+                                <circle cx="620" cy="260" r="28" fill="#006194" />
+                                <text x="620" y="265" font-family="Space Grotesk" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GATE A2</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 5: LIVE AUDIT LOGS -->
+            <div id="cmd-pane-audit" class="cmd-pane hidden flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-headline-sm text-base font-bold text-on-surface">Compliance &amp; Security Audit Ledger</h3>
+                        <p class="text-xs text-on-surface-variant">Immutable record of document verifications, biometric scans, and turnstile events.</p>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden shadow-xs">
+                    <div class="divide-y divide-surface-container-high max-h-96 overflow-y-auto" id="audit-log-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================================== -->
+        <!-- VIEW 2: GATE TURNSTILE SCANNER (OFFICER STATION CP-A1) -->
+        <!-- ==================================================================== -->
+        <section id="officer-view-turnstile" class="hidden w-full max-w-3xl mx-auto flex flex-col items-center">
+            
+            <div class="w-full flex items-center justify-between pb-4 mb-4 border-b border-surface-container-high">
+                <div>
+                    <h2 class="font-headline-sm text-2xl font-bold text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+                        Gate Turnstile Checkpoint Scanner
+                    </h2>
+                    <p class="text-xs text-on-surface-variant">Station CP-A1 • Validates AeroPass QR codes and unlatches automated turnstile gate.</p>
+                </div>
+                <span class="font-label-mono-sm text-xs px-2.5 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold">TURNSTILE ARMED</span>
+            </div>
+
+            <!-- Scanner Enclosure -->
+            <div class="w-full bg-surface-container-lowest rounded-2xl border border-surface-container-high p-6 shadow-lg flex flex-col items-center">
+                
+                <!-- Optical Viewfinder -->
+                <div class="w-full h-64 bg-inverse-surface rounded-xl relative overflow-hidden flex flex-col items-center justify-center border-2 border-primary/40 shadow-inner">
+                    <div id="scanner-glow-border" class="absolute inset-0 pointer-events-none transition-all duration-300"></div>
+
+                    <!-- Target Reticle -->
+                    <div class="w-48 h-48 border-2 border-dashed border-white/40 rounded-xl relative flex items-center justify-center">
+                        <div class="w-40 h-40 border border-white/20 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-5xl text-white/30">qr_code_2</span>
+                        </div>
+                    </div>
+
+                    <!-- Laser Sweep -->
+                    <div class="absolute left-0 right-0 h-1 bg-primary-fixed shadow-[0_0_12px_#007bb9] animate-scan-laser"></div>
+
+                    <div class="absolute bottom-3 text-center">
+                        <span class="text-xs font-label-mono-sm text-white/80 uppercase tracking-wider">Present Passenger AeroPass QR Code</span>
+                    </div>
+                </div>
+
+                <!-- Code Input & Verification Action -->
+                <div class="w-full mt-6 flex flex-col gap-3">
+                    <div class="flex gap-2">
+                        <input id="turnstile-pass-input" placeholder="Enter pass code (e.g. SEC-PASS-98214-ER)..."
+                            class="flex-1 bg-surface-container-low border border-surface-container-high px-4 py-3 rounded-xl font-label-mono-lg text-sm text-on-surface uppercase focus:outline-none focus:border-primary"
+                            value="SEC-PASS-98214-ER" />
+                        <button onclick="scanPassAtTurnstile()" class="px-6 py-3 bg-primary hover:bg-primary-container text-on-primary font-bold text-sm rounded-xl transition-all shadow-sm flex items-center gap-1.5" type="button">
+                            <span class="material-symbols-outlined text-lg">check</span>
+                            <span>Verify Pass</span>
+                        </button>
+                    </div>
+
+                    <!-- Quick Preset Buttons -->
+                    <div class="flex flex-wrap items-center gap-2 pt-1">
+                        <span class="text-[11px] text-outline font-label-mono-sm">Test Passes:</span>
+                        <button onclick="fillAndScanTurnstile('SEC-PASS-98214-ER')" class="px-2.5 py-1 rounded bg-surface-container-high text-xs font-semibold text-primary hover:bg-surface-variant">
+                            Valid (Elena Rostova)
+                        </button>
+                        <button onclick="fillAndScanTurnstile('SEC-PASS-REVOKED-01')" class="px-2.5 py-1 rounded bg-error-container text-xs font-semibold text-on-error-container hover:opacity-90">
+                            Revoked Pass
+                        </button>
+                        <button onclick="fillAndScanTurnstile('SEC-PASS-EXPIRED-99')" class="px-2.5 py-1 rounded bg-surface-container-high text-xs font-semibold text-secondary hover:bg-surface-variant">
+                            Expired Pass
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SCAN RESULT BANNER -->
+                <div id="turnstile-result-banner" class="hidden w-full mt-6 p-4 rounded-xl flex items-center justify-between transition-all">
+                    <!-- Dynamic scan result -->
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- DOCUMENT ADJUDICATION MODAL -->
+    <div id="document-review-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest w-full max-w-2xl rounded-2xl border border-surface-container-high shadow-2xl overflow-hidden flex flex-col animate-[fadeIn_0.2s_ease]">
+            <div class="p-4 bg-surface-container-low border-b border-surface-container-high flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-error text-xl">gavel</span>
+                    <h3 class="font-headline-sm text-base font-bold text-on-surface">Adjudicate Flagged Travel Document</h3>
+                </div>
+                <button onclick="closeReviewModal()" class="text-outline hover:text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="p-6 flex flex-col gap-4 max-h-[75vh] overflow-y-auto" id="modal-review-content">
+                <!-- Dynamically populated -->
+            </div>
+
+            <div class="p-4 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between">
+                <span class="text-xs text-outline font-label-mono-sm">Adjudicated by Officer SEC-01</span>
+                <div class="flex items-center gap-2">
+                    <button onclick="submitReviewDecision('rejected')" class="px-4 py-2 bg-error hover:bg-error-container text-white font-semibold text-xs rounded-lg transition-colors flex items-center gap-1">
+                        <span class="material-symbols-outlined text-base">cancel</span>
+                        Reject Document
+                    </button>
+                    <button onclick="submitReviewDecision('approved')" class="px-4 py-2 bg-tertiary hover:bg-tertiary-container text-on-tertiary font-semibold text-xs rounded-lg transition-colors flex items-center gap-1">
+                        <span class="material-symbols-outlined text-base">check_circle</span>
+                        Approve &amp; Issue Pass
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UNAUTHORIZED LOCKOUT OVERLAY (Shown if user tries to open Officer.html without logging in) -->
+    <div id="unauthorized-lockout-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest max-w-md w-full rounded-2xl border-2 border-error p-6 text-center shadow-2xl animate-[fadeIn_0.3s_ease]">
+            <div class="w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto mb-3 shadow-inner">
+                <span class="material-symbols-outlined text-3xl">lock</span>
+            </div>
+            <span class="font-label-mono-sm text-[11px] uppercase tracking-wider text-error font-bold">RESTRICTED AIRPORT AREA • OFFICER AUTHENTICATION REQUIRED</span>
+            <h3 class="font-headline-sm text-xl font-bold text-on-surface mt-1">Authentication Required</h3>
+            <p class="text-xs text-on-surface-variant mt-2 mb-5">
+                Access to Terminal 1 Command Centre and Gate Turnstile controls is restricted to authorized officers. Please sign in with your officer credentials to unlock this station.
+            </p>
+            <a href="Admin.html#login" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-lg">login</span>
+                <span>Proceed to Officer Sign In</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:4000/api';
+
+        const officerState = {
+            activeView: 'command', // 'command' or 'turnstile'
+            currentOfficer: null,
+            pendingDocuments: [
+                {
+                    id: 'doc-001',
+                    passengerName: 'MARCUS VANDENBERG',
+                    documentType: 'passport',
+                    flagReason: 'MRZ Checksum Mismatch (Confidence: 74%)',
+                    flightNumber: 'SK-492',
+                    extractedName: 'MARCUS VANDEN BERG',
+                    passportNumber: 'NLD88492019',
+                    nationality: 'NLD / NETHERLANDS',
+                    status: 'ai_uncertain',
+                    uploadedAt: '10 mins ago'
+                },
+                {
+                    id: 'doc-002',
+                    passengerName: 'AOYAMA KENJI',
+                    documentType: 'visa',
+                    flagReason: 'Visa Expiry date within 48h of return flight',
+                    flightNumber: 'DL-108',
+                    extractedName: 'KENJI AOYAMA',
+                    passportNumber: 'JPN44920188',
+                    nationality: 'JPN / JAPAN',
+                    status: 'ai_uncertain',
+                    uploadedAt: '22 mins ago'
+                },
+                {
+                    id: 'doc-003',
+                    passengerName: 'CHLOE DE BEAUVOIR',
+                    documentType: 'ticket',
+                    flagReason: 'Booking surname character accent anomaly',
+                    flightNumber: 'AA-772',
+                    extractedName: 'CHLOE DE BEAUVOIR',
+                    passportNumber: 'FRA1029482',
+                    nationality: 'FRA / FRANCE',
+                    status: 'ai_uncertain',
+                    uploadedAt: '35 mins ago'
+                }
+            ],
+            securityPasses: [
+                { code: 'SEC-PASS-98214-ER', passenger: 'ROSTOVA, ELENA', flight: 'SK-492', gate: 'A1', terminal: 'T1', tier: 'SkyPriority', status: 'active' },
+                { code: 'SEC-PASS-10294-JM', passenger: 'MILLER, JAMES', flight: 'SK-492', gate: 'A1', terminal: 'T1', tier: 'Standard', status: 'active' },
+                { code: 'SEC-PASS-REVOKED-01', passenger: 'UNKNOWN TRAVELER', flight: 'SK-492', gate: 'A1', terminal: 'T1', tier: 'Standard', status: 'revoked' },
+                { code: 'SEC-PASS-EXPIRED-99', passenger: 'DAVIS, SARAH', flight: 'DL-108', gate: 'A2', terminal: 'T1', tier: 'Diplomatic', status: 'expired' }
+            ],
+            manifest: [
+                { name: 'Elena Rostova', email: 'elena.rostova@skywings.aero', flight: 'SK-492', baggage: '23 kg (Checked)', bioStatus: 'Verified', passCode: 'SEC-PASS-98214-ER' },
+                { name: 'James Miller', email: 'j.miller@cloudmail.com', flight: 'SK-492', baggage: '18 kg (Checked)', bioStatus: 'Verified', passCode: 'SEC-PASS-10294-JM' },
+                { name: 'Chloe De Beauvoir', email: 'chloe.b@airfrance.fr', flight: 'AA-772', baggage: '28 kg (Checked)', bioStatus: 'Pending Review', passCode: 'Awaiting Doc Review' },
+                { name: 'Kenji Aoyama', email: 'k.aoyama@tokyo-net.jp', flight: 'DL-108', baggage: '20 kg (Checked)', bioStatus: 'Pending Review', passCode: 'Awaiting Doc Review' }
+            ],
+            auditLogs: [
+                { time: '10:18:04', actor: 'OFFICER_SEC01', action: 'OFFICER_STATION_READY', status: 'SUCCESS', details: 'Turnstile Station CP-A1 armed for Flight SK-492' },
+                { time: '10:14:02', actor: 'SYSTEM_OCR', action: 'DOC_OCR_PROCESSED', status: 'SUCCESS', details: 'Passport MRZ extracted for Elena Rostova' },
+                { time: '10:05:19', actor: 'CHECKPOINT_A1', action: 'PASS_CHECKPOINT_SCAN', status: 'SUCCESS', details: 'Pass SEC-PASS-10294-JM cleared turnstile gate A1' }
+            ],
+            currentlyReviewingDocId: null
+        };
+
+        // --- AUTHENTICATION ENFORCEMENT ---
+        function checkOfficerAuthentication() {
+            const rawSession = sessionStorage.getItem('aeropass_officer_session');
+            const lockoutModal = document.getElementById('unauthorized-lockout-modal');
+            
+            if (!rawSession) {
+                // Not authenticated: Show lockout overlay
+                lockoutModal.classList.remove('hidden');
+                return false;
+            }
+
+            try {
+                const session = JSON.parse(rawSession);
+                officerState.currentOfficer = session;
+                lockoutModal.classList.add('hidden');
+
+                // Update UI with officer name & badge
+                const rolePill = document.getElementById('officer-role-pill');
+                const sessionLabel = document.getElementById('officer-session-label');
+                if (rolePill) rolePill.textContent = `${session.role === 'admin' ? 'SEC-01 ADMIN' : 'OFFICER CP-A1'} ACTIVE`;
+                if (sessionLabel) sessionLabel.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Signed in as: <strong class="text-on-surface font-semibold ml-1">${session.name}</strong>`;
+
+                return true;
+            } catch (e) {
+                lockoutModal.classList.remove('hidden');
+                return false;
+            }
+        }
+
+        function officerSignOut() {
+            sessionStorage.removeItem('aeropass_officer_session');
+            showToast('Officer session locked. Returning to sign-in portal...', 'info');
+            setTimeout(() => {
+                window.location.href = 'Admin.html#login';
+            }, 600);
+        }
+
+        function playChime(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.35);
+                } else {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.setValueAtTime(164.81, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.4);
+                }
+            } catch (e) {}
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-3.5 rounded-xl shadow-lg border text-xs font-semibold flex items-center gap-2.5 transition-all duration-300 pointer-events-auto ${
+                type === 'success' ? 'bg-tertiary text-on-tertiary border-tertiary-fixed' :
+                type === 'error' ? 'bg-error text-white border-error-container' :
+                'bg-surface-container-lowest text-on-surface border-surface-container-high'
+            }`;
+            const iconName = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+            toast.innerHTML = `<span class="material-symbols-outlined text-[18px]">${iconName}</span><span class="flex-1">${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function switchOfficerView(view) {
+            officerState.activeView = view;
+            const cmdSection = document.getElementById('officer-view-command');
+            const turnstileSection = document.getElementById('officer-view-turnstile');
+            const cmdBtn = document.getElementById('nav-btn-command');
+            const turnstileBtn = document.getElementById('nav-btn-turnstile');
+
+            if (view === 'command') {
+                cmdSection.classList.remove('hidden');
+                turnstileSection.classList.add('hidden');
+                cmdBtn.className = "officer-nav-btn flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm";
+                turnstileBtn.className = "officer-nav-btn flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all";
+                renderCommandCentre();
+            } else {
+                cmdSection.classList.add('hidden');
+                turnstileSection.classList.remove('hidden');
+                turnstileBtn.className = "officer-nav-btn flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm";
+                cmdBtn.className = "officer-nav-btn flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all";
+            }
+        }
+
+        function switchCommandSubTab(tab) {
+            const tabs = ['reviews', 'passes', 'manifest', 'map', 'audit'];
+            tabs.forEach(t => {
+                const pane = document.getElementById(`cmd-pane-${t}`);
+                const btn = document.getElementById(`cmd-subtab-btn-${t}`);
+                if (t === tab) {
+                    pane.classList.remove('hidden');
+                    btn.className = "cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-primary text-primary flex items-center gap-1.5 bg-surface-container-low";
+                } else {
+                    pane.classList.add('hidden');
+                    btn.className = "cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-secondary hover:text-on-surface flex items-center gap-1.5";
+                }
+            });
+        }
+
+        function renderCommandCentre() {
+            document.getElementById('kpi-queue-count').textContent = `${officerState.pendingDocuments.length} Pending`;
+            document.getElementById('badge-alert-count').textContent = `${officerState.pendingDocuments.length} Alert`;
+            document.getElementById('tab-review-badge').textContent = officerState.pendingDocuments.length;
+            document.getElementById('kpi-active-passes').textContent = officerState.securityPasses.filter(p => p.status === 'active').length + 840;
+
+            renderPendingReviews();
+            renderPassesTable();
+            renderManifestTable();
+            renderAuditLogs();
+        }
+
+        function renderPendingReviews() {
+            const container = document.getElementById('pending-reviews-container');
+            container.innerHTML = '';
+
+            if (officerState.pendingDocuments.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center bg-surface-container-lowest rounded-xl border border-surface-container-high">
+                        <span class="material-symbols-outlined text-4xl text-tertiary mb-2">task_alt</span>
+                        <h4 class="font-bold text-sm text-on-surface">Queue Clear</h4>
+                        <p class="text-xs text-outline">All flagged passenger documents have been adjudicated.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            officerState.pendingDocuments.forEach(doc => {
+                const card = document.createElement('div');
+                card.className = 'bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-primary/40 transition-colors';
+                card.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-xl">warning</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-sm text-on-surface">${doc.passengerName}</span>
+                                <span class="font-label-mono-sm text-[10px] px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold uppercase">${doc.documentType}</span>
+                                <span class="font-label-mono-sm text-[10px] text-outline">• Flight ${doc.flightNumber}</span>
+                            </div>
+                            <p class="text-xs text-error font-medium mt-0.5">${doc.flagReason}</p>
+                            <span class="text-[11px] text-outline font-label-mono-sm">Doc: ${doc.passportNumber} (${doc.nationality}) • Uploaded ${doc.uploadedAt}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 self-end md:self-center">
+                        <button onclick="openReviewModal('${doc.id}')" class="px-3 py-1.5 bg-primary text-on-primary hover:bg-primary-container rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors shadow-xs">
+                            <span class="material-symbols-outlined text-base">visibility</span>
+                            Inspect &amp; Adjudicate
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openReviewModal(docId) {
+            officerState.currentlyReviewingDocId = docId;
+            const doc = officerState.pendingDocuments.find(d => d.id === docId);
+            if (!doc) return;
+
+            const modalContent = document.getElementById('modal-review-content');
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container-high flex flex-col items-center justify-center text-center">
+                        <div class="w-full h-44 bg-surface-container-lowest rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-3 relative">
+                            <span class="material-symbols-outlined text-5xl text-outline mb-1">id_card</span>
+                            <span class="font-bold text-xs text-on-surface">${doc.documentType.toUpperCase()} DIGITAL CAPTURE</span>
+                            <span class="font-label-mono-sm text-[10px] text-outline mt-1">${doc.passportNumber}</span>
+                            <div class="absolute bottom-2 text-[9px] font-label-mono-sm text-error bg-error-container px-2 py-0.5 rounded font-bold">
+                                AI UNCERTAIN FLAG
+                            </div>
+                        </div>
+                        <span class="text-[11px] text-outline mt-2">Holographic Security Stripe: Validated</span>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 rounded-lg bg-error-container/30 border border-error-container text-on-error-container">
+                            <strong class="font-bold block mb-1">Flag Condition:</strong>
+                            ${doc.flagReason}
+                        </div>
+                        <div class="space-y-1.5 font-label-mono-sm bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+                            <div><span class="text-outline">MANIFEST NAME:</span> <strong>${doc.passengerName}</strong></div>
+                            <div><span class="text-outline">OCR EXTRACT:</span> <strong class="text-primary">${doc.extractedName}</strong></div>
+                            <div><span class="text-outline">DOC NO:</span> <strong>${doc.passportNumber}</strong></div>
+                            <div><span class="text-outline">STATE:</span> <strong>${doc.nationality}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('document-review-modal').classList.remove('hidden');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('document-review-modal').classList.add('hidden');
+            officerState.currentlyReviewingDocId = null;
+        }
+
+        function submitReviewDecision(decision) {
+            const docId = officerState.currentlyReviewingDocId;
+            const doc = officerState.pendingDocuments.find(d => d.id === docId);
+            if (!doc) return;
+
+            officerState.pendingDocuments = officerState.pendingDocuments.filter(d => d.id !== docId);
+
+            if (decision === 'approved') {
+                const newCode = `SEC-PASS-${Math.floor(10000 + Math.random() * 90000)}-OK`;
+                officerState.securityPasses.unshift({
+                    code: newCode,
+                    passenger: doc.passengerName,
+                    flight: doc.flightNumber,
+                    gate: 'A1',
+                    terminal: 'T1',
+                    tier: 'Standard',
+                    status: 'active'
+                });
+                addAuditLog('OFFICER_SEC01', 'DOC_HUMAN_APPROVED', 'SUCCESS', `Approved ${doc.documentType} for ${doc.passengerName}. Issued ${newCode}`);
+                playChime('success');
+                showToast(`Document approved! Pass ${newCode} armed for turnstile clearance.`, 'success');
+            } else {
+                addAuditLog('OFFICER_SEC01', 'DOC_HUMAN_REJECTED', 'REJECTED', `Rejected ${doc.documentType} for ${doc.passengerName}`);
+                playChime('error');
+                showToast(`Document rejected. Passenger notified to re-upload.`, 'error');
+            }
+
+            closeReviewModal();
+            renderCommandCentre();
+        }
+
+        function renderPassesTable() {
+            const tbody = document.getElementById('passes-table-tbody');
+            tbody.innerHTML = '';
+
+            officerState.securityPasses.forEach(pass => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-container-low transition-colors';
+                const statusColor = pass.status === 'active' ? 'bg-tertiary-fixed text-on-tertiary-fixed' :
+                                    pass.status === 'revoked' ? 'bg-error-container text-on-error-container' :
+                                    'bg-surface-container-high text-on-surface-variant';
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-label-mono-sm font-bold text-primary">${pass.code}</td>
+                    <td class="py-3 px-4 font-semibold text-on-surface">${pass.passenger}</td>
+                    <td class="py-3 px-4 font-label-mono-sm">${pass.flight} (${pass.terminal} / ${pass.gate})</td>
+                    <td class="py-3 px-4">${pass.tier}</td>
+                    <td class="py-3 px-4">
+                        <span class="font-label-mono-sm text-[10px] px-2 py-0.5 rounded-full uppercase font-bold ${statusColor}">
+                            ${pass.status}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-right">
+                        ${pass.status === 'active' ? `
+                            <button onclick="revokePass('${pass.code}')" class="px-2 py-1 rounded bg-error/10 hover:bg-error hover:text-white text-error font-semibold text-[11px] transition-colors">
+                                Revoke Pass
+                            </button>
+                        ` : `<span class="text-outline text-[11px]">—</span>`}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('passes-count-display').textContent = officerState.securityPasses.length;
+        }
+
+        function revokePass(passCode) {
+            const pass = officerState.securityPasses.find(p => p.code === passCode);
+            if (pass) {
+                pass.status = 'revoked';
+                addAuditLog('OFFICER_SEC01', 'PASS_REVOKED', 'REVOKED', `Pass ${passCode} revoked by officer at CP-A1`);
+                playChime('error');
+                showToast(`Pass ${passCode} revoked and barred from turnstiles.`, 'error');
+                renderCommandCentre();
+            }
+        }
+
+        function filterPasses() {
+            const query = document.getElementById('search-passes-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#passes-table-tbody tr');
+            rows.forEach(r => {
+                r.style.display = r.innerText.toLowerCase().includes(query) ? '' : 'none';
+            });
+        }
+
+        function renderManifestTable() {
+            const tbody = document.getElementById('manifest-table-tbody');
+            tbody.innerHTML = '';
+
+            officerState.manifest.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-container-low transition-colors';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-on-surface">${m.name}</td>
+                    <td class="py-3 px-4 text-outline font-label-mono-sm">${m.email}</td>
+                    <td class="py-3 px-4 font-label-mono-sm font-bold text-primary">${m.flight}</td>
+                    <td class="py-3 px-4 font-label-mono-sm">${m.baggage}</td>
+                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold text-[10px] font-label-mono-sm">${m.bioStatus}</span></td>
+                    <td class="py-3 px-4 font-label-mono-sm text-primary font-bold">${m.passCode}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderAuditLogs() {
+            const container = document.getElementById('audit-log-container');
+            container.innerHTML = '';
+
+            officerState.auditLogs.forEach(log => {
+                const row = document.createElement('div');
+                row.className = 'p-3 text-xs flex items-center justify-between gap-3 hover:bg-surface-container-low transition-colors';
+                const badgeColor = log.status === 'SUCCESS' ? 'text-tertiary bg-tertiary-fixed/30' :
+                                   log.status === 'FLAGGED' ? 'text-error bg-error-container/40' :
+                                   'text-secondary bg-surface-container-high';
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="font-label-mono-sm text-[11px] text-outline">${log.time}</span>
+                        <span class="font-label-mono-sm text-[10px] font-bold px-2 py-0.5 rounded ${badgeColor}">${log.action}</span>
+                        <span class="text-on-surface font-medium">${log.details}</span>
+                    </div>
+                    <span class="font-label-mono-sm text-[11px] text-outline">${log.actor}</span>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addAuditLog(actor, action, status, details) {
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            officerState.auditLogs.unshift({ time: timeStr, actor, action, status, details });
+            renderAuditLogs();
+        }
+
+        function simulateFlaggedDocument() {
+            const id = `doc-00${officerState.pendingDocuments.length + 1}`;
+            officerState.pendingDocuments.unshift({
+                id,
+                passengerName: 'VIKTOR SOKOLOV',
+                documentType: 'passport',
+                flagReason: 'MRZ Name discrepancy vs Flight Ticket PNR (Confidence: 68%)',
+                flightNumber: 'SK-492',
+                extractedName: 'VIKTOR SOKOLOFF',
+                passportNumber: 'EST9940129',
+                nationality: 'EST / ESTONIA',
+                status: 'ai_uncertain',
+                uploadedAt: 'Just now'
+            });
+            addAuditLog('AI_VERIFICATION', 'AI_VERIFICATION_UNCERTAIN', 'FLAGGED', 'New document flagged for Viktor Sokolov (Confidence 68%)');
+            playChime('error');
+            showToast('New uncertain document flagged by AI verification engine.', 'error');
+            renderCommandCentre();
+        }
+
+        function refreshDashboardData() {
+            showToast('Synchronized with Airport Security Database', 'success');
+            renderCommandCentre();
+        }
+
+        // --- TURNSTILE SCANNER ---
+        function fillAndScanTurnstile(code) {
+            document.getElementById('turnstile-pass-input').value = code;
+            scanPassAtTurnstile();
+        }
+
+        function scanPassAtTurnstile() {
+            const input = document.getElementById('turnstile-pass-input');
+            const code = (input.value || '').trim();
+            const resultBanner = document.getElementById('turnstile-result-banner');
+            const glowBorder = document.getElementById('scanner-glow-border');
+
+            if (!code) {
+                showToast('Please enter or scan a pass code.', 'error');
+                return;
+            }
+
+            const pass = officerState.securityPasses.find(p => p.code === code);
+            resultBanner.classList.remove('hidden');
+
+            if (pass && pass.status === 'active') {
+                resultBanner.className = 'w-full mt-6 p-4 rounded-xl flex items-center justify-between transition-all bg-tertiary text-on-tertiary shadow-lg pulse-glow-emerald';
+                glowBorder.className = 'absolute inset-0 pointer-events-none transition-all duration-300 border-4 border-tertiary';
+                
+                resultBanner.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-white text-tertiary flex items-center justify-center font-bold">
+                            <span class="material-symbols-outlined text-2xl">verified</span>
+                        </div>
+                        <div>
+                            <span class="font-label-mono-sm text-xs uppercase tracking-wider text-tertiary-fixed font-bold">ACCESS GRANTED • TURNSTILE UNLOCKED</span>
+                            <h3 class="font-headline-sm text-lg font-bold">${pass.passenger}</h3>
+                            <p class="text-xs text-white/90">Flight ${pass.flight} • Gate ${pass.gate} (${pass.tier})</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-label-mono-sm text-xs bg-white/20 px-2 py-1 rounded">CLEARANCE ID: #9824</span>
+                    </div>
+                `;
+
+                addAuditLog('CHECKPOINT_A1', 'PASS_CHECKPOINT_SCAN', 'SUCCESS', `Pass ${code} validated. Passenger ${pass.passenger} cleared gate ${pass.gate}`);
+                playChime('success');
+                showToast(`Turnstile Unlocked: ${pass.passenger} cleared for Gate ${pass.gate}.`, 'success');
+            } else {
+                const reason = !pass ? 'PASS CODE NOT FOUND ON AUTHORITY LEDGER' :
+                               pass.status === 'revoked' ? 'SECURITY PASS HAS BEEN REVOKED BY OPERATOR' :
+                               'SECURITY PASS IS EXPIRED';
+
+                resultBanner.className = 'w-full mt-6 p-4 rounded-xl flex items-center justify-between transition-all bg-error text-white shadow-lg';
+                glowBorder.className = 'absolute inset-0 pointer-events-none transition-all duration-300 border-4 border-error';
+
+                resultBanner.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-white text-error flex items-center justify-center font-bold">
+                            <span class="material-symbols-outlined text-2xl">block</span>
+                        </div>
+                        <div>
+                            <span class="font-label-mono-sm text-xs uppercase tracking-wider text-error-container font-bold">ACCESS DENIED • TURNSTILE LOCKED</span>
+                            <h3 class="font-headline-sm text-lg font-bold">${reason}</h3>
+                            <p class="text-xs text-white/90">Code: ${code} • Incident logged to SEC-01</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-label-mono-sm text-xs bg-white/20 px-2 py-1 rounded">ALERT DISPATCHED</span>
+                    </div>
+                `;
+
+                addAuditLog('CHECKPOINT_A1', 'PASS_CHECKPOINT_DENIED', 'REJECTED', `Turnstile denial for ${code}: ${reason}`);
+                playChime('error');
+                showToast(`Access Denied: ${reason}`, 'error');
+            }
+        }
+
+        async function checkBackendConnectivity() {
+            try {
+                const res = await fetch(`${API_BASE}/health`, { method: 'GET', signal: AbortSignal.timeout(1000) });
+                if (res.ok) {
+                    document.getElementById('status-indicator-dot').className = 'w-2 h-2 rounded-full bg-tertiary animate-pulse';
+                    document.getElementById('status-indicator-text').textContent = 'API Connected';
+                    return;
+                }
+            } catch (err) {}
+            document.getElementById('status-indicator-dot').className = 'w-2 h-2 rounded-full bg-primary animate-pulse';
+            document.getElementById('status-indicator-text').textContent = 'API Standby (Demo)';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const isAuth = checkOfficerAuthentication();
+            if (isAuth) {
+                renderCommandCentre();
+                checkBackendConnectivity();
+            }
+        });
+    </script>
+</body>
+
+</html>

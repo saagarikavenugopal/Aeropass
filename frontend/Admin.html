@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        name="viewport" />
+    <meta content="airport-security-platform" name="description" />
+    <title>AeroPass | Admin &amp; Identity Portal - Sign In &amp; Registration</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        @layer base {
+            html,
+            body {
+                width: 100vw;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                overscroll-behavior: none;
+                font-family: 'Inter', sans-serif;
+            }
+
+            .pb-safe {
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+            }
+
+            .pt-safe {
+                padding-top: env(safe-area-inset-top, 0px);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(229, 238, 255, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #93ccff;
+            border-radius: 9999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #006194;
+        }
+
+        @keyframes scanLaser {
+            0% {
+                top: 5%;
+                opacity: 0.8;
+            }
+            50% {
+                top: 90%;
+                opacity: 1;
+            }
+            100% {
+                top: 5%;
+                opacity: 0.8;
+            }
+        }
+
+        .animate-scan-laser {
+            animation: scanLaser 2.2s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-7px); }
+            40%, 80% { transform: translateX(7px); }
+        }
+
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed": "#002114",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#cce5ff",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-tint": "#006398",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#3f4850",
+                        "inverse-primary": "#93ccff",
+                        "on-primary-container": "#fdfcff",
+                        "primary-container": "#007bb9",
+                        "secondary-container": "#dae2fd",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed": "#85f8c4",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary": "#006948",
+                        "primary": "#006194",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed-dim": "#68dba9",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004b73",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#f5fff7",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "surface-container": "#e5eeff",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-fixed-dim": "#93ccff",
+                        "tertiary-container": "#00855d",
+                        "outline": "#707881",
+                        "error": "#ba1a1a",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed": "#001d31",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bfc7d2",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface": "#f8f9ff",
+                        "on-background": "#0b1c30"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "space-xs": "0.25rem",
+                        "space-sm": "0.5rem",
+                        "space-md": "1rem",
+                        "space-lg": "1.5rem",
+                        "space-xl": "2.5rem",
+                        "margin-mobile": "1rem",
+                        "gutter-mobile": "0.75rem",
+                        "margin": "2rem",
+                        "gutter": "1.5rem"
+                    },
+                    fontFamily: {
+                        "title-md": ["Inter", "sans-serif"],
+                        "label-mono-sm": ["JetBrains Mono", "monospace"],
+                        "label-mono-lg": ["JetBrains Mono", "monospace"],
+                        "headline-sm": ["Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "sans-serif"],
+                        "headline-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "display-lg": ["Space Grotesk", "sans-serif"],
+                        "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface font-body-sm text-body-sm text-on-surface flex flex-col min-h-screen pt-safe pb-safe selection:bg-primary selection:text-on-primary">
+
+    <!-- Top Navigation Header -->
+    <header class="w-full bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-container-high sticky top-0 z-40 px-4 md:px-8 py-3 shadow-xs">
+        <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
+            <!-- Brand & Authority Badge -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-low border border-primary/20 flex items-center justify-center p-1 shadow-sm shrink-0">
+                    <img alt="AeroPass Airport Identity Logo" class="w-full h-full object-contain"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuChknAMnAP6DAmrc2YaGvJO5rKOgPelU1HSwqr9DFYFRyrBqKIqo6h_8lIxXEI5aEt4yd4DmIdO3GhsY7flm8SjPqVE-uwyMgBsjgOLa7g3YhP_Qv0UykmHtqqBEbIEUhTJS9EtKgT5NDKKPSqhlKJC_deI6aNZFJLP_Jvh9okPugD7pqcMQlFV0TT0l67CfGJC3UJtyWr56MTu1aRdoUGpmxHJNXIiAZcpWlkDlGkn9q-Z7q_smjhU" />
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-headline-sm text-lg font-bold text-on-surface tracking-tight">AeroPass</span>
+                        <span class="font-label-mono-sm text-[10px] px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase">v4.8 Certified</span>
+                    </div>
+                    <p class="font-label-mono-sm text-[11px] text-outline">Admin &amp; Passenger Identity Gateway</p>
+                </div>
+            </div>
+
+            <!-- Header Security Status & Restricted Indicator -->
+            <div class="flex items-center gap-3">
+                <!-- Restricted Officer Station Indicator (No direct bypass link without auth) -->
+                <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface font-label-mono-sm text-xs">
+                    <span class="material-symbols-outlined text-outline text-[16px]">lock</span>
+                    <span class="hidden sm:inline text-on-surface-variant font-semibold">Officer Zone: Auth Required</span>
+                    <span class="sm:hidden text-on-surface-variant font-semibold">Restricted</span>
+                </div>
+
+                <!-- API Connectivity Status -->
+                <div id="backend-status-pill" onclick="checkBackendConnectivity()" title="Click to test API"
+                    class="cursor-pointer hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-mono-sm text-[11px] transition-colors border border-outline-variant/40">
+                    <span id="status-indicator-dot" class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                    <span id="status-indicator-text">API Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 w-full flex flex-col justify-start relative px-4 py-6 md:py-10">
+        <div class="w-full max-w-xl mx-auto flex flex-col">
+
+            <!-- Mode Switcher: Registration vs Sign In -->
+            <div class="flex items-center p-1 bg-surface-container-low rounded-xl border border-surface-container-high mb-6">
+                <button id="tab-btn-register" onclick="switchAuthTab('register')"
+                    class="flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm flex items-center justify-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">how_to_reg</span>
+                    <span>Create Account &amp; Enroll</span>
+                </button>
+                <button id="tab-btn-login" onclick="switchAuthTab('login')"
+                    class="flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">login</span>
+                    <span>Admin &amp; Staff Login</span>
+                </button>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- TAB 1: REGISTRATION / ENROLLMENT (STEP 1 & STEP 2) -->
+            <!-- ================================================================ -->
+            <div id="auth-panel-register" class="flex flex-col">
+                
+                <!-- Progress Header & Step Indicator -->
+                <div class="flex flex-col gap-space-xs mb-space-md">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-mono-sm text-label-mono-sm uppercase tracking-wider text-primary font-semibold flex items-center gap-1.5">
+                            <span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            <span id="enrollment-protocol-title">Enrollment Protocol: Identity Verification</span>
+                        </span>
+                        <span id="step-counter-text" class="font-label-mono-sm text-label-mono-sm font-semibold px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">
+                            Step 01 / 02
+                        </span>
+                    </div>
+                    <!-- Progress Segmented Bar -->
+                    <div class="grid grid-cols-2 gap-2 w-full mt-1">
+                        <div id="progress-bar-step1" class="h-2 rounded-full bg-primary transition-all duration-300"></div>
+                        <div id="progress-bar-step2" class="h-2 rounded-full bg-surface-container-high transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- STEP 1: Name, Email, Phone, KTN, Classification & Password -->
+                <div id="enrollment-step-1" class="flex flex-col transition-opacity duration-300">
+                    <!-- Hero Identity Branding Card -->
+                    <div class="flex flex-col bg-surface-container-lowest rounded-xl p-space-md shadow-sm mb-space-md relative overflow-hidden border border-surface-container-high">
+                        <div class="flex items-center gap-space-sm mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center p-1.5 shadow-sm">
+                                <img alt="AeroPass Airport Identity Logo" class="w-full h-full object-contain"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuChknAMnAP6DAmrc2YaGvJO5rKOgPelU1HSwqr9DFYFRyrBqKIqo6h_8lIxXEI5aEt4yd4DmIdO3GhsY7flm8SjPqVE-uwyMgBsjgOLa7g3YhP_Qv0UykmHtqqBEbIEUhTJS9EtKgT5NDKKPSqhlKJC_deI6aNZFJLP_Jvh9okPugD7pqcMQlFV0TT0l67CfGJC3UJtyWr56MTu1aRdoUGpmxHJNXIiAZcpWlkDlGkn9q-Z7q_smjhU" />
+                            </div>
+                            <div class="flex flex-col min-w-0">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">AeroPass</span>
+                                    <span class="font-label-mono-sm text-[10px] px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase">v4.8 Certified</span>
+                                </div>
+                                <span class="font-label-mono-sm text-label-mono-sm text-outline truncate">Global Airport Identity &amp; Terminal Access</span>
+                            </div>
+                        </div>
+                        <h1 class="font-headline-lg-mobile text-2xl text-on-surface mt-1 mb-1.5 font-bold">Create AeroPass Account</h1>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">
+                            Biometric fast-track gate clearance, real-time TSA/security queues, and digital passport identity across 180+ international airports.
+                        </p>
+                        <!-- Aviation Trust Banner -->
+                        <div class="mt-space-md p-space-sm rounded-lg bg-surface-container-low flex items-start gap-2.5 border border-surface-container-high">
+                            <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified_user</span>
+                            <div class="flex flex-col text-on-surface">
+                                <span class="font-label-mono-sm text-label-mono-sm font-semibold uppercase text-primary">ICAO-Standard Authority Notice</span>
+                                <p class="font-body-sm text-label-mono-sm text-on-surface-variant mt-0.5">
+                                    Permanent ICAO-Compliant AeroPass ID assigned upon verification to prevent identity duplicate accounts and flight fraud.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form class="flex flex-col gap-space-md" id="aeropass-enrollment-form" onsubmit="handleProceedToStep2(event)">
+                        <!-- Legal Passport Name Field -->
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between">
+                                <label class="font-body-sm text-body-sm font-semibold text-on-surface flex items-center gap-1.5" for="legalName">
+                                    Full Legal Passport Name
+                                    <button class="text-outline hover:text-primary flex items-center"
+                                        onclick="document.getElementById('name-tooltip').classList.toggle('hidden')"
+                                        title="Must match your government travel passport exactly" type="button">
+                                        <span class="material-symbols-outlined text-[16px]">info</span>
+                                    </button>
+                                </label>
+                                <span class="font-label-mono-sm text-[10px] text-outline uppercase tracking-wider">DOC.9303 MATCH</span>
+                            </div>
+                            <div class="hidden p-2 rounded bg-surface-container-high text-on-surface-variant font-label-mono-sm text-label-mono-sm" id="name-tooltip">
+                                Notice: Must match your government travel passport machine-readable zone (MRZ) exactly.
+                            </div>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">badge</span>
+                                <input class="w-full bg-surface-container-lowest text-on-surface pl-10 pr-10 py-3 rounded-lg font-label-mono-lg text-label-mono-lg uppercase shadow-xs border border-surface-container-high focus:outline-none focus:border-primary placeholder-outline"
+                                    id="legalName" name="legalName" placeholder="SURNAME GIVEN-NAMES" required="" type="text" value="ELENA ROSTOVA" />
+                                <span class="material-symbols-outlined absolute right-3 text-tertiary text-[20px]">check_circle</span>
+                            </div>
+                        </div>
+
+                        <!-- International Mobile Number -->
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between">
+                                <label class="font-body-sm text-body-sm font-semibold text-on-surface" for="mobilePhone">International Mobile Number</label>
+                                <div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-mono-sm text-[10px] font-bold">
+                                    <span class="material-symbols-outlined text-[12px]">verified</span>
+                                    Unique Mobile Verified
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="flex items-center gap-1.5 px-3 py-3 rounded-lg bg-surface-container-lowest border border-surface-container-high shadow-xs text-on-surface font-label-mono-sm text-label-mono-sm shrink-0" type="button">
+                                    <span class="text-[16px]">🇺🇸</span>
+                                    <span class="font-semibold">+1</span>
+                                    <span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+                                </button>
+                                <div class="relative flex items-center flex-1">
+                                    <input class="w-full bg-surface-container-lowest text-on-surface px-3 py-3 rounded-lg font-label-mono-lg text-label-mono-lg border border-surface-container-high shadow-xs focus:outline-none focus:border-primary"
+                                        id="mobilePhone" name="mobilePhone" placeholder="000-000-0000" required="" type="tel" value="555-019-2834" />
+                                    <span class="material-symbols-outlined absolute right-3 text-tertiary text-[20px]">sms</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Primary Travel Email -->
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between">
+                                <label class="font-body-sm text-body-sm font-semibold text-on-surface" for="email">Primary Travel / Work Email</label>
+                                <span class="font-label-mono-sm text-[10px] text-tertiary font-semibold uppercase flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">done_all</span> Valid Format
+                                </span>
+                            </div>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">alternate_email</span>
+                                <input class="w-full bg-surface-container-lowest text-on-surface pl-10 pr-10 py-3 rounded-lg font-body-sm text-body-sm border border-surface-container-high shadow-xs focus:outline-none focus:border-primary"
+                                    id="email" name="email" placeholder="traveler@domain.com" required="" type="email" value="elena.rostova@skywings.aero" />
+                                <span class="material-symbols-outlined absolute right-3 text-tertiary text-[20px]">check_circle</span>
+                            </div>
+                        </div>
+
+                        <!-- Passport / KTN / Global Entry -->
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between">
+                                <label class="font-body-sm text-body-sm font-semibold text-on-surface flex items-center gap-1.5" for="ktn">
+                                    Known Traveler Number (KTN / PreCheck)
+                                </label>
+                                <div class="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-mono-sm text-[10px] font-bold">
+                                    TSA PRECHECK VALID
+                                </div>
+                            </div>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">travel_explore</span>
+                                <input class="w-full bg-surface-container-lowest text-on-surface pl-10 pr-10 py-3 rounded-lg font-label-mono-lg text-label-mono-lg uppercase border border-surface-container-high shadow-xs focus:outline-none focus:border-primary"
+                                    id="ktn" name="ktn" placeholder="PASS / KTN NUMBER" type="text" value="USA982344109" />
+                                <span class="material-symbols-outlined absolute right-3 text-tertiary text-[20px]">flight_takeoff</span>
+                            </div>
+                            <span class="font-label-mono-sm text-[10px] text-outline">Optional: Pre-populates Global Entry and SkyPriority turnstile authorization.</span>
+                        </div>
+
+                        <!-- Travel Class / Classification -->
+                        <div class="flex flex-col gap-2">
+                            <span class="font-body-sm text-body-sm font-semibold text-on-surface">Travel Clearance Classification</span>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="flex flex-col p-2.5 rounded-lg bg-surface-container-high border-2 border-primary shadow-xs cursor-pointer hover:bg-surface-container-low transition-colors relative" id="tier-label-ff">
+                                    <input checked="" class="sr-only" name="travel_tier" onchange="updateTierSelection(this)" type="radio" value="frequent" />
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="material-symbols-outlined text-primary text-[20px]">military_tech</span>
+                                        <span class="w-2 h-2 rounded-full bg-primary indicator-dot"></span>
+                                    </div>
+                                    <span class="font-body-sm text-body-sm font-bold text-on-surface leading-snug">SkyPriority</span>
+                                    <span class="font-label-mono-sm text-[10px] text-outline mt-0.5">Elite / Tier</span>
+                                </label>
+                                <label class="flex flex-col p-2.5 rounded-lg bg-surface-container-lowest border border-surface-container-high shadow-xs cursor-pointer hover:bg-surface-container-low transition-colors relative" id="tier-label-gen">
+                                    <input class="sr-only" name="travel_tier" onchange="updateTierSelection(this)" type="radio" value="general" />
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="material-symbols-outlined text-outline text-[20px]">person</span>
+                                        <span class="w-2 h-2 rounded-full bg-transparent indicator-dot"></span>
+                                    </div>
+                                    <span class="font-body-sm text-body-sm font-bold text-on-surface leading-snug">Standard</span>
+                                    <span class="font-label-mono-sm text-[10px] text-outline mt-0.5">Commercial</span>
+                                </label>
+                                <label class="flex flex-col p-2.5 rounded-lg bg-surface-container-lowest border border-surface-container-high shadow-xs cursor-pointer hover:bg-surface-container-low transition-colors relative" id="tier-label-dip">
+                                    <input class="sr-only" name="travel_tier" onchange="updateTierSelection(this)" type="radio" value="diplomatic" />
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="material-symbols-outlined text-outline text-[20px]">shield</span>
+                                        <span class="w-2 h-2 rounded-full bg-transparent indicator-dot"></span>
+                                    </div>
+                                    <span class="font-body-sm text-body-sm font-bold text-on-surface leading-snug">Diplomatic</span>
+                                    <span class="font-label-mono-sm text-[10px] text-outline mt-0.5">Delegation</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Security Password -->
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between">
+                                <label class="font-body-sm text-body-sm font-semibold text-on-surface" for="password">Airport-Grade Security Password</label>
+                                <span class="font-label-mono-sm text-[10px] text-tertiary font-bold uppercase tracking-wider">LEVEL: TITANIUM</span>
+                            </div>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">lock</span>
+                                <input class="w-full bg-surface-container-lowest text-on-surface pl-10 pr-10 py-3 rounded-lg font-label-mono-lg text-label-mono-lg border border-surface-container-high shadow-xs focus:outline-none focus:border-primary"
+                                    id="password" name="password" placeholder="Create strong password" required="" type="password" value="Aer0#Pass-99xV!" />
+                                <button class="absolute right-3 text-outline hover:text-on-surface flex items-center" onclick="togglePassVisibility()" type="button">
+                                    <span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+                                </button>
+                            </div>
+                            <!-- 4-Stage Strength Indicator -->
+                            <div class="flex flex-col gap-1 mt-1">
+                                <div class="grid grid-cols-4 gap-1.5">
+                                    <div class="h-1.5 rounded-full bg-tertiary"></div>
+                                    <div class="h-1.5 rounded-full bg-tertiary"></div>
+                                    <div class="h-1.5 rounded-full bg-tertiary"></div>
+                                    <div class="h-1.5 rounded-full bg-tertiary"></div>
+                                </div>
+                                <div class="flex items-center justify-between mt-0.5">
+                                    <span class="font-label-mono-sm text-[10px] text-outline">12+ Chars, Symbols, Entropy Compliant</span>
+                                    <span class="font-label-mono-sm text-[10px] font-semibold text-tertiary">Security Grade Verified</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Legal Checkbox -->
+                        <div class="p-space-sm rounded-lg bg-surface-container-lowest border border-surface-container-high shadow-xs flex items-start gap-3 mt-1">
+                            <input checked="" class="w-5 h-5 rounded mt-0.5 text-primary focus:ring-0 shrink-0 cursor-pointer" id="termsCheck" name="terms" type="checkbox" required />
+                            <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none" for="termsCheck">
+                                I agree to the <span class="font-semibold text-primary">AeroPass Airport Authority Terms of Carriage</span>, ICAO Biometric Privacy Policy, and automated Gate Turnstile Data Sharing.
+                            </label>
+                        </div>
+
+                        <!-- Primary CTA to Step 2 -->
+                        <button class="w-full bg-primary hover:bg-primary-container text-on-primary py-3.5 px-space-md rounded-lg font-headline-sm text-base md:text-lg font-bold flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-2 group" type="submit">
+                            <span>Proceed to Identity, OCR &amp; OTP Verification</span>
+                            <span class="material-symbols-outlined text-[22px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </button>
+                    </form>
+
+                    <!-- Fast-Track SSO Options -->
+                    <div class="flex flex-col items-center gap-3 mt-space-lg">
+                        <div class="flex items-center gap-3 w-full">
+                            <div class="flex-1 h-px bg-surface-container-high"></div>
+                            <span class="font-label-mono-sm text-[11px] uppercase text-outline">Quick Fast-Track Alternatives</span>
+                            <div class="flex-1 h-px bg-surface-container-high"></div>
+                        </div>
+                        <div class="flex flex-col w-full gap-2.5">
+                            <button onclick="mockQuickPassFill('apple')" class="w-full bg-inverse-surface text-inverse-on-surface py-3 px-space-md rounded-lg font-body-sm text-sm font-semibold flex items-center justify-center gap-2.5 shadow-xs hover:opacity-95 transition-opacity" type="button">
+                                <span class="font-label-mono-lg text-[18px]"></span>
+                                <span>Continue with Apple ID Pass</span>
+                            </button>
+                            <button onclick="mockQuickPassFill('airline')" class="w-full bg-surface-container-lowest border border-surface-container-high text-on-surface py-3 px-space-md rounded-lg font-body-sm text-sm font-semibold flex items-center justify-center gap-2.5 shadow-xs hover:bg-surface-container-high transition-colors" type="button">
+                                <span class="material-symbols-outlined text-primary text-[20px]">connecting_airports</span>
+                                <span>Sign in with SkyWings / Airline Partner Pass</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Biometric Verification, Passport OCR & OTP Code -->
+                <div id="enrollment-step-2" class="hidden flex flex-col gap-6 transition-opacity duration-300">
+                    <div class="flex items-center justify-between pb-2 border-b border-surface-container-high">
+                        <button onclick="goBackToStep1()" class="flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-container">
+                            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Back to Passenger Info
+                        </button>
+                        <span class="font-label-mono-sm text-xs px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold">
+                            ICAO Bio-Verification Active
+                        </span>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-xs flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                            <span class="material-symbols-outlined text-2xl">document_scanner</span>
+                        </div>
+                        <div>
+                            <h2 class="font-headline-sm text-lg font-bold text-on-surface">Biometric &amp; Document Enrollment</h2>
+                            <p class="text-xs text-on-surface-variant">
+                                Capture passport photo page for AI OCR extraction, perform live facial liveness match, and verify 6-digit cryptographic security code.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- OCR Upload Box & Biometric HUD -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Passport Box -->
+                        <div class="flex flex-col bg-surface-container-lowest rounded-xl p-4 border border-surface-container-high shadow-xs">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-label-mono-sm text-xs uppercase font-bold text-primary flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[16px]">upload_file</span>
+                                    1. Passport Scan &amp; MRZ
+                                </span>
+                                <span id="ocr-status-pill" class="text-[10px] font-label-mono-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Ready</span>
+                            </div>
+
+                            <div id="passport-dropzone" class="border-2 border-dashed border-primary/30 rounded-xl p-5 flex flex-col items-center justify-center text-center bg-surface-container-low/40 hover:bg-surface-container-low transition-colors cursor-pointer relative overflow-hidden" onclick="simulatePassportUpload()">
+                                <div id="dropzone-default-ui" class="flex flex-col items-center">
+                                    <span class="material-symbols-outlined text-4xl text-primary mb-1">add_photo_alternate</span>
+                                    <span class="font-bold text-sm text-on-surface">Click to Capture Passport Page</span>
+                                    <span class="text-xs text-outline mt-0.5">Supports PNG, JPG, or PDF (ICAO Doc 9303)</span>
+                                    <button type="button" class="mt-3 px-3 py-1 bg-surface-container-lowest border border-primary/40 rounded-md text-xs font-semibold text-primary hover:bg-primary hover:text-on-primary transition-all">
+                                        Load Sample Elena Passport
+                                    </button>
+                                </div>
+
+                                <div id="dropzone-scanning-ui" class="hidden absolute inset-0 bg-surface-container-lowest/90 flex flex-col items-center justify-center p-4">
+                                    <span class="material-symbols-outlined text-3xl text-primary animate-spin">sync</span>
+                                    <span class="text-xs font-label-mono-sm font-bold mt-2 text-on-surface">Extracting MRZ &amp; Digital Watermark...</span>
+                                </div>
+
+                                <div id="dropzone-success-ui" class="hidden flex flex-col w-full text-left">
+                                    <div class="flex items-center gap-2 pb-2 border-b border-surface-container-high mb-2">
+                                        <span class="material-symbols-outlined text-tertiary text-xl">check_circle</span>
+                                        <span class="font-bold text-xs text-on-surface">Passport MRZ Extracted</span>
+                                    </div>
+                                    <div class="bg-surface-container-high/60 rounded p-2 font-label-mono-sm text-[11px] text-on-surface space-y-1">
+                                        <div><span class="text-outline">PASSPORT NO:</span> <strong>X98234410</strong></div>
+                                        <div><span class="text-outline">NATIONALITY:</span> <strong>USA / UNITED STATES</strong></div>
+                                        <div><span class="text-outline">EXPIRY:</span> <strong>2031-10-18 (VALID)</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Biometric Face HUD -->
+                        <div class="flex flex-col bg-surface-container-lowest rounded-xl p-4 border border-surface-container-high shadow-xs">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-label-mono-sm text-xs uppercase font-bold text-primary flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[16px]">face</span>
+                                    2. Biometric Liveness HUD
+                                </span>
+                                <span id="bio-status-pill" class="text-[10px] font-label-mono-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Sensor Standby</span>
+                            </div>
+
+                            <div class="w-full h-44 rounded-xl bg-inverse-surface relative overflow-hidden flex items-center justify-center border border-primary/30">
+                                <div id="bio-scan-laser" class="hidden absolute left-0 right-0 h-0.5 bg-tertiary-fixed shadow-[0_0_10px_#85f8c4] animate-scan-laser"></div>
+                                <div id="bio-silhouette" class="flex flex-col items-center justify-center text-primary-fixed-dim/60">
+                                    <span class="material-symbols-outlined text-6xl">account_circle</span>
+                                    <span class="text-[11px] font-label-mono-sm text-white/70 mt-1">Align Face Inside Viewfinder</span>
+                                </div>
+                                <div id="bio-verified-overlay" class="hidden absolute inset-0 bg-tertiary/20 backdrop-blur-xs flex flex-col items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-3xl text-tertiary-fixed mb-1">verified</span>
+                                    <span class="font-bold text-xs">Biometrics Matched (98.6%)</span>
+                                </div>
+                            </div>
+
+                            <button id="btn-start-biometric" onclick="triggerBiometricVerification()" class="mt-3 py-2 px-3 bg-surface-container-high hover:bg-surface-variant text-primary font-semibold text-xs rounded-lg transition-colors flex items-center justify-center gap-1.5" type="button">
+                                <span class="material-symbols-outlined text-[16px]">sensors</span>
+                                <span>Run 3D Facial Liveness Scan</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- OTP Code Box -->
+                    <div class="bg-surface-container-lowest rounded-xl p-5 border border-surface-container-high shadow-xs flex flex-col items-center text-center">
+                        <span class="material-symbols-outlined text-2xl text-primary mb-1">pin</span>
+                        <h3 class="font-headline-sm text-base font-bold text-on-surface">SMS &amp; Secure Token Verification</h3>
+                        <p class="text-xs text-on-surface-variant mt-1 mb-4">
+                            Enter the 6-digit cryptographic clearance token sent to <span id="otp-phone-display" class="font-semibold text-on-surface">+1 (555) 019-2834</span>.
+                        </p>
+                        <div class="flex items-center gap-2 md:gap-3 mb-4">
+                            <input maxlength="1" class="otp-box w-10 md:w-11 h-12 text-center text-lg font-bold font-label-mono-lg bg-surface-container-low border border-surface-container-high rounded-lg text-on-surface" type="text" value="8" />
+                            <input maxlength="1" class="otp-box w-10 md:w-11 h-12 text-center text-lg font-bold font-label-mono-lg bg-surface-container-low border border-surface-container-high rounded-lg text-on-surface" type="text" value="4" />
+                            <input maxlength="1" class="otp-box w-10 md:w-11 h-12 text-center text-lg font-bold font-label-mono-lg bg-surface-container-low border border-surface-container-high rounded-lg text-on-surface" type="text" value="9" />
+                            <span class="text-outline font-bold">-</span>
+                            <input maxlength="1" class="otp-box w-10 md:w-11 h-12 text-center text-lg font-bold font-label-mono-lg bg-surface-container-low border border-surface-container-high rounded-lg text-on-surface" type="text" value="2" />
+                            <input maxlength="1" class="otp-box w-10 md:w-11 h-12 text-center text-lg font-bold font-label-mono-lg bg-surface-container-low border border-surface-container-high rounded-lg text-on-surface" type="text" value="1" />
+                            <input maxlength="1" class="otp-box w-10 md:w-11 h-12 text-center text-lg font-bold font-label-mono-lg bg-surface-container-low border border-surface-container-high rounded-lg text-on-surface" type="text" value="0" />
+                        </div>
+
+                        <button id="btn-issue-pass" onclick="issueDigitalSecurityPass()" class="w-full max-w-md bg-tertiary hover:bg-tertiary-container text-on-tertiary py-3.5 px-4 rounded-xl font-headline-sm text-base font-bold flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.99]" type="button">
+                            <span class="material-symbols-outlined text-xl">verified_user</span>
+                            <span>Finalize Verification &amp; Issue Digital Security Pass</span>
+                        </button>
+                    </div>
+
+                    <!-- Digital Boarding Pass Display -->
+                    <div id="issued-pass-container" class="hidden flex flex-col items-center mt-2 animate-[fadeIn_0.5s_ease]">
+                        <div class="w-full bg-gradient-to-r from-primary to-primary-container text-white p-4 rounded-t-2xl flex items-center justify-between shadow-md">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-2xl text-tertiary-fixed">airplane_ticket</span>
+                                <div>
+                                    <h3 class="font-headline-sm text-base font-bold">Digital Security Boarding Pass</h3>
+                                    <p class="text-xs text-primary-fixed">Ready for Airport Security Checkpoints</p>
+                                </div>
+                            </div>
+                            <span class="font-label-mono-sm text-xs bg-white/20 px-2.5 py-1 rounded-full font-bold">ACTIVE</span>
+                        </div>
+                        <div class="w-full bg-surface-container-lowest border-x border-b border-surface-container-high p-5 rounded-b-2xl shadow-lg">
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                                <div class="space-y-2">
+                                    <span class="text-[10px] font-label-mono-sm text-outline uppercase">PASSENGER NAME</span>
+                                    <div class="font-bold text-lg text-on-surface" id="pass-card-name">ROSTOVA, ELENA</div>
+                                    <div class="text-xs text-primary font-semibold font-label-mono-sm">FLIGHT SK-492 • GATE A1 • SEAT 02A</div>
+                                    <div class="text-[11px] text-tertiary font-bold">TSA PRECHECK • SKYPRIORITY APPROVED</div>
+                                </div>
+                                <div class="flex flex-col items-center bg-surface-container-low p-3 rounded-xl border border-surface-container-high">
+                                    <div class="w-28 h-28 bg-white p-1.5 rounded-lg border border-outline-variant">
+                                        <svg viewBox="0 0 100 100" class="w-full h-full text-on-surface" fill="currentColor">
+                                            <path d="M0,0 h30 v30 h-30 z M5,5 v20 h20 v-20 z M10,10 h10 v10 h-10 z M70,0 h30 v30 h-30 z M75,5 v20 h20 v-20 z M80,10 h10 v10 h-10 z M0,70 h30 v30 h-30 z M5,75 v20 h20 v-20 z M10,80 h10 v10 h-10 z M40,5 h10 v20 h-10 z M55,5 h10 v10 h-10 z M40,35 h20 v10 h-20 z M0,40 h15 v10 h-15 z M20,50 h15 v10 h-15 z M70,40 h20 v15 h-20 z M40,60 h10 v30 h-10 z M60,65 h20 v10 h-20 z M75,80 h15 v15 h-15 z M55,85 h10 v10 h-10 z" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-label-mono-sm text-[10px] text-primary font-bold mt-1.5">SEC-PASS-98214-ER</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-surface-container-high flex items-center justify-between">
+                                <span class="text-xs text-outline font-label-mono-sm">Present at Gate A1 Turnstile</span>
+                                <button onclick="window.print()" class="text-xs text-outline hover:text-on-surface flex items-center gap-1 font-semibold">
+                                    <span class="material-symbols-outlined text-[16px]">print</span>
+                                    Print Pass
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ================================================================ -->
+            <!-- TAB 2: ADMIN & STAFF LOGIN (WITH VALIDATION & POPUP) -->
+            <!-- ================================================================ -->
+            <div id="auth-panel-login" class="hidden flex flex-col">
+                <div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-6 shadow-sm flex flex-col gap-5">
+                    <div class="flex items-center gap-3 pb-3 border-b border-surface-container-high">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+                        </div>
+                        <div>
+                            <h2 class="font-headline-sm text-xl font-bold text-on-surface">Airport Authority Sign In</h2>
+                            <p class="text-xs text-on-surface-variant">Authorized officers &amp; administrators only. Validated against SEC Authority.</p>
+                        </div>
+                    </div>
+
+                    <!-- Prominent Error Message Banner (Shown on invalid login) -->
+                    <div id="login-error-banner" class="hidden p-3 rounded-xl bg-error-container text-on-error-container border border-error text-xs flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-error text-[20px] shrink-0">block</span>
+                        <div class="flex flex-col">
+                            <strong class="font-bold">Access Denied: Invalid Credentials</strong>
+                            <span id="login-error-text" class="text-[11px] opacity-90">Please verify your email &amp; security password.</span>
+                        </div>
+                    </div>
+
+                    <form onsubmit="handleStaffLogin(event)" id="officer-login-form" class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-body-sm text-xs font-semibold text-on-surface" for="login-email">Airport Email / Authority ID</label>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">badge</span>
+                                <input id="login-email" type="email" required placeholder="officer@airport-platform.local" value="officer@airport-platform.local"
+                                    class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-body-sm transition-colors" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface" for="login-pass">Security Password</label>
+                                <span class="text-[11px] text-primary hover:underline cursor-pointer">Forgot password?</span>
+                            </div>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock</span>
+                                <input id="login-pass" type="password" required placeholder="••••••••" value="Officer@12345"
+                                    class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-label-mono-lg transition-colors" />
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs pt-1">
+                            <label class="flex items-center gap-2 cursor-pointer select-none text-on-surface">
+                                <input type="checkbox" checked class="w-4 h-4 rounded text-primary focus:ring-0" />
+                                Remember this terminal workstation
+                            </label>
+                        </div>
+
+                        <button type="submit" id="btn-login-submit" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-2 group">
+                            <span class="material-symbols-outlined text-[18px]">key</span>
+                            <span>Verify Credentials &amp; Unlock Command Centre</span>
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </button>
+                    </form>
+
+                    <!-- Quick Demo Credentials Selector -->
+                    <div class="mt-2 pt-4 border-t border-surface-container-high flex flex-col gap-2">
+                        <span class="font-label-mono-sm text-[11px] text-outline uppercase font-semibold">One-Click Seeded Authority Roles:</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="fillLoginCredentials('officer@airport-platform.local', 'Officer@12345', 'Checkpoint Officer')" type="button"
+                                class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors">
+                                <strong class="text-xs text-tertiary block font-bold">Checkpoint Officer (CP-A1)</strong>
+                                <span class="text-[10px] text-outline font-label-mono-sm">officer@airport-platform.local</span>
+                            </button>
+
+                            <button onclick="fillLoginCredentials('admin@airport-platform.local', 'Admin@12345', 'Platform Admin')" type="button"
+                                class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors">
+                                <strong class="text-xs text-primary block font-bold">Platform Admin (SEC-01)</strong>
+                                <span class="text-[10px] text-outline font-label-mono-sm">admin@airport-platform.local</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- OFFICER VERIFICATION POPUP MODAL (Appears right after officer logs in and validates) -->
+    <div id="officer-verifying-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl border-2 border-primary shadow-2xl p-6 flex flex-col items-center text-center animate-[fadeIn_0.3s_ease]">
+            <!-- Radar Reticle Icon -->
+            <div class="w-20 h-20 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mb-4 relative shadow-inner">
+                <span class="material-symbols-outlined text-4xl text-primary animate-pulse" id="verify-modal-icon">verified_user</span>
+                <div class="absolute inset-0 rounded-full border-t-2 border-primary animate-spin"></div>
+            </div>
+            <span class="font-label-mono-sm text-[11px] uppercase tracking-wider text-primary font-bold">AIRPORT AUTHORITY SECURITY CLEARANCE</span>
+            <h3 class="font-headline-sm text-xl font-bold text-on-surface mt-1" id="verify-modal-title">Verifying Officer Credentials...</h3>
+            <p class="text-xs text-on-surface-variant mt-1.5 mb-4" id="verify-modal-desc">
+                Checking authority ledger and cryptographic token against ICAO Security Node...
+            </p>
+
+            <!-- Animated Progress Bar -->
+            <div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden mb-3">
+                <div id="verify-progress-bar" class="h-full bg-primary rounded-full transition-all duration-700 w-1/3"></div>
+            </div>
+
+            <div id="verify-badge" class="font-label-mono-sm text-xs text-outline font-semibold">
+                VALIDATING: Station CP-A1 Security Session...
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:4000/api';
+        let isBackendOnline = false;
+
+        function playChime(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.35);
+                } else {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.setValueAtTime(164.81, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.4);
+                }
+            } catch (e) {}
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-3.5 rounded-xl shadow-lg border text-xs font-semibold flex items-center gap-2.5 transition-all duration-300 pointer-events-auto ${
+                type === 'success' ? 'bg-tertiary text-on-tertiary border-tertiary-fixed' :
+                type === 'error' ? 'bg-error text-white border-error-container' :
+                'bg-surface-container-lowest text-on-surface border-surface-container-high'
+            }`;
+            const iconName = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-[18px]">${iconName}</span>
+                <span class="flex-1">${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function switchAuthTab(tab) {
+            const regPanel = document.getElementById('auth-panel-register');
+            const logPanel = document.getElementById('auth-panel-login');
+            const regBtn = document.getElementById('tab-btn-register');
+            const logBtn = document.getElementById('tab-btn-login');
+
+            if (tab === 'register') {
+                regPanel.classList.remove('hidden');
+                logPanel.classList.add('hidden');
+                regBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm flex items-center justify-center gap-1.5";
+                logBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+            } else {
+                regPanel.classList.add('hidden');
+                logPanel.classList.remove('hidden');
+                logBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm flex items-center justify-center gap-1.5";
+                regBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+            }
+        }
+
+        function togglePassVisibility() {
+            const passInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.textContent = 'visibility_off';
+            } else {
+                passInput.type = 'password';
+                eyeIcon.textContent = 'visibility';
+            }
+        }
+
+        function updateTierSelection(radio) {
+            const parentLabels = ['tier-label-ff', 'tier-label-gen', 'tier-label-dip'];
+            parentLabels.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const dot = el.querySelector('.indicator-dot');
+                    const icon = el.querySelector('.material-symbols-outlined');
+                    if (el.contains(radio)) {
+                        el.classList.add('bg-surface-container-high', 'border-2', 'border-primary');
+                        el.classList.remove('bg-surface-container-lowest', 'border-surface-container-high');
+                        if (dot) {
+                            dot.classList.remove('bg-transparent');
+                            dot.classList.add('bg-primary');
+                        }
+                        if (icon) {
+                            icon.classList.remove('text-outline');
+                            icon.classList.add('text-primary');
+                        }
+                    } else {
+                        el.classList.remove('bg-surface-container-high', 'border-2', 'border-primary');
+                        el.classList.add('bg-surface-container-lowest', 'border', 'border-surface-container-high');
+                        if (dot) {
+                            dot.classList.add('bg-transparent');
+                            dot.classList.remove('bg-primary');
+                        }
+                        if (icon) {
+                            icon.classList.add('text-outline');
+                            icon.classList.remove('text-primary');
+                        }
+                    }
+                }
+            });
+        }
+
+        function handleProceedToStep2(event) {
+            if (event) event.preventDefault();
+            const legalName = document.getElementById('legalName').value || 'ELENA ROSTOVA';
+            const mobilePhone = document.getElementById('mobilePhone').value || '555-019-2834';
+
+            document.getElementById('otp-phone-display').textContent = mobilePhone;
+            document.getElementById('pass-card-name').textContent = legalName.toUpperCase();
+
+            document.getElementById('enrollment-step-1').classList.add('hidden');
+            document.getElementById('enrollment-step-2').classList.remove('hidden');
+
+            document.getElementById('step-counter-text').textContent = 'Step 02 / 02';
+            document.getElementById('progress-bar-step2').classList.remove('bg-surface-container-high');
+            document.getElementById('progress-bar-step2').classList.add('bg-primary');
+            document.getElementById('enrollment-protocol-title').textContent = 'Enrollment Protocol: Biometrics & Document Verification';
+
+            showToast('Identity saved. Proceed to Document OCR & Biometrics.', 'info');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBackToStep1() {
+            document.getElementById('enrollment-step-2').classList.add('hidden');
+            document.getElementById('enrollment-step-1').classList.remove('hidden');
+            document.getElementById('step-counter-text').textContent = 'Step 01 / 02';
+            document.getElementById('progress-bar-step2').classList.remove('bg-primary');
+            document.getElementById('progress-bar-step2').classList.add('bg-surface-container-high');
+            document.getElementById('enrollment-protocol-title').textContent = 'Enrollment Protocol: Identity Verification';
+        }
+
+        function mockQuickPassFill(provider) {
+            showToast(`Loaded verified credentials via ${provider.toUpperCase()}`, 'success');
+            document.getElementById('legalName').value = 'ELENA ROSTOVA';
+            document.getElementById('mobilePhone').value = '555-019-2834';
+            document.getElementById('email').value = 'elena.rostova@skywings.aero';
+            document.getElementById('ktn').value = 'USA982344109';
+        }
+
+        function simulatePassportUpload() {
+            const dropDefault = document.getElementById('dropzone-default-ui');
+            const dropScan = document.getElementById('dropzone-scanning-ui');
+            const dropSuccess = document.getElementById('dropzone-success-ui');
+            const statusPill = document.getElementById('ocr-status-pill');
+
+            dropDefault.classList.add('hidden');
+            dropScan.classList.remove('hidden');
+            statusPill.textContent = 'Processing OCR...';
+
+            setTimeout(() => {
+                dropScan.classList.add('hidden');
+                dropSuccess.classList.remove('hidden');
+                statusPill.textContent = 'MRZ Verified';
+                statusPill.className = 'text-[10px] font-label-mono-sm px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold';
+                showToast('ICAO Doc 9303 MRZ parsed & cryptographically validated.', 'success');
+            }, 1100);
+        }
+
+        function triggerBiometricVerification() {
+            const laser = document.getElementById('bio-scan-laser');
+            const silhouette = document.getElementById('bio-silhouette');
+            const overlay = document.getElementById('bio-verified-overlay');
+            const pill = document.getElementById('bio-status-pill');
+
+            laser.classList.remove('hidden');
+            pill.textContent = 'Scanning 3D Liveness...';
+
+            setTimeout(() => {
+                laser.classList.add('hidden');
+                silhouette.classList.add('hidden');
+                overlay.classList.remove('hidden');
+                pill.textContent = 'Liveness Confirmed';
+                pill.className = 'text-[10px] font-label-mono-sm px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold';
+                showToast('Biometric liveness confirmed against passport photo chip.', 'success');
+            }, 1400);
+        }
+
+        function issueDigitalSecurityPass() {
+            document.getElementById('issued-pass-container').classList.remove('hidden');
+            showToast('Security Pass SEC-PASS-98214-ER issued successfully!', 'success');
+            document.getElementById('issued-pass-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function fillLoginCredentials(email, pass, roleName) {
+            document.getElementById('login-email').value = email;
+            document.getElementById('login-pass').value = pass;
+            showToast(`Loaded ${roleName} credentials`, 'info');
+        }
+
+        // --- RIGOROUS OFFICER CREDENTIAL VALIDATION & COMMAND CENTRE POPUP ---
+        async function handleStaffLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('login-email');
+            const passInput = document.getElementById('login-pass');
+            const errorBanner = document.getElementById('login-error-banner');
+            const errorText = document.getElementById('login-error-text');
+            const email = (emailInput.value || '').trim();
+            const password = (passInput.value || '').trim();
+
+            errorBanner.classList.add('hidden');
+
+            let authenticatedUser = null;
+
+            // 1. Check live backend API if available
+            if (isBackendOnline) {
+                try {
+                    const res = await fetch(`${API_BASE}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.success) {
+                        authenticatedUser = {
+                            email: data.data.user.email,
+                            role: data.data.user.role,
+                            name: data.data.user.fullName,
+                            token: data.data.tokens?.accessToken || 'token-auth'
+                        };
+                    }
+                } catch (err) {}
+            }
+
+            // 2. Validate against seeded authority credentials
+            if (!authenticatedUser) {
+                if (email.toLowerCase() === 'officer@airport-platform.local' && password === 'Officer@12345') {
+                    authenticatedUser = {
+                        email: 'officer@airport-platform.local',
+                        role: 'checkpoint_officer',
+                        name: 'Checkpoint Officer (CP-A1)',
+                        token: 'aeropass-jwt-officer-token'
+                    };
+                } else if (email.toLowerCase() === 'admin@airport-platform.local' && password === 'Admin@12345') {
+                    authenticatedUser = {
+                        email: 'admin@airport-platform.local',
+                        role: 'admin',
+                        name: 'Platform Security Admin (SEC-01)',
+                        token: 'aeropass-jwt-admin-token'
+                    };
+                }
+            }
+
+            // 3. IF INVALID: Show prominent error, shake card, play alarm chime, DO NOT redirect
+            if (!authenticatedUser) {
+                playChime('error');
+                errorBanner.classList.remove('hidden');
+                errorText.textContent = 'Access Denied: Invalid authority email or security password. Authorized officers only.';
+                emailInput.classList.add('border-error');
+                passInput.classList.add('border-error');
+                
+                const formCard = document.getElementById('officer-login-form');
+                formCard.classList.add('animate-shake');
+                setTimeout(() => formCard.classList.remove('animate-shake'), 450);
+
+                showToast('Access Denied: Invalid credentials.', 'error');
+                return;
+            }
+
+            // 4. IF VALID: Save session, show high-tech clearance modal popup, then enter Officer Command Centre!
+            emailInput.classList.remove('border-error');
+            passInput.classList.remove('border-error');
+
+            sessionStorage.setItem('aeropass_officer_session', JSON.stringify({
+                email: authenticatedUser.email,
+                role: authenticatedUser.role,
+                name: authenticatedUser.name,
+                token: authenticatedUser.token,
+                loginTime: Date.now()
+            }));
+
+            // Launch Clearance Pop-up Modal
+            const modal = document.getElementById('officer-verifying-modal');
+            const modalTitle = document.getElementById('verify-modal-title');
+            const modalDesc = document.getElementById('verify-modal-desc');
+            const progressBar = document.getElementById('verify-progress-bar');
+            const badge = document.getElementById('verify-badge');
+
+            modal.classList.remove('hidden');
+            modalTitle.textContent = 'Verifying Security Clearance...';
+            modalTitle.className = 'font-headline-sm text-xl font-bold text-on-surface mt-1';
+            modalDesc.textContent = `Validating authority credentials for ${authenticatedUser.name}...`;
+            progressBar.style.width = '50%';
+            badge.textContent = `AUTHENTICATING: ${authenticatedUser.email}`;
+
+            playChime('success');
+
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                progressBar.className = 'h-full bg-tertiary rounded-full transition-all duration-500';
+                modalTitle.textContent = 'Clearance Verified • Level 4 Access';
+                modalTitle.className = 'font-headline-sm text-xl font-bold text-tertiary mt-1';
+                modalDesc.textContent = 'Identity confirmed. Unlocking Officer Command Centre & Turnstiles...';
+                badge.textContent = 'TERMINAL 1 OPERATIONS CONSOLE UNLOCKED';
+                badge.className = 'font-label-mono-sm text-xs text-tertiary font-bold';
+
+                showToast(`Welcome, ${authenticatedUser.name}. Command Centre unlocked.`, 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'Officer.html';
+                }, 850);
+            }, 950);
+        }
+
+        async function checkBackendConnectivity() {
+            try {
+                const res = await fetch(`${API_BASE}/health`, { method: 'GET', signal: AbortSignal.timeout(1000) });
+                if (res.ok) {
+                    isBackendOnline = true;
+                    document.getElementById('status-indicator-dot').className = 'w-2 h-2 rounded-full bg-tertiary animate-pulse';
+                    document.getElementById('status-indicator-text').textContent = 'API Connected';
+                    return;
+                }
+            } catch (err) {}
+            isBackendOnline = false;
+            document.getElementById('status-indicator-dot').className = 'w-2 h-2 rounded-full bg-primary animate-pulse';
+            document.getElementById('status-indicator-text').textContent = 'API Standby (Demo)';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            checkBackendConnectivity();
+            // If #login hash is present, switch directly to login tab
+            if (window.location.hash === '#login') {
+                switchAuthTab('login');
+            }
+        });
+    </script>
+</body>
+
+</html>

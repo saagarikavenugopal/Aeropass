@@ -1,0 +1,247 @@
+{
+  "info": {
+    "name": "Airport Security & Passenger Platform",
+    "description": "Full passenger journey: register -> flight -> documents -> AI/human verification -> security pass -> baggage -> payment -> map -> checkpoint scan.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000/api" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "flightId", "value": "" },
+    { "key": "documentId", "value": "" },
+    { "key": "baggageId", "value": "" },
+    { "key": "passCode", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"Passw0rd!\",\n  \"phone\": \"+10000000000\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jane@example.com\",\n  \"password\": \"Passw0rd!\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Flights",
+      "item": [
+        {
+          "name": "Add Flight",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/flights",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"flightNumber\": \"AI202\",\n  \"airline\": \"Air Example\",\n  \"origin\": \"BLR\",\n  \"destination\": \"DEL\",\n  \"departureTime\": \"2026-10-15T09:00:00.000Z\",\n  \"terminal\": \"T1\",\n  \"gate\": \"A1\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List My Flights",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/flights"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/documents/upload",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "" },
+                { "key": "type", "value": "passport", "type": "text" },
+                { "key": "flightId", "value": "{{flightId}}", "type": "text" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Run OCR",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/documents/{{documentId}}/ocr"
+          }
+        },
+        {
+          "name": "Run AI Verification",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/documents/{{documentId}}/ai-verify"
+          }
+        },
+        {
+          "name": "Admin: List Pending Review",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/documents/review/pending"
+          }
+        },
+        {
+          "name": "Admin: Review Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/documents/review/{{documentId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"approved\",\n  \"notes\": \"Manually verified\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Security Pass",
+      "item": [
+        {
+          "name": "Generate Pass",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/security-pass",
+            "body": { "mode": "raw", "raw": "{\n  \"flightId\": \"{{flightId}}\"\n}" }
+          }
+        },
+        {
+          "name": "Get My Pass For Flight",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/security-pass/flight/{{flightId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Baggage & Payment",
+      "item": [
+        {
+          "name": "Submit Baggage",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/baggage",
+            "body": { "mode": "raw", "raw": "{\n  \"flightId\": \"{{flightId}}\",\n  \"weightKg\": 28\n}" }
+          }
+        },
+        {
+          "name": "Pay Excess Baggage",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/payments/baggage",
+            "body": { "mode": "raw", "raw": "{\n  \"baggageId\": \"{{baggageId}}\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Airport Map",
+      "item": [
+        {
+          "name": "List Locations",
+          "request": { "method": "GET", "url": "{{baseUrl}}/airport-map/locations" }
+        },
+        {
+          "name": "Navigate",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/airport-map/navigate?fromId=&toId="
+          }
+        }
+      ]
+    },
+    {
+      "name": "Checkpoint",
+      "item": [
+        {
+          "name": "Scan Pass",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/checkpoint/scan",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"passCode\": \"{{passCode}}\",\n  \"checkpointName\": \"Security Checkpoint A\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin & Analytics",
+      "item": [
+        {
+          "name": "Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/admin/dashboard"
+          }
+        },
+        {
+          "name": "Revenue Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/analytics/revenue"
+          }
+        }
+      ]
+    }
+  ]
+}
