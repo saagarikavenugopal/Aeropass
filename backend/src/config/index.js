@@ -21,6 +21,6 @@ module.exports = {
   },
   baggage: {
     freeAllowanceKg: Number(process.env.BAGGAGE_FREE_ALLOWANCE_KG || 20),
-    excessRatePerKg: Number(process.env.BAGGAGE_EXCESS_RATE_PER_KG || 8),
+    excessRatePerKg: Number(process.env.BAGGAGE_EXCESS_RATE_PER_KG || 650),
   },
 };

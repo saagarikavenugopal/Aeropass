@@ -17,7 +17,7 @@ async function getProfile(req, res, next) {
 
 async function updateProfile(req, res, next) {
   try {
-    const { dateOfBirth, nationality, passportNumber, address, emergencyContact, phone } = req.body;
+    const { fullName, phone, dateOfBirth, nationality, passportNumber, address, emergencyContact } = req.body;
 
     const profile = await Passenger.findOneAndUpdate(
       { user: req.user.id },
@@ -25,11 +25,20 @@ async function updateProfile(req, res, next) {
       { new: true, upsert: true }
     );
 
-    if (phone) {
-      await User.findByIdAndUpdate(req.user.id, { phone });
+    const userUpdate = {};
+    if (fullName) userUpdate.fullName = fullName;
+    if (phone) userUpdate.phone = phone;
+
+    if (Object.keys(userUpdate).length > 0) {
+      await User.findByIdAndUpdate(req.user.id, userUpdate);
     }
 
-    return success(res, profile, 'Profile updated');
+    const updatedProfile = await Passenger.findOne({ user: req.user.id }).populate(
+      'user',
+      'fullName email phone role'
+    );
+
+    return success(res, updatedProfile, 'Profile updated');
   } catch (err) {
     next(err);
   }

@@ -5,9 +5,15 @@ async function listLocations(req, res, next) {
   try {
     const { type, terminal, search } = req.query;
     const filter = {};
-    if (type) filter.type = type;
+    if (type && type !== 'all') filter.type = type;
     if (terminal) filter.terminal = terminal;
-    if (search) filter.name = { $regex: search, $options: 'i' };
+    if (search) {
+      filter.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { tags: { $in: [new RegExp(search, 'i')] } },
+      ];
+    }
 
     const locations = await AirportLocation.find(filter).sort({ terminal: 1, name: 1 });
     return success(res, locations, 'Locations fetched');

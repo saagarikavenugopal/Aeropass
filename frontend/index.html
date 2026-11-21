@@ -1,21 +1,113 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- AeroPass Pastel Theme Initialization (Prevents FOUC) -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('aeropass_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=/Admin.html" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AeroPass | Airport Security &amp; Passenger Platform</title>
     <script>
-      window.location.replace('/Admin.html');
+      const hasPassenger = sessionStorage.getItem('aeropass_user_session') || localStorage.getItem('aeropass_user_session');
+      const hasOfficer = sessionStorage.getItem('aeropass_officer_session');
+      if (hasPassenger) {
+        window.location.replace('/Dashboard.html');
+      } else if (hasOfficer) {
+        window.location.replace('/Officer.html');
+      } else {
+        window.location.replace('/Admin.html');
+      }
     </script>
-  </head>
-  <body style="font-family: system-ui, sans-serif; background: #f8f9ff; color: #0b1c30; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;">
-    <div style="text-align: center; padding: 2rem;">
-      <h2 style="margin-bottom: 0.5rem;">Redirecting to AeroPass Identity &amp; Admin Portal...</h2>
-      <p style="color: #707881; font-size: 0.9rem;">
-        If you are not redirected automatically, <a href="/Admin.html" style="color: #006194; font-weight: 600;">click here to enter Admin &amp; Identity Portal</a>.
+  
+    <style>
+        :root {
+            --color-surface: #fffdfa;
+            --color-card: #ffffff;
+            --color-border: #fce7f3;
+            --color-text: #2d132c;
+            --color-muted: #6b4360;
+            --color-primary: #ec4899;
+            --color-primary-light: #fdf2f8;
+            --color-yellow: #f59e0b;
+            --color-yellow-light: #fef9c3;
+            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #fdf2f8 0%, #fefce8 50%, #fff7ed 100%), #fffaf8;
+        }
+        html.dark {
+            --color-surface: #120e18;
+            --color-card: #1b1424;
+            --color-border: #3d284e;
+            --color-text: #fdf2f8;
+            --color-muted: #d4b8ca;
+            --color-primary: #f472b6;
+            --color-primary-light: #500724;
+            --color-yellow: #fde047;
+            --color-yellow-light: #451a03;
+            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #291227 0%, #1d172e 50%, #261c10 100%), #120e18;
+            color-scheme: dark;
+        }
+        body {
+            background: var(--page-ambient-gradient) !important;
+            background-attachment: fixed !important;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+  <body style="font-family: system-ui, -apple-system, sans-serif; background: var(--color-surface); color: var(--color-text); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;">
+    <div style="text-align: center; padding: 2.5rem; max-width: 520px; background: var(--color-card); border-radius: 1.25rem; border: 1px solid var(--color-border); box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+        <button onclick="toggleTheme()" class="theme-toggle-btn" style="background: none; border: 1px solid var(--color-border); color: var(--color-text); border-radius: 0.75rem; padding: 0.4rem 0.6rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem;">
+            <span class="theme-toggle-icon material-symbols-outlined" style="font-size: 1.1rem;">dark_mode</span>
+            <span>Theme</span>
+        </button>
+      </div>
+      <h2 style="margin-bottom: 0.5rem; color: var(--color-primary); font-size: 1.4rem; font-weight: 800;">AeroPass Airport Security Platform</h2>
+      <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
+        Global biometric passenger identity, turnstile clearance, and officer operations.
       </p>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <a href="/Dashboard.html" style="padding: 0.75rem 1.25rem; background: linear-gradient(135deg, #fef08a 0%, #fbcfe8 100%); color: #831843; border-radius: 0.75rem; text-decoration: none; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #f472b6; box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);">
+          Enter Passenger Dashboard
+        </a>
+        <a href="/Admin.html" style="padding: 0.75rem 1.25rem; background: var(--color-surface); color: var(--color-text); border-radius: 0.75rem; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--color-border);">
+          Sign In &amp; Enrollment Portal
+        </a>
+        <a href="/Officer.html" style="padding: 0.75rem 1.25rem; background: var(--color-surface); color: var(--color-text); border-radius: 0.75rem; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--color-border);">
+          Officer Turnstile Station
+        </a>
+      </div>
     </div>
-  </body>
+  
+    <script>
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            if (newTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            localStorage.setItem('aeropass_theme', newTheme);
+            const icon = document.querySelector('.theme-toggle-icon');
+            if (icon) icon.textContent = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            const icon = document.querySelector('.theme-toggle-icon');
+            if (icon) icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+        });
+    </script>
+</body>
 </html>

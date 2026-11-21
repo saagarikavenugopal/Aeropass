@@ -4,6 +4,16 @@ const Flight = require('../../models/Flight');
 async function addFlight(req, res, next) {
   try {
     const flight = await Flight.create({ ...req.body, passenger: req.user.id });
+
+    try {
+      const { notify } = require('../notifications/notifications.service');
+      await notify(req.user.id, {
+        title: 'Flight Added',
+        message: `Flight ${flight.flightNumber} (${flight.origin} -> ${flight.destination}) scheduled for ${new Date(flight.departureTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. Terminal ${flight.terminal || 'T1'}, Gate ${flight.gate || 'A1'}.`,
+        type: 'info',
+      });
+    } catch (e) {}
+
     return success(res, flight, 'Flight added', 201);
   } catch (err) {
     next(err);
@@ -37,6 +47,16 @@ async function updateFlight(req, res, next) {
       { new: true }
     );
     if (!flight) return failure(res, 'Flight not found', 404);
+
+    try {
+      const { notify } = require('../notifications/notifications.service');
+      await notify(req.user.id, {
+        title: 'Flight Details Updated',
+        message: `Flight ${flight.flightNumber} updated. Gate: ${flight.gate || 'TBD'}, Status: ${flight.status}.`,
+        type: 'info',
+      });
+    } catch (e) {}
+
     return success(res, flight, 'Flight updated');
   } catch (err) {
     next(err);

@@ -4,7 +4,7 @@ const config = require('../../config');
 const User = require('../../models/User');
 const Passenger = require('../../models/Passenger');
 
-async function register({ fullName, email, password, phone }) {
+async function register({ fullName, email, password, phone, role = 'passenger' }) {
   const existing = await User.findOne({ email });
   if (existing) {
     const err = new Error('Email already registered');
@@ -13,8 +13,11 @@ async function register({ fullName, email, password, phone }) {
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-  const user = await User.create({ fullName, email, passwordHash, phone });
-  await Passenger.create({ user: user._id });
+  const userRole = ['checkpoint_officer', 'admin'].includes(role) ? role : 'passenger';
+  const user = await User.create({ fullName, email, passwordHash, phone, role: userRole });
+  if (userRole === 'passenger') {
+    await Passenger.create({ user: user._id });
+  }
 
   return user;
 }
@@ -80,10 +83,107 @@ async function rotateRefreshToken(refreshToken) {
   return { user, tokens };
 }
 
+async function changePassword(userId, currentPassword, newPassword) {
+  const user = await User.findById(userId);
+  if (!user) {
+    const err = new Error('User not found');
+    err.statusCode = 404;
+    throw err;
+  }
+  const match = await bcrypt.compare(currentPassword, user.passwordHash);
+  if (!match) {
+    const err = new Error('Current password does not match existing record');
+    err.statusCode = 400;
+    throw err;
+  }
+  user.passwordHash = await bcrypt.hash(newPassword, 10);
+  await user.save();
+  return { success: true };
+}
+
+async function getMe(userId) {
+  const user = await User.findById(userId).select('-passwordHash -refreshTokenHash');
+  if (!user) {
+    const err = new Error('User not found');
+    err.statusCode = 404;
+    throw err;
+  }
+  return user;
+}
+
+async function logout(userId) {
+  if (userId) {
+    await User.findByIdAndUpdate(userId, { refreshTokenHash: null });
+  }
+  return { success: true };
+}
+
+async function forgotPassword(email) {
+  const user = await User.findOne({ email: email.toLowerCase() });
+  if (!user) {
+    const err = new Error('No account found with this email address');
+    err.statusCode = 404;
+    throw err;
+  }
+  // Generate a friendly 6-digit cryptographic security code
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  const resetToken = `SEC-${code}`;
+  user.resetPasswordToken = resetToken;
+  user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+  await user.save();
+
+  try {
+    const { notify } = require('../notifications/notifications.service');
+    await notify(user._id, {
+      title: 'Password Reset Token Requested',
+      message: `Your verification code is ${resetToken}. It expires in 60 minutes.`,
+      type: 'warning',
+    });
+  } catch (e) {}
+
+  return { email: user.email, resetToken };
+}
+
+async function resetPassword({ email, resetToken, newPassword }) {
+  const user = await User.findOne({
+    email: email.toLowerCase(),
+    resetPasswordToken: resetToken,
+    resetPasswordExpires: { $gt: new Date() },
+  });
+
+  if (!user) {
+    const err = new Error('Invalid or expired password reset token');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  user.passwordHash = await bcrypt.hash(newPassword, 10);
+  user.resetPasswordToken = null;
+  user.resetPasswordExpires = null;
+  user.refreshTokenHash = null;
+  await user.save();
+
+  try {
+    const { notify } = require('../notifications/notifications.service');
+    await notify(user._id, {
+      title: 'Password Successfully Reset',
+      message: 'Your account security credentials were changed. Please log in with your new password.',
+      type: 'success',
+    });
+  } catch (e) {}
+
+  return { success: true };
+}
+
 module.exports = {
   register,
   validateCredentials,
   issueTokens,
   storeRefreshToken,
   rotateRefreshToken,
+  changePassword,
+  getMe,
+  logout,
+  forgotPassword,
+  resetPassword,
 };

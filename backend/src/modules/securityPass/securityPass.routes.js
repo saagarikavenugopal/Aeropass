@@ -5,6 +5,7 @@ const { authenticate, authorize } = require('../../middleware/auth');
 const auditLogger = require('../../middleware/auditLogger');
 
 router.post('/', authenticate, auditLogger('SECURITY_PASS_GENERATED'), controller.generatePass);
+router.get('/my-pass', authenticate, controller.getCurrentUserPass);
 router.get('/flight/:flightId', authenticate, controller.getMyPass);
 router.post(
   '/:id/revoke',

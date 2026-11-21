@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const airportLocationSchema = new mongoose.Schema(
   {
-    type: { type: String, enum: ['terminal', 'gate', 'shop', 'restaurant', 'checkpoint', 'amenity'], required: true },
+    type: { type: String, enum: ['terminal', 'gate', 'shop', 'restaurant', 'checkpoint', 'amenity', 'lounge', 'atm', 'restroom'], required: true },
     name: { type: String, required: true },
     terminal: { type: String },
     floor: { type: String },

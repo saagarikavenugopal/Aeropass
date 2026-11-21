@@ -34,6 +34,15 @@ async function reviewDocument(req, res, next) {
       decision === 'approved' ? DOCUMENT_STATUS.ADMIN_APPROVED : DOCUMENT_STATUS.ADMIN_REJECTED;
     await document.save();
 
+    try {
+      const { notify } = require('../notifications/notifications.service');
+      await notify(document.passenger, {
+        title: `Officer Review: ${document.type.toUpperCase()}`,
+        message: `An Airport Authority Officer has ${decision.toUpperCase()} your document.${notes ? ` Note: ${notes}` : ''}`,
+        type: decision === 'approved' ? 'success' : 'alert',
+      });
+    } catch (e) {}
+
     return success(res, document, 'Document reviewed');
   } catch (err) {
     next(err);

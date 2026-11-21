@@ -15,82 +15,282 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
         rel="stylesheet" />
-    <style>
-        @layer base {
-            html,
-            body {
-                width: 100vw;
-                min-height: 100vh;
-                margin: 0;
-                padding: 0;
+    
+        <style>
+        :root {
+            /* ================================================================= */
+            /* AERO PASS: PASTEL YELLOW & PINK COMBO (LIGHT MODE)                */
+            /* Creamy Lemon Chiffon (#fef08a) + Strawberry Milk Pink (#fbcfe8)  */
+            /* ================================================================= */
+            --color-surface: #fffdfa;                 /* Soft milky cream mist */
+            --color-surface-container-lowest: #ffffff; /* Crisp porcelain white card */
+            --color-surface-container-low: #fff8f8;    /* Soft pastel strawberry-cream */
+            --color-surface-container-high: #fce7f3;   /* Delicate pastel pink border */
+            --color-surface-variant: #fef2f2;
+            --color-surface-tint: #ec4899;
+
+            --color-on-surface: #2d132c;               /* Deep plum slate contrast */
+            --color-on-surface-variant: #6b4360;       /* Muted berry slate */
+            --color-outline: #a78b9b;                  /* Gentle outline */
+            --color-outline-variant: #fbcfe8;
+
+            /* Pastel Yellow & Pink Accents */
+            --color-primary: #ec4899;                  /* Pastel Vibrant Rose Pink */
+            --color-primary-container: #fce7f3;        /* Soft pastel pink pill */
+            --color-on-primary: #ffffff;
+            --color-on-primary-container: #9d174d;
+            --color-primary-fixed: #fdf2f8;
+            --color-on-primary-fixed-variant: #831843;
+
+            --color-secondary: #f59e0b;                /* Warm Pastel Honey Yellow */
+            --color-secondary-container: #fef9c3;      /* Soft butter yellow pill */
+            --color-on-secondary: #ffffff;
+            --color-on-secondary-container: #713f12;
+            --color-secondary-fixed: #fef08a;
+            --color-secondary-fixed-dim: #fde047;
+
+            --color-tertiary: #10b981;                 /* Soft Pastel Mint */
+            --color-tertiary-container: #d1fae5;
+            --color-on-tertiary: #ffffff;
+            --color-tertiary-fixed: #d1fae5;
+            --color-on-tertiary-fixed: #065f46;
+            --color-tertiary-fixed-dim: #a7f3d0;
+
+            --color-error: #f43f5e;                    /* Pastel Coral */
+            --color-error-container: #ffe4e6;
+            --color-on-error: #ffffff;
+            --color-on-error-container: #9f1239;
+
+            --ticket-notch-bg: #fff8f8;
+            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #fdf2f8 0%, #fefce8 50%, #fff7ed 100%), #fffaf8;
+        }
+
+        html.dark, [data-theme="dark"] {
+            /* ================================================================= */
+            /* AERO PASS: MIDNIGHT SUNSET PASTEL (DARK MODE)                     */
+            /* Deep twilight plum & midnight velvet with glowing pink & gold     */
+            /* ================================================================= */
+            --color-surface: #120e18;                  /* Deep twilight velvet */
+            --color-surface-container-lowest: #1b1424; /* Elevated dark plum card */
+            --color-surface-container-low: #251b32;    /* Elevated container */
+            --color-surface-container-high: #3d284e;   /* Soft luminous plum border */
+            --color-surface-variant: #281d36;
+            --color-surface-tint: #f472b6;
+
+            --color-on-surface: #fdf2f8;               /* Moonlight rose-white text */
+            --color-on-surface-variant: #d4b8ca;       /* Soft moonlit plum text */
+            --color-outline: #8c6882;
+            --color-outline-variant: #4e3247;
+
+            /* Luminous Pastel Pink & Gold Dark Accents */
+            --color-primary: #f472b6;                  /* Luminous pastel pink */
+            --color-primary-container: #500724;        /* Deep midnight plum container */
+            --color-on-primary: #120e18;
+            --color-on-primary-container: #fbcfe8;
+            --color-primary-fixed: #2e1025;
+            --color-on-primary-fixed-variant: #f472b6;
+
+            --color-secondary: #fde047;                /* Luminous pastel gold */
+            --color-secondary-container: #451a03;      /* Deep honey amber container */
+            --color-on-secondary: #120e18;
+            --color-on-secondary-container: #fef08a;
+            --color-secondary-fixed: #2b1704;
+            --color-secondary-fixed-dim: #eab308;
+
+            --color-tertiary: #86efac;                 /* Luminous pastel mint */
+            --color-tertiary-container: #064e3b;
+            --color-on-tertiary: #120e18;
+            --color-tertiary-fixed: #064e3b;
+            --color-on-tertiary-fixed: #a7f3d0;
+            --color-tertiary-fixed-dim: #059669;
+
+            --color-error: #fda4af;
+            --color-error-container: #4c0519;
+            --color-on-error: #120e18;
+            --color-on-error-container: #fecdd3;
+
+            --ticket-notch-bg: #251b32;
+            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #291227 0%, #1d172e 50%, #261c10 100%), #120e18;
+        }
+
+        /* Ambient Pastel Page Background */
+        body {
+            background: var(--page-ambient-gradient) !important;
+            background-attachment: fixed !important;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hero Banner Pastel Yellow & Pink Combo */
+        .pastel-hero-banner {
+            background: linear-gradient(135deg, #fef08a 0%, #fed7aa 35%, #fbcfe8 75%, #f472b6 100%) !important;
+            color: #3b122d !important;
+            border: 2px solid #f9a8d4 !important;
+            box-shadow: 0 12px 35px -5px rgba(244, 114, 182, 0.28) !important;
+        }
+        html.dark .pastel-hero-banner {
+            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
+            color: #fdf2f8 !important;
+            border: 2px solid #f472b6 !important;
+            box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Boarding Pass Pastel Header */
+        .pastel-pass-header {
+            background: linear-gradient(135deg, #fef9c3 0%, #fed7aa 50%, #fce7f3 100%) !important;
+            color: #3b122d !important;
+            border-bottom: 2px solid #f9a8d4 !important;
+        }
+        html.dark .pastel-pass-header {
+            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
+            color: #fdf2f8 !important;
+            border-bottom: 2px solid #f472b6 !important;
+        }
+
+        /* Flight Spotlight Card Pastel Header */
+        .pastel-flight-header {
+            background: linear-gradient(135deg, #fef08a 0%, #fed7aa 40%, #fbcfe8 100%) !important;
+            color: #3b122d !important;
+            border: 2px solid #f9a8d4 !important;
+            box-shadow: 0 10px 30px -5px rgba(244, 114, 182, 0.25) !important;
+        }
+        html.dark .pastel-flight-header {
+            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
+            color: #fdf2f8 !important;
+            border: 2px solid #f472b6 !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Pastel Brand Logo Badge (Yellow-Pink Gradient) */
+        .pastel-brand-badge {
+            background: linear-gradient(135deg, #fde047 0%, #f472b6 100%) !important;
+            color: #3b122d !important;
+            border: 1.5px solid #f9a8d4 !important;
+        }
+        html.dark .pastel-brand-badge {
+            background: linear-gradient(135deg, #ca8a04 0%, #db2777 100%) !important;
+            color: #fdf2f8 !important;
+            border: 1.5px solid #f472b6 !important;
+        }
+
+        /* Primary Button (Radiant Pastel Pink to Orange-Yellow) */
+        .btn-pastel-primary {
+            background: linear-gradient(135deg, #f472b6 0%, #fb923c 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.35) !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-pastel-primary:hover {
+            background: linear-gradient(135deg, #ec4899 0%, #f97316 100%) !important;
+            box-shadow: 0 6px 18px rgba(244, 114, 182, 0.45) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Glass card styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        html.dark .glass-card {
+            background: rgba(27, 20, 36, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        /* Ticket Notches */
+        .ticket-notch-left, .ticket-notch-right {
+            background: var(--ticket-notch-bg) !important;
+            transition: background 0.25s ease;
+        }
+
+        /* Drawer Overrides */
+        html.dark #sandwich-drawer,
+        html.dark #notification-drawer {
+            background-color: var(--color-surface-container-lowest) !important;
+            border-color: var(--color-surface-container-high) !important;
+        }
+
+        /* Form Inputs in Dark Mode */
+        html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+        html.dark select,
+        html.dark textarea {
+            background-color: var(--color-surface-container-low) !important;
+            color: var(--color-on-surface) !important;
+            border-color: var(--color-surface-container-high) !important;
+        }
+
+        /* Table headers & rows */
+        html.dark th {
+            background-color: var(--color-surface-container-low) !important;
+            color: var(--color-on-surface-variant) !important;
+        }
+        html.dark tr:hover {
+            background-color: var(--color-surface-container-low) !important;
+        }
+
+        /* SVG Map Elements in Dark Mode */
+        html.dark .map-terminal-envelope {
+            fill: #1b1424 !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-apron-bg {
+            fill: #120e18 !important;
+        }
+        html.dark .map-boulevard-bg {
+            fill: #22182d !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-walkway-bg {
+            fill: #271a33 !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-pier-bg {
+            fill: #1f1528 !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-grid-line {
+            stroke: #2e1d3d !important;
+        }
+        html.dark .map-gate-card {
+            fill: #271731 !important;
+            stroke: #f472b6 !important;
+        }
+
+        @keyframes navDash {
+            to {
+                stroke-dashoffset: -34;
             }
-
-            body {
-                overscroll-behavior: none;
-                font-family: 'Inter', sans-serif;
-            }
-
-            .pb-safe {
-                padding-bottom: env(safe-area-inset-bottom, 0px);
-            }
-
-            .pt-safe {
-                padding-top: env(safe-area-inset-top, 0px);
-            }
         }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(229, 238, 255, 0.5);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #93ccff;
-            border-radius: 9999px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #006194;
-        }
-
         @keyframes scanLaser {
-            0% {
-                top: 5%;
-                opacity: 0.8;
-            }
-            50% {
-                top: 90%;
-                opacity: 1;
-            }
-            100% {
-                top: 5%;
-                opacity: 0.8;
-            }
+            0% { top: 4%; opacity: 0.8; }
+            50% { top: 92%; opacity: 1; }
+            100% { top: 4%; opacity: 0.8; }
         }
-
         .animate-scan-laser {
-            animation: scanLaser 2.2s ease-in-out infinite;
+            animation: scanLaser 2s ease-in-out infinite;
         }
-
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.3); }
+            50% { box-shadow: 0 0 32px rgba(244, 114, 182, 0.6); }
+        }
+        .pulse-glow-emerald {
+            animation: pulseGlow 2.5s infinite;
+        }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-7px); }
-            40%, 80% { transform: translateX(7px); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
         }
-
         .animate-shake {
-            animation: shake 0.4s ease-in-out;
+            animation: shake 0.35s ease-in-out;
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(252, 231, 243, 0.5); }
+        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
+        html.dark ::-webkit-scrollbar-track { background: rgba(37, 27, 50, 0.7); }
+        html.dark ::-webkit-scrollbar-thumb { background: #3d284e; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script id="tailwind-config">
@@ -99,87 +299,60 @@
             theme: {
                 extend: {
                     colors: {
-                        "surface-container-low": "#eff4ff",
-                        "on-tertiary-fixed": "#002114",
-                        "surface-variant": "#d3e4fe",
-                        "primary-fixed": "#cce5ff",
-                        "secondary-fixed": "#dae2fd",
-                        "surface-tint": "#006398",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-error": "#ffffff",
-                        "on-surface-variant": "#3f4850",
-                        "inverse-primary": "#93ccff",
-                        "on-primary-container": "#fdfcff",
-                        "primary-container": "#007bb9",
-                        "secondary-container": "#dae2fd",
-                        "on-primary": "#ffffff",
-                        "inverse-on-surface": "#eaf1ff",
-                        "tertiary-fixed": "#85f8c4",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "inverse-surface": "#213145",
-                        "on-secondary-container": "#5c647a",
-                        "tertiary": "#006948",
-                        "primary": "#006194",
-                        "surface-dim": "#cbdbf5",
-                        "tertiary-fixed-dim": "#68dba9",
-                        "surface-container-high": "#dce9ff",
-                        "on-error-container": "#93000a",
-                        "on-primary-fixed-variant": "#004b73",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-container": "#f5fff7",
-                        "secondary": "#565e74",
-                        "on-tertiary-fixed-variant": "#005137",
-                        "surface-container": "#e5eeff",
-                        "background": "#f8f9ff",
-                        "on-secondary-fixed": "#131b2e",
-                        "primary-fixed-dim": "#93ccff",
-                        "tertiary-container": "#00855d",
-                        "outline": "#707881",
-                        "error": "#ba1a1a",
-                        "on-surface": "#0b1c30",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "surface-bright": "#f8f9ff",
-                        "on-primary-fixed": "#001d31",
-                        "error-container": "#ffdad6",
-                        "outline-variant": "#bfc7d2",
-                        "surface-container-highest": "#d3e4fe",
-                        "surface": "#f8f9ff",
-                        "on-background": "#0b1c30"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "2xl": "1rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "space-xs": "0.25rem",
-                        "space-sm": "0.5rem",
-                        "space-md": "1rem",
-                        "space-lg": "1.5rem",
-                        "space-xl": "2.5rem",
-                        "margin-mobile": "1rem",
-                        "gutter-mobile": "0.75rem",
-                        "margin": "2rem",
-                        "gutter": "1.5rem"
+                        "surface": "var(--color-surface)",
+                        "surface-container-lowest": "var(--color-surface-container-lowest)",
+                        "surface-container-low": "var(--color-surface-container-low)",
+                        "surface-container-high": "var(--color-surface-container-high)",
+                        "surface-variant": "var(--color-surface-variant)",
+                        "surface-tint": "var(--color-surface-tint)",
+                        "on-surface": "var(--color-on-surface)",
+                        "on-surface-variant": "var(--color-on-surface-variant)",
+                        "outline": "var(--color-outline)",
+                        "outline-variant": "var(--color-outline-variant)",
+                        "primary": "var(--color-primary)",
+                        "on-primary": "var(--color-on-primary)",
+                        "primary-container": "var(--color-primary-container)",
+                        "on-primary-container": "var(--color-on-primary-container)",
+                        "primary-fixed": "var(--color-primary-fixed)",
+                        "on-primary-fixed-variant": "var(--color-on-primary-fixed-variant)",
+                        "secondary": "var(--color-secondary)",
+                        "on-secondary": "var(--color-on-secondary)",
+                        "secondary-container": "var(--color-secondary-container)",
+                        "on-secondary-container": "var(--color-on-secondary-container)",
+                        "secondary-fixed": "var(--color-secondary-fixed)",
+                        "secondary-fixed-dim": "var(--color-secondary-fixed-dim)",
+                        "tertiary": "var(--color-tertiary)",
+                        "on-tertiary": "var(--color-on-tertiary)",
+                        "tertiary-container": "var(--color-tertiary-container)",
+                        "tertiary-fixed": "var(--color-tertiary-fixed)",
+                        "on-tertiary-fixed": "var(--color-on-tertiary-fixed)",
+                        "tertiary-fixed-dim": "var(--color-tertiary-fixed-dim)",
+                        "error": "var(--color-error)",
+                        "on-error": "var(--color-on-error)",
+                        "error-container": "var(--color-error-container)",
+                        "on-error-container": "var(--color-on-error-container)"
                     },
                     fontFamily: {
-                        "title-md": ["Inter", "sans-serif"],
-                        "label-mono-sm": ["JetBrains Mono", "monospace"],
-                        "label-mono-lg": ["JetBrains Mono", "monospace"],
                         "headline-sm": ["Space Grotesk", "sans-serif"],
-                        "headline-lg": ["Space Grotesk", "sans-serif"],
-                        "headline-lg-mobile": ["Space Grotesk", "sans-serif"],
-                        "display-lg": ["Space Grotesk", "sans-serif"],
-                        "display-lg-mobile": ["Space Grotesk", "sans-serif"],
                         "body-sm": ["Inter", "sans-serif"],
-                        "body-lg": ["Inter", "sans-serif"]
+                        "label-mono-sm": ["JetBrains Mono", "monospace"]
                     }
                 }
             }
-        }
+        };
+    </script>
+    <!-- AeroPass Pastel Theme Initialization (Prevents FOUC) -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('aeropass_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
     </script>
 </head>
 
@@ -190,7 +363,7 @@
         <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
             <!-- Brand & Authority Badge -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-surface-container-low border border-primary/20 flex items-center justify-center p-1 shadow-sm shrink-0">
+                <div class="w-10 h-10 rounded-lg pastel-brand-badge flex items-center justify-center p-1 shadow-sm shrink-0">
                     <img alt="AeroPass Airport Identity Logo" class="w-full h-full object-contain"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuChknAMnAP6DAmrc2YaGvJO5rKOgPelU1HSwqr9DFYFRyrBqKIqo6h_8lIxXEI5aEt4yd4DmIdO3GhsY7flm8SjPqVE-uwyMgBsjgOLa7g3YhP_Qv0UykmHtqqBEbIEUhTJS9EtKgT5NDKKPSqhlKJC_deI6aNZFJLP_Jvh9okPugD7pqcMQlFV0TT0l67CfGJC3UJtyWr56MTu1aRdoUGpmxHJNXIiAZcpWlkDlGkn9q-Z7q_smjhU" />
                 </div>
@@ -203,18 +376,16 @@
                 </div>
             </div>
 
-            <!-- Header Security Status & Restricted Indicator -->
-            <div class="flex items-center gap-3">
-                <!-- Restricted Officer Station Indicator (No direct bypass link without auth) -->
-                <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface font-label-mono-sm text-xs">
-                    <span class="material-symbols-outlined text-outline text-[16px]">lock</span>
-                    <span class="hidden sm:inline text-on-surface-variant font-semibold">Officer Zone: Auth Required</span>
-                    <span class="sm:hidden text-on-surface-variant font-semibold">Restricted</span>
-                </div>
+            <!-- Header Navigation & Status -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Pastel Theme Mode Switcher -->
+                <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface transition-all border border-surface-container-high shadow-2xs flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/40 active:scale-95" title="Switch Theme">
+                    <span class="theme-toggle-icon material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
 
                 <!-- API Connectivity Status -->
                 <div id="backend-status-pill" onclick="checkBackendConnectivity()" title="Click to test API"
-                    class="cursor-pointer hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-mono-sm text-[11px] transition-colors border border-outline-variant/40">
+                    class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-mono-sm text-[11px] transition-colors border border-outline-variant/40">
                     <span id="status-indicator-dot" class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
                     <span id="status-indicator-text">API Online</span>
                 </div>
@@ -227,25 +398,38 @@
         <div class="w-full max-w-xl mx-auto flex flex-col">
 
             <!-- Mode Switcher: Registration vs Sign In -->
-            <div class="flex items-center p-1 bg-surface-container-low rounded-xl border border-surface-container-high mb-6">
+            <div class="flex items-center p-1 bg-surface-container-low rounded-2xl border border-surface-container-high mb-6">
                 <button id="tab-btn-register" onclick="switchAuthTab('register')"
-                    class="flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm flex items-center justify-center gap-1.5">
+                    class="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-primary text-on-primary shadow-sm flex items-center justify-center gap-1.5">
                     <span class="material-symbols-outlined text-[16px]">how_to_reg</span>
-                    <span>Create Account &amp; Enroll</span>
+                    <span>Create Account &amp; Register</span>
                 </button>
                 <button id="tab-btn-login" onclick="switchAuthTab('login')"
-                    class="flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5">
+                    class="flex-1 py-2.5 rounded-xl text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5">
                     <span class="material-symbols-outlined text-[16px]">login</span>
-                    <span>Admin &amp; Staff Login</span>
+                    <span>Sign In (Existing Users &amp; Officers)</span>
                 </button>
             </div>
 
-            <!-- ================================================================ -->
-            <!-- TAB 1: REGISTRATION / ENROLLMENT (STEP 1 & STEP 2) -->
-            <!-- ================================================================ -->
             <div id="auth-panel-register" class="flex flex-col">
                 
-                <!-- Progress Header & Step Indicator -->
+                <!-- Role Switcher for Registration: Passenger vs Airport Security Officer -->
+                <div class="flex items-center p-1 bg-surface-container-low rounded-2xl border border-surface-container-high mb-5">
+                    <button id="reg-subtab-passenger" onclick="switchRegisterRole('passenger')" type="button"
+                        class="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-[16px]">flight_takeoff</span>
+                        <span>Passenger / Traveler Registration</span>
+                    </button>
+                    <button id="reg-subtab-officer" onclick="switchRegisterRole('officer')" type="button"
+                        class="flex-1 py-2.5 rounded-xl text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-[16px]">shield_person</span>
+                        <span>Airport Officer Registration</span>
+                    </button>
+                </div>
+
+                <!-- SUBVIEW 1: PASSENGER REGISTRATION (STEP 1 & STEP 2) -->
+                <div id="reg-subview-passenger" class="flex flex-col">
+                    <!-- Progress Header & Step Indicator -->
                 <div class="flex flex-col gap-space-xs mb-space-md">
                     <div class="flex items-center justify-between">
                         <span class="font-label-mono-sm text-label-mono-sm uppercase tracking-wider text-primary font-semibold flex items-center gap-1.5">
@@ -597,15 +781,15 @@
 
                     <!-- Digital Boarding Pass Display -->
                     <div id="issued-pass-container" class="hidden flex flex-col items-center mt-2 animate-[fadeIn_0.5s_ease]">
-                        <div class="w-full bg-gradient-to-r from-primary to-primary-container text-white p-4 rounded-t-2xl flex items-center justify-between shadow-md">
+                        <div class="w-full pastel-pass-header p-4 rounded-t-2xl flex items-center justify-between shadow-md">
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-2xl text-tertiary-fixed">airplane_ticket</span>
+                                <span class="material-symbols-outlined text-2xl text-[#db2777] dark:text-[#f472b6]">airplane_ticket</span>
                                 <div>
-                                    <h3 class="font-headline-sm text-base font-bold">Digital Security Boarding Pass</h3>
-                                    <p class="text-xs text-primary-fixed">Ready for Airport Security Checkpoints</p>
+                                    <h3 class="font-headline-sm text-base font-bold text-[#4a1532] dark:text-[#fdf2f8]">Digital Security Boarding Pass</h3>
+                                    <p class="text-xs text-[#831843] dark:text-[#fbcfe8] font-medium">Ready for Airport Security Checkpoints</p>
                                 </div>
                             </div>
-                            <span class="font-label-mono-sm text-xs bg-white/20 px-2.5 py-1 rounded-full font-bold">ACTIVE</span>
+                            <span class="font-label-mono-sm text-xs bg-gradient-to-r from-[#f472b6] to-[#fb923c] text-white px-2.5 py-1 rounded-full font-bold shadow-xs">ACTIVE</span>
                         </div>
                         <div class="w-full bg-surface-container-lowest border-x border-b border-surface-container-high p-5 rounded-b-2xl shadow-lg">
                             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -624,97 +808,305 @@
                                     <span class="font-label-mono-sm text-[10px] text-primary font-bold mt-1.5">SEC-PASS-98214-ER</span>
                                 </div>
                             </div>
-                            <div class="mt-4 pt-3 border-t border-surface-container-high flex items-center justify-between">
+                            <div class="mt-4 pt-3 border-t border-surface-container-high flex flex-col sm:flex-row items-center justify-between gap-3">
                                 <span class="text-xs text-outline font-label-mono-sm">Present at Gate A1 Turnstile</span>
-                                <button onclick="window.print()" class="text-xs text-outline hover:text-on-surface flex items-center gap-1 font-semibold">
-                                    <span class="material-symbols-outlined text-[16px]">print</span>
-                                    Print Pass
-                                </button>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="window.print()" class="text-xs text-outline hover:text-on-surface flex items-center gap-1 font-semibold px-2 py-1 rounded">
+                                        <span class="material-symbols-outlined text-[16px]">print</span>
+                                        Print Pass
+                                    </button>
+                                    <a href="Dashboard.html" class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs">
+                                        <span class="material-symbols-outlined text-[16px]">dashboard</span>
+                                        <span>Enter Passenger Dashboard</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div>
+                
+                <!-- SUBVIEW 2: AIRPORT SECURITY OFFICER REGISTRATION -->
+                <div id="reg-subview-officer" class="hidden flex flex-col gap-4 animate-[fadeIn_0.3s_ease]">
+                    <!-- Officer Branding Card -->
+                    <div class="flex flex-col bg-surface-container-lowest rounded-2xl p-5 sm:p-6 shadow-sm border border-surface-container-high">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] text-[#831843] border border-[#f472b6] flex items-center justify-center shadow-xs">
+                                <span class="material-symbols-outlined text-2xl">shield_person</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-headline-sm text-base font-bold text-on-surface tracking-tight">Airport Security Officer Enrollment</span>
+                                    <span class="font-label-mono-sm text-[10px] px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase">Official Staff</span>
+                                </div>
+                                <span class="font-label-mono-sm text-xs text-outline">Terminal 1 Turnstile &amp; Border Operations Registry</span>
+                            </div>
+                        </div>
+                        <h2 class="font-headline-sm text-xl sm:text-2xl font-bold text-on-surface mb-1">Register New Officer</h2>
+                        <p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">
+                            Create verified station credentials for passenger turnstile scanning, document verification adjudication, flight manifest access, and security compliance.
+                        </p>
+                        
+                        <!-- Authority Notice -->
+                        <div class="mt-3.5 p-3 rounded-xl bg-surface-container-low border border-surface-container-high flex items-start gap-2.5">
+                            <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
+                            <div class="text-xs text-on-surface">
+                                <strong class="font-bold text-primary block">Official Clearance Notice</strong>
+                                <span class="text-[11px] text-on-surface-variant leading-relaxed block mt-0.5">
+                                    Officer registrations are cryptographically bound to airport security logs. Station ID and badge warrant are verified against civil aviation registries.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Officer Registration Form -->
+                    <form onsubmit="handleOfficerRegister(event)" class="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-5 sm:p-6 shadow-sm flex flex-col gap-4">
+                        <!-- Full Name -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-body-sm text-xs font-semibold text-on-surface">Full Legal Officer Name</label>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">badge</span>
+                                <input id="officer-reg-name" type="text" required placeholder="OFFICER SURNAME GIVEN-NAMES" value="Rajesh Sharma"
+                                    class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-xl text-xs font-label-mono-sm text-on-surface focus:outline-none focus:border-primary uppercase" />
+                            </div>
+                        </div>
+
+                        <!-- Official Email -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-body-sm text-xs font-semibold text-on-surface">Official Airport Authority Email</label>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">mail</span>
+                                <input id="officer-reg-email" type="email" required placeholder="officer@airport.gov.in" value="rajesh.sharma@airport.gov.in"
+                                    class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-xl text-xs font-body-sm text-on-surface focus:outline-none focus:border-primary lowercase" />
+                            </div>
+                        </div>
+
+                        <!-- Badge ID & Station -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface">Badge ID / Warrant Number</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">military_tech</span>
+                                    <input id="officer-reg-badge" type="text" required placeholder="SEC-CP-A1-482" value="SEC-CP-A1-482"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-xl text-xs font-label-mono-sm text-on-surface focus:outline-none focus:border-primary uppercase" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface">Station Assignment</label>
+                                <select id="officer-reg-station" class="w-full bg-surface-container-low border border-surface-container-high px-3 py-2.5 rounded-xl text-xs font-body-sm text-on-surface focus:outline-none focus:border-primary">
+                                    <option value="Terminal 1 • Security Checkpoint A">Terminal 1 • Checkpoint A (Turnstiles 1-4)</option>
+                                    <option value="Terminal 1 • Pier A Gate Corridors">Terminal 1 • Pier A (Gates A1-A3)</option>
+                                    <option value="Terminal 1 • Baggage Drop Counter 12">Terminal 1 • Baggage Counter 12</option>
+                                    <option value="Central Security Command">Central Security Command Centre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Password & Confirm -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface">Station Access Password</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock</span>
+                                    <input id="officer-reg-pass" type="password" required placeholder="••••••••" value="Officer#2026Secure!"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-xl text-xs font-body-sm text-on-surface focus:outline-none focus:border-primary" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface">Confirm Password</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock_reset</span>
+                                    <input id="officer-reg-confirm" type="password" required placeholder="••••••••" value="Officer#2026Secure!"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-xl text-xs font-body-sm text-on-surface focus:outline-none focus:border-primary" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Affirmation Checkbox -->
+                        <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-surface-container-high cursor-pointer text-xs">
+                            <input type="checkbox" id="officer-reg-affirm" checked required class="mt-0.5 rounded border-surface-container-high text-primary focus:ring-primary" />
+                            <span class="text-[11px] text-on-surface leading-relaxed">
+                                I affirm that I am an authorized airport security officer with active credentials and warrant jurisdiction for Terminal 1 concourse operations.
+                            </span>
+                        </label>
+
+                        <!-- Error Banner (Hidden by default) -->
+                        <div id="officer-reg-error" class="hidden p-3 rounded-xl bg-error-container text-on-error-container border border-error text-xs flex items-center gap-2">
+                            <span class="material-symbols-outlined text-error text-base">error</span>
+                            <span id="officer-reg-error-text">Registration error</span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="btn-officer-reg-submit"
+                            class="w-full py-3.5 bg-gradient-to-r from-[#f472b6] to-[#fb923c] hover:from-[#ec4899] hover:to-[#f97316] text-white font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform active:scale-98">
+                            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                            <span>Register as Airport Security Officer &amp; Open Station</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </form>
+                </div>
             </div>
 
-
             <!-- ================================================================ -->
-            <!-- TAB 2: ADMIN & STAFF LOGIN (WITH VALIDATION & POPUP) -->
+            <!-- TAB 2: UNIFIED SIGN IN (PASSENGER PORTAL & STAFF COMMAND CENTRE) -->
             <!-- ================================================================ -->
             <div id="auth-panel-login" class="hidden flex flex-col">
                 <div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-6 shadow-sm flex flex-col gap-5">
-                    <div class="flex items-center gap-3 pb-3 border-b border-surface-container-high">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
-                        </div>
-                        <div>
-                            <h2 class="font-headline-sm text-xl font-bold text-on-surface">Airport Authority Sign In</h2>
-                            <p class="text-xs text-on-surface-variant">Authorized officers &amp; administrators only. Validated against SEC Authority.</p>
-                        </div>
-                    </div>
-
-                    <!-- Prominent Error Message Banner (Shown on invalid login) -->
-                    <div id="login-error-banner" class="hidden p-3 rounded-xl bg-error-container text-on-error-container border border-error text-xs flex items-center gap-2.5">
-                        <span class="material-symbols-outlined text-error text-[20px] shrink-0">block</span>
-                        <div class="flex flex-col">
-                            <strong class="font-bold">Access Denied: Invalid Credentials</strong>
-                            <span id="login-error-text" class="text-[11px] opacity-90">Please verify your email &amp; security password.</span>
-                        </div>
-                    </div>
-
-                    <form onsubmit="handleStaffLogin(event)" id="officer-login-form" class="flex flex-col gap-4">
-                        <div class="flex flex-col gap-1.5">
-                            <label class="font-body-sm text-xs font-semibold text-on-surface" for="login-email">Airport Email / Authority ID</label>
-                            <div class="relative flex items-center">
-                                <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">badge</span>
-                                <input id="login-email" type="email" required placeholder="officer@airport-platform.local" value="officer@airport-platform.local"
-                                    class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-body-sm transition-colors" />
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex items-center justify-between">
-                                <label class="font-body-sm text-xs font-semibold text-on-surface" for="login-pass">Security Password</label>
-                                <span class="text-[11px] text-primary hover:underline cursor-pointer">Forgot password?</span>
-                            </div>
-                            <div class="relative flex items-center">
-                                <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock</span>
-                                <input id="login-pass" type="password" required placeholder="••••••••" value="Officer@12345"
-                                    class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-label-mono-lg transition-colors" />
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between text-xs pt-1">
-                            <label class="flex items-center gap-2 cursor-pointer select-none text-on-surface">
-                                <input type="checkbox" checked class="w-4 h-4 rounded text-primary focus:ring-0" />
-                                Remember this terminal workstation
-                            </label>
-                        </div>
-
-                        <button type="submit" id="btn-login-submit" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-2 group">
-                            <span class="material-symbols-outlined text-[18px]">key</span>
-                            <span>Verify Credentials &amp; Unlock Command Centre</span>
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                    
+                    <!-- Role Switcher: Passenger vs Airport Authority -->
+                    <div class="flex items-center p-1 bg-surface-container-low rounded-xl border border-surface-container-high">
+                        <button id="login-subtab-passenger" onclick="switchLoginRole('passenger')" type="button"
+                            class="flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-xs flex items-center justify-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px]">flight_takeoff</span>
+                            <span>Passenger / Traveler Sign In</span>
                         </button>
-                    </form>
+                        <button id="login-subtab-staff" onclick="switchLoginRole('staff')" type="button"
+                            class="flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+                            <span>Airport Authority &amp; Staff</span>
+                        </button>
+                    </div>
 
-                    <!-- Quick Demo Credentials Selector -->
-                    <div class="mt-2 pt-4 border-t border-surface-container-high flex flex-col gap-2">
-                        <span class="font-label-mono-sm text-[11px] text-outline uppercase font-semibold">One-Click Seeded Authority Roles:</span>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="fillLoginCredentials('officer@airport-platform.local', 'Officer@12345', 'Checkpoint Officer')" type="button"
-                                class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors">
-                                <strong class="text-xs text-tertiary block font-bold">Checkpoint Officer (CP-A1)</strong>
-                                <span class="text-[10px] text-outline font-label-mono-sm">officer@airport-platform.local</span>
+                    <!-- SUB-VIEW 1: PASSENGER LOGIN (ENTERS PASSENGER DASHBOARD) -->
+                    <div id="login-subview-passenger" class="flex flex-col gap-4">
+                        <div class="flex items-center gap-3 pb-3 border-b border-surface-container-high">
+                            <div class="w-10 h-10 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-2xl">person_check</span>
+                            </div>
+                            <div>
+                                <h2 class="font-headline-sm text-lg font-bold text-on-surface">Traveler Account Sign In</h2>
+                                <p class="text-xs text-on-surface-variant">Access your personal dashboard, update details &amp; view turnstile QR pass.</p>
+                            </div>
+                        </div>
+
+                        <!-- Error Message Banner -->
+                        <div id="passenger-login-error-banner" class="hidden p-3 rounded-xl bg-error-container text-on-error-container border border-error text-xs flex items-center gap-2.5">
+                            <span class="material-symbols-outlined text-error text-[20px] shrink-0">block</span>
+                            <div class="flex flex-col">
+                                <strong class="font-bold">Invalid Credentials</strong>
+                                <span id="passenger-login-error-text" class="text-[11px] opacity-90">Please check your email and password.</span>
+                            </div>
+                        </div>
+
+                        <form onsubmit="handlePassengerLogin(event)" id="passenger-login-form" class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface" for="passenger-login-email">Registered Email Address</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">mail</span>
+                                    <input id="passenger-login-email" type="email" required placeholder="elena.rostova@skywings.aero" value="elena.rostova@skywings.aero"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-body-sm transition-colors" />
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-1.5">
+                                <div class="flex items-center justify-between">
+                                    <label class="font-body-sm text-xs font-semibold text-on-surface" for="passenger-login-pass">Security Password</label>
+                                    <span onclick="openForgotPasswordModal()" class="text-[11px] text-primary hover:underline cursor-pointer font-medium">Forgot password?</span>
+                                </div>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock</span>
+                                    <input id="passenger-login-pass" type="password" required placeholder="••••••••" value="Aer0#Pass-99xV!"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-10 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-label-mono-lg transition-colors" />
+                                    <button type="button" onclick="togglePassVisibilityById('passenger-login-pass', this)" class="absolute right-3 text-outline hover:text-on-surface">
+                                        <span class="material-symbols-outlined text-[18px]">visibility</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-passenger-login-submit" class="w-full py-3 bg-primary hover:bg-primary-container hover:text-on-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-1 group">
+                                <span class="material-symbols-outlined text-[18px]">key</span>
+                                <span>Verify Credentials &amp; Open Passenger Dashboard</span>
+                                <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                             </button>
+                        </form>
 
-                            <button onclick="fillLoginCredentials('admin@airport-platform.local', 'Admin@12345', 'Platform Admin')" type="button"
-                                class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors">
-                                <strong class="text-xs text-primary block font-bold">Platform Admin (SEC-01)</strong>
-                                <span class="text-[10px] text-outline font-label-mono-sm">admin@airport-platform.local</span>
+                        <!-- Quick Demo Passenger Button -->
+                        <div class="mt-1 pt-3 border-t border-surface-container-high flex flex-col gap-2">
+                            <span class="font-label-mono-sm text-[11px] text-outline uppercase font-semibold">One-Click Traveler Profile:</span>
+                            <button onclick="fillPassengerDemo('elena.rostova@skywings.aero', 'Aer0#Pass-99xV!', 'Elena Rostova')" type="button"
+                                class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors flex items-center justify-between">
+                                <div>
+                                    <strong class="text-xs text-primary block font-bold">Elena Rostova (SkyPriority Elite)</strong>
+                                    <span class="text-[10px] text-outline font-label-mono-sm">elena.rostova@skywings.aero • Flight SK-492 Gate A1</span>
+                                </div>
+                                <span class="material-symbols-outlined text-primary text-sm">login</span>
                             </button>
                         </div>
                     </div>
+
+
+                    <!-- SUB-VIEW 2: AIRPORT AUTHORITY / STAFF LOGIN (ENTERS OFFICER COMMAND CENTRE) -->
+                    <div id="login-subview-staff" class="hidden flex flex-col gap-4">
+                        <div class="flex items-center gap-3 pb-3 border-b border-surface-container-high">
+                            <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+                            </div>
+                            <div>
+                                <h2 class="font-headline-sm text-lg font-bold text-on-surface">Airport Authority Sign In</h2>
+                                <p class="text-xs text-on-surface-variant">Authorized officers &amp; administrators only. Validated against SEC Authority.</p>
+                            </div>
+                        </div>
+
+                        <!-- Prominent Error Message Banner -->
+                        <div id="login-error-banner" class="hidden p-3 rounded-xl bg-error-container text-on-error-container border border-error text-xs flex items-center gap-2.5">
+                            <span class="material-symbols-outlined text-error text-[20px] shrink-0">block</span>
+                            <div class="flex flex-col">
+                                <strong class="font-bold">Access Denied: Invalid Credentials</strong>
+                                <span id="login-error-text" class="text-[11px] opacity-90">Please verify your email &amp; security password.</span>
+                            </div>
+                        </div>
+
+                        <form onsubmit="handleStaffLogin(event)" id="officer-login-form" class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-body-sm text-xs font-semibold text-on-surface" for="login-email">Airport Email / Authority ID</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">badge</span>
+                                    <input id="login-email" type="email" required placeholder="officer@airport-platform.local" value="officer@airport-platform.local"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-body-sm transition-colors" />
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-1.5">
+                                <div class="flex items-center justify-between">
+                                    <label class="font-body-sm text-xs font-semibold text-on-surface" for="login-pass">Security Password</label>
+                                    <span onclick="openForgotPasswordModal()" class="text-[11px] text-primary hover:underline cursor-pointer font-medium">Forgot password?</span>
+                                </div>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock</span>
+                                    <input id="login-pass" type="password" required placeholder="••••••••" value="Officer@12345"
+                                        class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-10 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-label-mono-lg transition-colors" />
+                                    <button type="button" onclick="togglePassVisibilityById('login-pass', this)" class="absolute right-3 text-outline hover:text-on-surface">
+                                        <span class="material-symbols-outlined text-[18px]">visibility</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-login-submit" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-1 group">
+                                <span class="material-symbols-outlined text-[18px]">key</span>
+                                <span>Verify Credentials &amp; Unlock Command Centre</span>
+                                <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                            </button>
+                        </form>
+
+                        <!-- Quick Demo Credentials Selector -->
+                        <div class="mt-1 pt-3 border-t border-surface-container-high flex flex-col gap-2">
+                            <span class="font-label-mono-sm text-[11px] text-outline uppercase font-semibold">One-Click Authority Roles:</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="fillLoginCredentials('officer@airport-platform.local', 'Officer@12345', 'Checkpoint Officer')" type="button"
+                                    class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors">
+                                    <strong class="text-xs text-tertiary block font-bold">Checkpoint Officer (CP-A1)</strong>
+                                    <span class="text-[10px] text-outline font-label-mono-sm">officer@airport-platform.local</span>
+                                </button>
+
+                                <button onclick="fillLoginCredentials('admin@airport-platform.local', 'Admin@12345', 'Platform Admin')" type="button"
+                                    class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high text-left transition-colors">
+                                    <strong class="text-xs text-primary block font-bold">Platform Admin (SEC-01)</strong>
+                                    <span class="text-[10px] text-outline font-label-mono-sm">admin@airport-platform.local</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -748,6 +1140,87 @@
 
     <!-- Global Toast Container -->
     <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+    <!-- PASSWORD RESET MODAL (REQUIREMENT 1: RESET PASSWORD) -->
+    <div id="forgot-password-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl border-2 border-primary shadow-2xl p-6 flex flex-col animate-[fadeIn_0.3s_ease]">
+            <div class="flex items-center justify-between pb-3 border-b border-surface-container-high mb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">lock_reset</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-sm text-base font-bold text-on-surface">Reset Security Password</h3>
+                        <p class="text-[11px] text-on-surface-variant font-label-mono-sm">Cryptographic Credential Recovery</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeForgotPasswordModal()" class="w-8 h-8 rounded-full hover:bg-surface-container-high text-outline hover:text-on-surface flex items-center justify-center transition-colors">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+            </div>
+
+            <!-- Step 1: Email Form -->
+            <div id="reset-step-1" class="flex flex-col gap-4">
+                <p class="text-xs text-on-surface-variant leading-relaxed">
+                    Enter the email address registered with your AeroPass traveler or staff account. A cryptographic recovery token will be generated to securely update your password.
+                </p>
+                <div class="flex flex-col gap-1.5">
+                    <label class="font-body-sm text-xs font-semibold text-on-surface" for="reset-email">Account Email</label>
+                    <div class="relative flex items-center">
+                        <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">mail</span>
+                        <input id="reset-email" type="email" required placeholder="traveler@domain.com" value="elena.rostova@skywings.aero"
+                            class="w-full bg-surface-container-low border border-surface-container-high pl-9 pr-3 py-2.5 rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary font-body-sm transition-colors" />
+                    </div>
+                </div>
+                <button type="button" onclick="handleRequestResetCode()" id="btn-request-reset-code"
+                    class="w-full py-2.5 bg-primary hover:bg-primary-container hover:text-on-primary-container text-on-primary font-headline-sm font-bold text-xs rounded-xl transition-all shadow-sm flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-base">send</span>
+                    <span>Generate Reset Code</span>
+                </button>
+            </div>
+
+            <!-- Step 2: Enter Token & New Password -->
+            <div id="reset-step-2" class="hidden flex flex-col gap-3.5">
+                <div class="p-3 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed text-xs flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-lg shrink-0">key</span>
+                    <div>
+                        <strong class="font-bold block">Reset Code Issued:</strong>
+                        <span class="font-label-mono-sm text-[11px]" id="reset-token-display">Code: SEC-748921</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-body-sm text-xs font-semibold text-on-surface" for="reset-token-input">Verification Code</label>
+                    <input id="reset-token-input" type="text" placeholder="SEC-XXXXXX"
+                        class="w-full bg-surface-container-low border border-surface-container-high px-3 py-2 rounded-lg text-xs font-label-mono-sm text-on-surface focus:outline-none focus:border-primary" />
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-body-sm text-xs font-semibold text-on-surface" for="reset-new-pass">New Security Password</label>
+                    <input id="reset-new-pass" type="password" placeholder="At least 6 characters"
+                        class="w-full bg-surface-container-low border border-surface-container-high px-3 py-2 rounded-lg text-xs font-body-sm text-on-surface focus:outline-none focus:border-primary" />
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-body-sm text-xs font-semibold text-on-surface" for="reset-confirm-pass">Confirm New Password</label>
+                    <input id="reset-confirm-pass" type="password" placeholder="Confirm new password"
+                        class="w-full bg-surface-container-low border border-surface-container-high px-3 py-2 rounded-lg text-xs font-body-sm text-on-surface focus:outline-none focus:border-primary" />
+                </div>
+
+                <div class="pt-2 flex items-center gap-2">
+                    <button type="button" onclick="handleResetPasswordSubmit()" id="btn-submit-reset"
+                        class="flex-1 py-2.5 bg-tertiary hover:bg-tertiary-container text-on-tertiary font-headline-sm font-bold text-xs rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-base">check_circle</span>
+                        <span>Save New Password &amp; Log In</span>
+                    </button>
+                    <button type="button" onclick="closeForgotPasswordModal()"
+                        class="py-2.5 px-3 bg-surface-container-high hover:bg-surface-variant text-outline hover:text-on-surface font-semibold text-xs rounded-xl transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const API_BASE = 'http://localhost:4000/api';
@@ -871,9 +1344,49 @@
             if (event) event.preventDefault();
             const legalName = document.getElementById('legalName').value || 'ELENA ROSTOVA';
             const mobilePhone = document.getElementById('mobilePhone').value || '555-019-2834';
+            const email = (document.getElementById('email').value || 'elena.rostova@skywings.aero').trim();
+            const ktn = document.getElementById('ktn').value || 'USA982344109';
+            const password = document.getElementById('password').value || 'Aer0#Pass-99xV!';
 
             document.getElementById('otp-phone-display').textContent = mobilePhone;
             document.getElementById('pass-card-name').textContent = legalName.toUpperCase();
+
+            // Save in registered accounts database
+            try {
+                let accounts = {};
+                const rawAccounts = localStorage.getItem('aeropass_user_accounts');
+                if (rawAccounts) accounts = JSON.parse(rawAccounts);
+                accounts[email.toLowerCase()] = {
+                    name: legalName,
+                    phone: mobilePhone,
+                    email: email,
+                    password: password,
+                    ktn: ktn,
+                    tier: 'SkyPriority Elite',
+                    passCode: 'SEC-PASS-98214-ER'
+                };
+                localStorage.setItem('aeropass_user_accounts', JSON.stringify(accounts));
+
+                // Initialize user session
+                const userSession = {
+                    id: 'USR-' + Math.floor(100000 + Math.random() * 900000),
+                    name: legalName,
+                    email: email,
+                    phone: mobilePhone,
+                    role: 'passenger',
+                    tier: 'SkyPriority Elite',
+                    ktn: ktn,
+                    flightNumber: 'SK-492',
+                    gate: 'A1',
+                    terminal: 'T1',
+                    seat: '02A',
+                    passCode: 'SEC-PASS-98214-ER',
+                    token: 'aeropass-jwt-passenger-token',
+                    loginTime: Date.now()
+                };
+                sessionStorage.setItem('aeropass_user_session', JSON.stringify(userSession));
+                localStorage.setItem('aeropass_user_session', JSON.stringify(userSession));
+            } catch (err) {}
 
             document.getElementById('enrollment-step-1').classList.add('hidden');
             document.getElementById('enrollment-step-2').classList.remove('hidden');
@@ -952,6 +1465,196 @@
             document.getElementById('login-email').value = email;
             document.getElementById('login-pass').value = pass;
             showToast(`Loaded ${roleName} credentials`, 'info');
+        }
+
+        function fillPassengerDemo(email, pass, name) {
+            document.getElementById('passenger-login-email').value = email;
+            document.getElementById('passenger-login-pass').value = pass;
+            showToast(`Loaded ${name} credentials`, 'info');
+        }
+
+        function switchLoginRole(role) {
+            const passView = document.getElementById('login-subview-passenger');
+            const staffView = document.getElementById('login-subview-staff');
+            const passBtn = document.getElementById('login-subtab-passenger');
+            const staffBtn = document.getElementById('login-subtab-staff');
+
+            if (role === 'passenger') {
+                passView.classList.remove('hidden');
+                staffView.classList.add('hidden');
+                passBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-xs flex items-center justify-center gap-1.5";
+                staffBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+            } else {
+                passView.classList.add('hidden');
+                staffView.classList.remove('hidden');
+                staffBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold transition-all bg-primary text-on-primary shadow-xs flex items-center justify-center gap-1.5";
+                passBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+            }
+        }
+
+        function togglePassVisibilityById(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('.material-symbols-outlined');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        // --- PASSENGER AUTHENTICATION & DASHBOARD REDIRECTION ---
+        async function handlePassengerLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('passenger-login-email');
+            const passInput = document.getElementById('passenger-login-pass');
+            const errorBanner = document.getElementById('passenger-login-error-banner');
+            const errorText = document.getElementById('passenger-login-error-text');
+            const email = (emailInput.value || '').trim();
+            const password = (passInput.value || '').trim();
+
+            errorBanner.classList.add('hidden');
+
+            let authenticatedUser = null;
+
+            // 1. Check live backend API if available
+            if (isBackendOnline) {
+                try {
+                    const res = await fetch(`${API_BASE}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.success) {
+                        authenticatedUser = {
+                            id: data.data.user.id,
+                            email: data.data.user.email,
+                            role: data.data.user.role || 'passenger',
+                            name: data.data.user.fullName,
+                            token: data.data.tokens?.accessToken || 'token-auth'
+                        };
+                    }
+                } catch (err) {}
+            }
+
+            // 2. Validate against stored user accounts (including Elena Rostova & newly registered passengers)
+            if (!authenticatedUser) {
+                let accounts = {
+                    'elena.rostova@skywings.aero': {
+                        name: 'Elena Rostova',
+                        email: 'elena.rostova@skywings.aero',
+                        password: 'Aer0#Pass-99xV!',
+                        phone: '555-019-2834',
+                        ktn: 'USA982344109',
+                        tier: 'SkyPriority Elite',
+                        passCode: 'SEC-PASS-98214-ER'
+                    }
+                };
+
+                try {
+                    const rawAccounts = localStorage.getItem('aeropass_user_accounts');
+                    if (rawAccounts) {
+                        accounts = { ...accounts, ...JSON.parse(rawAccounts) };
+                    }
+                } catch (err) {}
+
+                const emailKey = email.toLowerCase();
+                const matched = accounts[emailKey];
+
+                if (matched && matched.password === password) {
+                    authenticatedUser = {
+                        id: matched.id || 'USR-882149',
+                        name: matched.name || 'Elena Rostova',
+                        email: matched.email,
+                        phone: matched.phone || '555-019-2834',
+                        role: 'passenger',
+                        tier: matched.tier || 'SkyPriority Elite',
+                        ktn: matched.ktn || 'USA982344109',
+                        passCode: matched.passCode || 'SEC-PASS-98214-ER',
+                        flightNumber: 'SK-492',
+                        gate: 'A1',
+                        terminal: 'T1',
+                        seat: '02A',
+                        token: 'aeropass-jwt-passenger-token'
+                    };
+                }
+            }
+
+            // 3. IF INVALID: Show error, shake card, play chime
+            if (!authenticatedUser) {
+                playChime('error');
+                errorBanner.classList.remove('hidden');
+                errorText.textContent = 'Invalid credentials. Please verify your email and password.';
+                emailInput.classList.add('border-error');
+                passInput.classList.add('border-error');
+
+                const formCard = document.getElementById('passenger-login-form');
+                formCard.classList.add('animate-shake');
+                setTimeout(() => formCard.classList.remove('animate-shake'), 450);
+
+                showToast('Sign in failed: Invalid email or password.', 'error');
+                return;
+            }
+
+            // 4. IF VALID: Save session, show clearance animation modal, then open Passenger Dashboard!
+            emailInput.classList.remove('border-error');
+            passInput.classList.remove('border-error');
+
+            const sessionData = {
+                id: authenticatedUser.id || 'USR-882149',
+                name: authenticatedUser.name,
+                email: authenticatedUser.email,
+                phone: authenticatedUser.phone || '555-019-2834',
+                role: 'passenger',
+                tier: authenticatedUser.tier || 'SkyPriority Elite',
+                ktn: authenticatedUser.ktn || 'USA982344109',
+                flightNumber: 'SK-492',
+                gate: 'A1',
+                terminal: 'T1',
+                seat: '02A',
+                passCode: authenticatedUser.passCode || 'SEC-PASS-98214-ER',
+                token: authenticatedUser.token,
+                loginTime: Date.now()
+            };
+
+            sessionStorage.setItem('aeropass_user_session', JSON.stringify(sessionData));
+            localStorage.setItem('aeropass_user_session', JSON.stringify(sessionData));
+            sessionStorage.removeItem('aeropass_officer_session');
+            localStorage.removeItem('aeropass_officer_session');
+
+            // Launch Clearance Pop-up Modal
+            const modal = document.getElementById('officer-verifying-modal');
+            const modalTitle = document.getElementById('verify-modal-title');
+            const modalDesc = document.getElementById('verify-modal-desc');
+            const progressBar = document.getElementById('verify-progress-bar');
+            const badge = document.getElementById('verify-badge');
+
+            modal.classList.remove('hidden');
+            modalTitle.textContent = 'Verifying Passenger Credentials...';
+            modalTitle.className = 'font-headline-sm text-xl font-bold text-on-surface mt-1';
+            modalDesc.textContent = `Authenticating traveler profile for ${authenticatedUser.name}...`;
+            progressBar.style.width = '55%';
+            badge.textContent = `AUTHENTICATING: ${authenticatedUser.email}`;
+
+            playChime('success');
+
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                progressBar.className = 'h-full bg-tertiary rounded-full transition-all duration-500';
+                modalTitle.textContent = 'Identity Confirmed • Clearance Granted';
+                modalTitle.className = 'font-headline-sm text-xl font-bold text-tertiary mt-1';
+                modalDesc.textContent = `Welcome aboard, ${authenticatedUser.name}! Opening your personal security dashboard...`;
+                badge.textContent = 'FLIGHT SK-492 • GATE A1 BOARDING PASS READY';
+                badge.className = 'font-label-mono-sm text-xs text-tertiary font-bold';
+
+                showToast(`Welcome, ${authenticatedUser.name}. Opening your dashboard...`, 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'Dashboard.html';
+                }, 850);
+            }, 950);
         }
 
         // --- RIGOROUS OFFICER CREDENTIAL VALIDATION & COMMAND CENTRE POPUP ---
@@ -1034,6 +1737,8 @@
                 token: authenticatedUser.token,
                 loginTime: Date.now()
             }));
+            sessionStorage.removeItem('aeropass_user_session');
+            localStorage.removeItem('aeropass_user_session');
 
             // Launch Clearance Pop-up Modal
             const modal = document.getElementById('officer-verifying-modal');
@@ -1068,6 +1773,131 @@
             }, 950);
         }
 
+        // --- PASSWORD RESET MODAL & WORKFLOW (REQUIREMENT 1) ---
+        let currentResetCode = '';
+        let currentResetEmail = '';
+
+        function openForgotPasswordModal() {
+            const passEmail = (document.getElementById('passenger-login-email')?.value || '').trim();
+            const staffEmail = (document.getElementById('login-email')?.value || '').trim();
+            const activeRoleEmail = currentLoginRole === 'staff' ? staffEmail : passEmail;
+            if (activeRoleEmail) {
+                document.getElementById('reset-email').value = activeRoleEmail;
+            }
+            document.getElementById('reset-step-1').classList.remove('hidden');
+            document.getElementById('reset-step-2').classList.add('hidden');
+            document.getElementById('forgot-password-modal').classList.remove('hidden');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgot-password-modal').classList.add('hidden');
+        }
+
+        async function handleRequestResetCode() {
+            const email = (document.getElementById('reset-email').value || '').trim();
+            if (!email || !email.includes('@')) {
+                playChime('error');
+                showToast('Please enter a valid registered account email address.', 'error');
+                return;
+            }
+
+            currentResetEmail = email;
+            // Generate friendly 6-digit code
+            const randomCode = Math.floor(100000 + Math.random() * 900000);
+            currentResetCode = `SEC-${randomCode}`;
+
+            // Try backend API
+            if (isBackendOnline) {
+                try {
+                    const res = await fetch(`${API_BASE}/auth/forgot-password`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.data?.resetToken) {
+                        currentResetCode = data.data.resetToken;
+                    }
+                } catch (e) {}
+            }
+
+            // Show step 2 with token displayed
+            document.getElementById('reset-token-display').textContent = `Security Code: ${currentResetCode}`;
+            document.getElementById('reset-token-input').value = currentResetCode;
+            document.getElementById('reset-step-1').classList.add('hidden');
+            document.getElementById('reset-step-2').classList.remove('hidden');
+            playChime('success');
+            showToast(`Reset code generated: ${currentResetCode}. Please enter your new password.`, 'success');
+        }
+
+        async function handleResetPasswordSubmit() {
+            const codeInput = (document.getElementById('reset-token-input').value || '').trim();
+            const newPass = (document.getElementById('reset-new-pass').value || '').trim();
+            const confirmPass = (document.getElementById('reset-confirm-pass').value || '').trim();
+
+            if (!codeInput) {
+                showToast('Please enter the verification code.', 'error');
+                return;
+            }
+            if (codeInput.toUpperCase() !== currentResetCode.toUpperCase()) {
+                playChime('error');
+                showToast('Invalid verification code.', 'error');
+                return;
+            }
+            if (newPass.length < 6) {
+                playChime('error');
+                showToast('Password must be at least 6 characters.', 'error');
+                return;
+            }
+            if (newPass !== confirmPass) {
+                playChime('error');
+                showToast('Passwords do not match.', 'error');
+                return;
+            }
+
+            // Update local storage accounts
+            try {
+                let accounts = {};
+                const raw = localStorage.getItem('aeropass_user_accounts');
+                if (raw) accounts = JSON.parse(raw);
+                const key = currentResetEmail.toLowerCase();
+                if (!accounts[key]) {
+                    accounts[key] = { email: currentResetEmail, name: 'AeroPass Traveler', phone: '+1 555-019-2834' };
+                }
+                accounts[key].password = newPass;
+                localStorage.setItem('aeropass_user_accounts', JSON.stringify(accounts));
+            } catch (e) {}
+
+            // Try backend API
+            if (isBackendOnline) {
+                try {
+                    await fetch(`${API_BASE}/auth/reset-password`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: currentResetEmail,
+                            resetToken: currentResetCode,
+                            newPassword: newPass
+                        })
+                    });
+                } catch (e) {}
+            }
+
+            // Update login form field
+            if (currentLoginRole === 'staff') {
+                document.getElementById('login-email').value = currentResetEmail;
+                document.getElementById('login-pass').value = newPass;
+            } else {
+                document.getElementById('passenger-login-email').value = currentResetEmail;
+                document.getElementById('passenger-login-pass').value = newPass;
+            }
+
+            closeForgotPasswordModal();
+            switchAuthTab('login');
+            playChime('success');
+            showToast('Security password reset successfully! You can now sign in with your new credentials.', 'success');
+        }
+
         async function checkBackendConnectivity() {
             try {
                 const res = await fetch(`${API_BASE}/health`, { method: 'GET', signal: AbortSignal.timeout(1000) });
@@ -1090,6 +1920,126 @@
                 switchAuthTab('login');
             }
         });
+    
+        // ==============================================================
+        // AERO PASS: PASTEL THEME SWITCHER (LIGHT & DARK MODE)
+        // ==============================================================
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            if (newTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            localStorage.setItem('aeropass_theme', newTheme);
+            updateThemeToggleIcons(newTheme);
+            if (typeof showToast === 'function') {
+                showToast(newTheme === 'dark' ? 'Switched to Midnight Pastel Dark Theme' : 'Switched to Ethereal Pastel Light Theme', 'info');
+            }
+        }
+
+        function updateThemeToggleIcons(theme) {
+            const isDark = theme === 'dark';
+            document.querySelectorAll('.theme-toggle-icon').forEach(icon => {
+                icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+            });
+            document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+                btn.setAttribute('title', isDark ? 'Switch to Pastel Light Mode' : 'Switch to Midnight Pastel Dark Mode');
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            updateThemeToggleIcons(currentTheme);
+        });
+
+    
+        function switchRegisterRole(role) {
+            const passView = document.getElementById('reg-subview-passenger');
+            const offView = document.getElementById('reg-subview-officer');
+            const passBtn = document.getElementById('reg-subtab-passenger');
+            const offBtn = document.getElementById('reg-subtab-officer');
+
+            if (role === 'passenger') {
+                if (passView) passView.classList.remove('hidden');
+                if (offView) offView.classList.add('hidden');
+                if (passBtn) passBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center justify-center gap-1.5";
+                if (offBtn) offBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+            } else {
+                if (passView) passView.classList.add('hidden');
+                if (offView) offView.classList.remove('hidden');
+                if (offBtn) offBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center justify-center gap-1.5";
+                if (passBtn) passBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
+            }
+        }
+
+        async function handleOfficerRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('officer-reg-name').value.trim();
+            const email = document.getElementById('officer-reg-email').value.trim();
+            const badge = document.getElementById('officer-reg-badge').value.trim();
+            const station = document.getElementById('officer-reg-station').value;
+            const password = document.getElementById('officer-reg-pass').value;
+            const confirm = document.getElementById('officer-reg-confirm').value;
+            const errorBanner = document.getElementById('officer-reg-error');
+            const errorText = document.getElementById('officer-reg-error-text');
+            const btn = document.getElementById('btn-officer-reg-submit');
+
+            if (password !== confirm) {
+                if (errorBanner) {
+                    errorBanner.classList.remove('hidden');
+                    errorText.textContent = 'Passwords do not match. Please verify.';
+                }
+                return;
+            }
+
+            if (errorBanner) errorBanner.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Enrolling Officer Station Credentials...';
+
+            let token = 'mock_jwt_officer_token_' + Date.now();
+
+            if (isBackendOnline) {
+                try {
+                    const res = await fetch(`${API_BASE}/auth/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            fullName: name,
+                            email,
+                            password,
+                            role: 'checkpoint_officer'
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.success && data.data && data.data.token) {
+                        token = data.data.token;
+                    }
+                } catch (err) {}
+            }
+
+            const officerSession = {
+                name,
+                email,
+                badgeNumber: badge,
+                station,
+                role: 'SEC-01 Active',
+                token,
+                loginTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            sessionStorage.setItem('aeropass_officer_session', JSON.stringify(officerSession));
+            localStorage.setItem('aeropass_officer_session', JSON.stringify(officerSession));
+
+            showToast(`Officer ${name} registered successfully! Opening Station...`, 'success');
+            setTimeout(() => {
+                window.location.href = 'Officer.html';
+            }, 750);
+        }
+
     </script>
 </body>
 

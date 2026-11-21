@@ -6,22 +6,26 @@ const gateway = require('./gateway.service');
 
 async function payForExcessBaggage(req, res, next) {
   try {
-    const { baggageId } = req.body;
+    const { baggageId, method = 'upi', paymentDetails = {} } = req.body;
     const baggage = await Baggage.findOne({ _id: baggageId, passenger: req.user.id });
     if (!baggage) return failure(res, 'Baggage record not found', 404);
     if (baggage.excessFee <= 0) return failure(res, 'No excess fee due for this baggage record', 422);
 
+    const txnId = `txn_${Date.now()}_${Math.floor(1000 + Math.random() * 9000)}`;
     const payment = await Payment.create({
       passenger: req.user.id,
       baggage: baggage._id,
       amount: baggage.excessFee,
-      status: PAYMENT_STATUS.PENDING,
+      currency: 'INR',
+      method: ['upi', 'cash', 'netbanking', 'card'].includes(method) ? method : 'upi',
+      transactionId: txnId,
+      status: 'pending',
     });
 
-    const chargeResult = await gateway.charge({ amount: baggage.excessFee });
+    const chargeResult = await gateway.charge({ amount: baggage.excessFee, currency: 'INR', method });
 
-    payment.status = chargeResult.success ? PAYMENT_STATUS.SUCCESS : PAYMENT_STATUS.FAILED;
-    payment.providerTransactionId = chargeResult.providerTransactionId;
+    payment.status = chargeResult.success ? 'completed' : 'failed';
+    payment.providerTransactionId = chargeResult.providerTransactionId || txnId;
     payment.receiptUrl = chargeResult.success
       ? `/api/payments/${payment._id}/receipt`
       : null;
@@ -31,6 +35,18 @@ async function payForExcessBaggage(req, res, next) {
       baggage.paymentStatus = 'paid';
       await baggage.save();
     }
+
+    try {
+      const { notify } = require('../notifications/notifications.service');
+      const methodLabel = method === 'upi' ? 'UPI' : method === 'cash' ? 'Cash Counter Desk' : method === 'netbanking' ? 'NetBanking' : 'Card';
+      await notify(req.user.id, {
+        title: chargeResult.success ? 'Payment Successful' : 'Payment Failed',
+        message: chargeResult.success
+          ? `Excess baggage payment of ₹${baggage.excessFee} was successful via ${methodLabel}. Transaction ID: ${payment.providerTransactionId}. Receipt generated.`
+          : 'Payment processing was declined. Please verify your payment method.',
+        type: chargeResult.success ? 'success' : 'alert',
+      });
+    } catch (e) {}
 
     return success(res, payment, chargeResult.success ? 'Payment successful' : 'Payment failed');
   } catch (err) {

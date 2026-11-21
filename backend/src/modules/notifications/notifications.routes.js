@@ -4,6 +4,7 @@ const controller = require('./notifications.controller');
 const { authenticate } = require('../../middleware/auth');
 
 router.get('/', authenticate, controller.listMyNotifications);
+router.post('/mark-all-read', authenticate, controller.markAllRead);
 router.post('/:id/read', authenticate, controller.markRead);
 
 module.exports = router;

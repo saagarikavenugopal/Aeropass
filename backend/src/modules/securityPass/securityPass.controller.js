@@ -32,6 +32,15 @@ async function generatePass(req, res, next) {
       expiresAt,
     });
 
+    try {
+      const { notify } = require('../notifications/notifications.service');
+      await notify(req.user.id, {
+        title: 'Security Pass Generated',
+        message: `Your clearance QR pass (${passCode}) is active and ready for optical checkpoint scanning.`,
+        type: 'success',
+      });
+    } catch (e) {}
+
     return success(res, pass, 'Security pass generated', 201);
   } catch (err) {
     next(err);
@@ -72,4 +81,30 @@ async function validatePassByCode(passCode) {
   return { pass, result };
 }
 
-module.exports = { generatePass, getMyPass, revokePass, validatePassByCode };
+async function getCurrentUserPass(req, res, next) {
+  try {
+    let pass = await SecurityPass.findOne({ passenger: req.user.id }).sort({ createdAt: -1 });
+    if (!pass) {
+      const passCode = await generatePassCode();
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      const qrCodeDataUrl = await generateQrDataUrl({
+        passCode,
+        passenger: req.user.id,
+        flight: 'SK-492',
+        gate: 'A1',
+      });
+      pass = await SecurityPass.create({
+        passenger: req.user.id,
+        flight: req.query.flightId || '600000000000000000000001',
+        passCode,
+        qrCodeDataUrl,
+        expiresAt,
+      });
+    }
+    return success(res, pass, 'Current pass fetched');
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { generatePass, getMyPass, getCurrentUserPass, revokePass, validatePassByCode };

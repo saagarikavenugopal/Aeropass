@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
  * Payment gateway abstraction. Swap PAYMENT_PROVIDER=stripe (or another
  * provider) and implement the branch below — controllers never change.
  */
-async function charge({ amount, currency = 'USD' }) {
+async function charge({ amount, currency = 'INR' }) {
   if (config.providers.payment === 'stub') {
     // Simulates a successful charge synchronously for local development/demo.
     return {

@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema(
       default: 'passenger',
     },
     refreshTokenHash: { type: String, default: null },
+    resetPasswordToken: { type: String, default: null },
+    resetPasswordExpires: { type: Date, default: null },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

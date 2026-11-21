@@ -3,6 +3,7 @@ const Document = require('../../models/Document');
 const { DOCUMENT_STATUS } = require('../../utils/constants');
 const ocrService = require('./ocr.service');
 const aiVerificationService = require('./aiVerification.service');
+const { notify } = require('../notifications/notifications.service');
 
 async function uploadDocument(req, res, next) {
   try {
@@ -17,6 +18,14 @@ async function uploadDocument(req, res, next) {
       fileUrl: `/uploads/${req.file.filename}`,
       status: DOCUMENT_STATUS.UPLOADED,
     });
+
+    try {
+      await notify(req.user.id, {
+        title: 'Document Uploaded',
+        message: `Your ${type.toUpperCase()} was received and queued for processing.`,
+        type: 'info',
+      });
+    } catch (e) {}
 
     return success(res, document, 'Document uploaded', 201);
   } catch (err) {
@@ -44,12 +53,17 @@ async function runAiVerification(req, res, next) {
   try {
     const document = await Document.findOne({ _id: req.params.id, passenger: req.user.id });
     if (!document) return failure(res, 'Document not found', 404);
-    if (!document.ocrData) return failure(res, 'Run OCR before AI verification', 422);
+
+    // If OCR not run yet, auto-extract
+    if (!document.ocrData) {
+      document.ocrData = await ocrService.extractText(document.fileUrl, document.type);
+    }
 
     const result = await aiVerificationService.verifyDocument({
       ocrData: document.ocrData,
       passenger: req.user.id,
       documentType: document.type,
+      fileUrl: document.fileUrl,
     });
 
     document.aiVerification = result;
@@ -60,6 +74,19 @@ async function runAiVerification(req, res, next) {
         ? DOCUMENT_STATUS.AI_REJECTED
         : DOCUMENT_STATUS.AI_UNCERTAIN;
     await document.save();
+
+    try {
+      await notify(req.user.id, {
+        title: `AI Verification: ${document.type.toUpperCase()}`,
+        message:
+          result.decision === 'approved'
+            ? `AI verification approved your ${document.type.toUpperCase()}! Security pass can now be issued.`
+            : result.decision === 'rejected'
+            ? `AI verification rejected your ${document.type.toUpperCase()}: ${result.reasons.join(', ')}`
+            : `AI verification marked your ${document.type.toUpperCase()} uncertain. Routed to human airport officer review.`,
+        type: result.decision === 'approved' ? 'success' : result.decision === 'rejected' ? 'alert' : 'warning',
+      });
+    } catch (e) {}
 
     return success(res, document, 'AI verification complete');
   } catch (err) {

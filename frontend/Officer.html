@@ -15,79 +15,282 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
         rel="stylesheet" />
-    <style>
-        @layer base {
-            html,
-            body {
-                width: 100vw;
-                min-height: 100vh;
-                margin: 0;
-                padding: 0;
+    
+        <style>
+        :root {
+            /* ================================================================= */
+            /* AERO PASS: PASTEL YELLOW & PINK COMBO (LIGHT MODE)                */
+            /* Creamy Lemon Chiffon (#fef08a) + Strawberry Milk Pink (#fbcfe8)  */
+            /* ================================================================= */
+            --color-surface: #fffdfa;                 /* Soft milky cream mist */
+            --color-surface-container-lowest: #ffffff; /* Crisp porcelain white card */
+            --color-surface-container-low: #fff8f8;    /* Soft pastel strawberry-cream */
+            --color-surface-container-high: #fce7f3;   /* Delicate pastel pink border */
+            --color-surface-variant: #fef2f2;
+            --color-surface-tint: #ec4899;
+
+            --color-on-surface: #2d132c;               /* Deep plum slate contrast */
+            --color-on-surface-variant: #6b4360;       /* Muted berry slate */
+            --color-outline: #a78b9b;                  /* Gentle outline */
+            --color-outline-variant: #fbcfe8;
+
+            /* Pastel Yellow & Pink Accents */
+            --color-primary: #ec4899;                  /* Pastel Vibrant Rose Pink */
+            --color-primary-container: #fce7f3;        /* Soft pastel pink pill */
+            --color-on-primary: #ffffff;
+            --color-on-primary-container: #9d174d;
+            --color-primary-fixed: #fdf2f8;
+            --color-on-primary-fixed-variant: #831843;
+
+            --color-secondary: #f59e0b;                /* Warm Pastel Honey Yellow */
+            --color-secondary-container: #fef9c3;      /* Soft butter yellow pill */
+            --color-on-secondary: #ffffff;
+            --color-on-secondary-container: #713f12;
+            --color-secondary-fixed: #fef08a;
+            --color-secondary-fixed-dim: #fde047;
+
+            --color-tertiary: #10b981;                 /* Soft Pastel Mint */
+            --color-tertiary-container: #d1fae5;
+            --color-on-tertiary: #ffffff;
+            --color-tertiary-fixed: #d1fae5;
+            --color-on-tertiary-fixed: #065f46;
+            --color-tertiary-fixed-dim: #a7f3d0;
+
+            --color-error: #f43f5e;                    /* Pastel Coral */
+            --color-error-container: #ffe4e6;
+            --color-on-error: #ffffff;
+            --color-on-error-container: #9f1239;
+
+            --ticket-notch-bg: #fff8f8;
+            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #fdf2f8 0%, #fefce8 50%, #fff7ed 100%), #fffaf8;
+        }
+
+        html.dark, [data-theme="dark"] {
+            /* ================================================================= */
+            /* AERO PASS: MIDNIGHT SUNSET PASTEL (DARK MODE)                     */
+            /* Deep twilight plum & midnight velvet with glowing pink & gold     */
+            /* ================================================================= */
+            --color-surface: #120e18;                  /* Deep twilight velvet */
+            --color-surface-container-lowest: #1b1424; /* Elevated dark plum card */
+            --color-surface-container-low: #251b32;    /* Elevated container */
+            --color-surface-container-high: #3d284e;   /* Soft luminous plum border */
+            --color-surface-variant: #281d36;
+            --color-surface-tint: #f472b6;
+
+            --color-on-surface: #fdf2f8;               /* Moonlight rose-white text */
+            --color-on-surface-variant: #d4b8ca;       /* Soft moonlit plum text */
+            --color-outline: #8c6882;
+            --color-outline-variant: #4e3247;
+
+            /* Luminous Pastel Pink & Gold Dark Accents */
+            --color-primary: #f472b6;                  /* Luminous pastel pink */
+            --color-primary-container: #500724;        /* Deep midnight plum container */
+            --color-on-primary: #120e18;
+            --color-on-primary-container: #fbcfe8;
+            --color-primary-fixed: #2e1025;
+            --color-on-primary-fixed-variant: #f472b6;
+
+            --color-secondary: #fde047;                /* Luminous pastel gold */
+            --color-secondary-container: #451a03;      /* Deep honey amber container */
+            --color-on-secondary: #120e18;
+            --color-on-secondary-container: #fef08a;
+            --color-secondary-fixed: #2b1704;
+            --color-secondary-fixed-dim: #eab308;
+
+            --color-tertiary: #86efac;                 /* Luminous pastel mint */
+            --color-tertiary-container: #064e3b;
+            --color-on-tertiary: #120e18;
+            --color-tertiary-fixed: #064e3b;
+            --color-on-tertiary-fixed: #a7f3d0;
+            --color-tertiary-fixed-dim: #059669;
+
+            --color-error: #fda4af;
+            --color-error-container: #4c0519;
+            --color-on-error: #120e18;
+            --color-on-error-container: #fecdd3;
+
+            --ticket-notch-bg: #251b32;
+            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #291227 0%, #1d172e 50%, #261c10 100%), #120e18;
+        }
+
+        /* Ambient Pastel Page Background */
+        body {
+            background: var(--page-ambient-gradient) !important;
+            background-attachment: fixed !important;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hero Banner Pastel Yellow & Pink Combo */
+        .pastel-hero-banner {
+            background: linear-gradient(135deg, #fef08a 0%, #fed7aa 35%, #fbcfe8 75%, #f472b6 100%) !important;
+            color: #3b122d !important;
+            border: 2px solid #f9a8d4 !important;
+            box-shadow: 0 12px 35px -5px rgba(244, 114, 182, 0.28) !important;
+        }
+        html.dark .pastel-hero-banner {
+            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
+            color: #fdf2f8 !important;
+            border: 2px solid #f472b6 !important;
+            box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Boarding Pass Pastel Header */
+        .pastel-pass-header {
+            background: linear-gradient(135deg, #fef9c3 0%, #fed7aa 50%, #fce7f3 100%) !important;
+            color: #3b122d !important;
+            border-bottom: 2px solid #f9a8d4 !important;
+        }
+        html.dark .pastel-pass-header {
+            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
+            color: #fdf2f8 !important;
+            border-bottom: 2px solid #f472b6 !important;
+        }
+
+        /* Flight Spotlight Card Pastel Header */
+        .pastel-flight-header {
+            background: linear-gradient(135deg, #fef08a 0%, #fed7aa 40%, #fbcfe8 100%) !important;
+            color: #3b122d !important;
+            border: 2px solid #f9a8d4 !important;
+            box-shadow: 0 10px 30px -5px rgba(244, 114, 182, 0.25) !important;
+        }
+        html.dark .pastel-flight-header {
+            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
+            color: #fdf2f8 !important;
+            border: 2px solid #f472b6 !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Pastel Brand Logo Badge (Yellow-Pink Gradient) */
+        .pastel-brand-badge {
+            background: linear-gradient(135deg, #fde047 0%, #f472b6 100%) !important;
+            color: #3b122d !important;
+            border: 1.5px solid #f9a8d4 !important;
+        }
+        html.dark .pastel-brand-badge {
+            background: linear-gradient(135deg, #ca8a04 0%, #db2777 100%) !important;
+            color: #fdf2f8 !important;
+            border: 1.5px solid #f472b6 !important;
+        }
+
+        /* Primary Button (Radiant Pastel Pink to Orange-Yellow) */
+        .btn-pastel-primary {
+            background: linear-gradient(135deg, #f472b6 0%, #fb923c 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.35) !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-pastel-primary:hover {
+            background: linear-gradient(135deg, #ec4899 0%, #f97316 100%) !important;
+            box-shadow: 0 6px 18px rgba(244, 114, 182, 0.45) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Glass card styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        html.dark .glass-card {
+            background: rgba(27, 20, 36, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        /* Ticket Notches */
+        .ticket-notch-left, .ticket-notch-right {
+            background: var(--ticket-notch-bg) !important;
+            transition: background 0.25s ease;
+        }
+
+        /* Drawer Overrides */
+        html.dark #sandwich-drawer,
+        html.dark #notification-drawer {
+            background-color: var(--color-surface-container-lowest) !important;
+            border-color: var(--color-surface-container-high) !important;
+        }
+
+        /* Form Inputs in Dark Mode */
+        html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+        html.dark select,
+        html.dark textarea {
+            background-color: var(--color-surface-container-low) !important;
+            color: var(--color-on-surface) !important;
+            border-color: var(--color-surface-container-high) !important;
+        }
+
+        /* Table headers & rows */
+        html.dark th {
+            background-color: var(--color-surface-container-low) !important;
+            color: var(--color-on-surface-variant) !important;
+        }
+        html.dark tr:hover {
+            background-color: var(--color-surface-container-low) !important;
+        }
+
+        /* SVG Map Elements in Dark Mode */
+        html.dark .map-terminal-envelope {
+            fill: #1b1424 !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-apron-bg {
+            fill: #120e18 !important;
+        }
+        html.dark .map-boulevard-bg {
+            fill: #22182d !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-walkway-bg {
+            fill: #271a33 !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-pier-bg {
+            fill: #1f1528 !important;
+            stroke: #3d284e !important;
+        }
+        html.dark .map-grid-line {
+            stroke: #2e1d3d !important;
+        }
+        html.dark .map-gate-card {
+            fill: #271731 !important;
+            stroke: #f472b6 !important;
+        }
+
+        @keyframes navDash {
+            to {
+                stroke-dashoffset: -34;
             }
-
-            body {
-                overscroll-behavior: none;
-                font-family: 'Inter', sans-serif;
-            }
-
-            .pb-safe {
-                padding-bottom: env(safe-area-inset-bottom, 0px);
-            }
-
-            .pt-safe {
-                padding-top: env(safe-area-inset-top, 0px);
-            }
         }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(229, 238, 255, 0.5);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #93ccff;
-            border-radius: 9999px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #006194;
-        }
-
         @keyframes scanLaser {
-            0% {
-                top: 5%;
-                opacity: 0.8;
-            }
-            50% {
-                top: 90%;
-                opacity: 1;
-            }
-            100% {
-                top: 5%;
-                opacity: 0.8;
-            }
+            0% { top: 4%; opacity: 0.8; }
+            50% { top: 92%; opacity: 1; }
+            100% { top: 4%; opacity: 0.8; }
         }
-
         .animate-scan-laser {
             animation: scanLaser 2s ease-in-out infinite;
         }
-
         @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 0 0 15px rgba(0, 105, 72, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(0, 105, 72, 0.65);
-            }
+            0%, 100% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.3); }
+            50% { box-shadow: 0 0 32px rgba(244, 114, 182, 0.6); }
         }
-
         .pulse-glow-emerald {
-            animation: pulseGlow 2s infinite;
+            animation: pulseGlow 2.5s infinite;
         }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: shake 0.35s ease-in-out;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(252, 231, 243, 0.5); }
+        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
+        html.dark ::-webkit-scrollbar-track { background: rgba(37, 27, 50, 0.7); }
+        html.dark ::-webkit-scrollbar-thumb { background: #3d284e; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script id="tailwind-config">
@@ -96,73 +299,60 @@
             theme: {
                 extend: {
                     colors: {
-                        "surface-container-low": "#eff4ff",
-                        "on-tertiary-fixed": "#002114",
-                        "surface-variant": "#d3e4fe",
-                        "primary-fixed": "#cce5ff",
-                        "secondary-fixed": "#dae2fd",
-                        "surface-tint": "#006398",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-error": "#ffffff",
-                        "on-surface-variant": "#3f4850",
-                        "inverse-primary": "#93ccff",
-                        "on-primary-container": "#fdfcff",
-                        "primary-container": "#007bb9",
-                        "secondary-container": "#dae2fd",
-                        "on-primary": "#ffffff",
-                        "inverse-on-surface": "#eaf1ff",
-                        "tertiary-fixed": "#85f8c4",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "inverse-surface": "#213145",
-                        "on-secondary-container": "#5c647a",
-                        "tertiary": "#006948",
-                        "primary": "#006194",
-                        "surface-dim": "#cbdbf5",
-                        "tertiary-fixed-dim": "#68dba9",
-                        "surface-container-high": "#dce9ff",
-                        "on-error-container": "#93000a",
-                        "on-primary-fixed-variant": "#004b73",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-container": "#f5fff7",
-                        "secondary": "#565e74",
-                        "on-tertiary-fixed-variant": "#005137",
-                        "surface-container": "#e5eeff",
-                        "background": "#f8f9ff",
-                        "on-secondary-fixed": "#131b2e",
-                        "primary-fixed-dim": "#93ccff",
-                        "tertiary-container": "#00855d",
-                        "outline": "#707881",
-                        "error": "#ba1a1a",
-                        "on-surface": "#0b1c30",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "surface-bright": "#f8f9ff",
-                        "on-primary-fixed": "#001d31",
-                        "error-container": "#ffdad6",
-                        "outline-variant": "#bfc7d2",
-                        "surface-container-highest": "#d3e4fe",
-                        "surface": "#f8f9ff",
-                        "on-background": "#0b1c30"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "2xl": "1rem",
-                        "full": "9999px"
+                        "surface": "var(--color-surface)",
+                        "surface-container-lowest": "var(--color-surface-container-lowest)",
+                        "surface-container-low": "var(--color-surface-container-low)",
+                        "surface-container-high": "var(--color-surface-container-high)",
+                        "surface-variant": "var(--color-surface-variant)",
+                        "surface-tint": "var(--color-surface-tint)",
+                        "on-surface": "var(--color-on-surface)",
+                        "on-surface-variant": "var(--color-on-surface-variant)",
+                        "outline": "var(--color-outline)",
+                        "outline-variant": "var(--color-outline-variant)",
+                        "primary": "var(--color-primary)",
+                        "on-primary": "var(--color-on-primary)",
+                        "primary-container": "var(--color-primary-container)",
+                        "on-primary-container": "var(--color-on-primary-container)",
+                        "primary-fixed": "var(--color-primary-fixed)",
+                        "on-primary-fixed-variant": "var(--color-on-primary-fixed-variant)",
+                        "secondary": "var(--color-secondary)",
+                        "on-secondary": "var(--color-on-secondary)",
+                        "secondary-container": "var(--color-secondary-container)",
+                        "on-secondary-container": "var(--color-on-secondary-container)",
+                        "secondary-fixed": "var(--color-secondary-fixed)",
+                        "secondary-fixed-dim": "var(--color-secondary-fixed-dim)",
+                        "tertiary": "var(--color-tertiary)",
+                        "on-tertiary": "var(--color-on-tertiary)",
+                        "tertiary-container": "var(--color-tertiary-container)",
+                        "tertiary-fixed": "var(--color-tertiary-fixed)",
+                        "on-tertiary-fixed": "var(--color-on-tertiary-fixed)",
+                        "tertiary-fixed-dim": "var(--color-tertiary-fixed-dim)",
+                        "error": "var(--color-error)",
+                        "on-error": "var(--color-on-error)",
+                        "error-container": "var(--color-error-container)",
+                        "on-error-container": "var(--color-on-error-container)"
                     },
                     fontFamily: {
-                        "title-md": ["Inter", "sans-serif"],
-                        "label-mono-sm": ["JetBrains Mono", "monospace"],
-                        "label-mono-lg": ["JetBrains Mono", "monospace"],
                         "headline-sm": ["Space Grotesk", "sans-serif"],
-                        "headline-lg": ["Space Grotesk", "sans-serif"],
                         "body-sm": ["Inter", "sans-serif"],
-                        "body-lg": ["Inter", "sans-serif"]
+                        "label-mono-sm": ["JetBrains Mono", "monospace"]
                     }
                 }
             }
-        }
+        };
+    </script>
+    <!-- AeroPass Pastel Theme Initialization (Prevents FOUC) -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('aeropass_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
     </script>
 </head>
 
@@ -175,7 +365,7 @@
             <!-- Left: Officer Identity & Station Badge -->
             <div class="flex items-center justify-between w-full md:w-auto gap-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center p-1 text-primary shadow-sm shrink-0">
+                    <div class="w-10 h-10 rounded-lg pastel-brand-badge flex items-center justify-center p-1 shadow-sm shrink-0">
                         <span class="material-symbols-outlined text-2xl">shield</span>
                     </div>
                     <div>
@@ -190,7 +380,10 @@
                     </div>
                 </div>
 
-                <div class="md:hidden">
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="toggleTheme()" class="theme-toggle-btn p-1.5 rounded-lg bg-surface-container-low text-on-surface" title="Switch Theme">
+                        <span class="theme-toggle-icon material-symbols-outlined text-[18px]">dark_mode</span>
+                    </button>
                     <button onclick="officerSignOut()" class="text-xs font-semibold text-error flex items-center gap-1">
                         <span class="material-symbols-outlined text-sm">logout</span>
                         Sign Out
@@ -216,7 +409,12 @@
             </nav>
 
             <!-- Right: Authenticated Officer Controls & Sign Out -->
-            <div class="hidden lg:flex items-center gap-3">
+            <div class="hidden md:flex flex-wrap items-center gap-2">
+                <!-- Pastel Theme Mode Switcher -->
+                <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface transition-all border border-surface-container-high shadow-2xs flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/40 active:scale-95" title="Switch Theme">
+                    <span class="theme-toggle-icon material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
+
                 <div id="backend-status-pill" onclick="checkBackendConnectivity()" title="Click to test live Express API"
                     class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-mono-sm text-[11px] transition-colors border border-outline-variant/40">
                     <span id="status-indicator-dot" class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
@@ -296,12 +494,12 @@
                     </span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-xs flex flex-col">
-                    <div class="flex items-center justify-between text-outline mb-1">
-                        <span class="font-label-mono-sm text-xs uppercase">Ancillary Baggage Revenue</span>
+                <div class="p-4 rounded-2xl bg-[#faf5ff] dark:bg-[#231536] border border-[#ddd6fe] dark:border-[#462866] shadow-xs flex flex-col">
+                    <div class="flex items-center justify-between text-[#5b21b6] dark:text-[#d8b4fe] mb-1">
+                        <span class="font-label-mono-sm text-xs uppercase font-bold">Ancillary Baggage Revenue</span>
                         <span class="material-symbols-outlined text-primary text-lg">payments</span>
                     </div>
-                    <div class="font-headline-sm text-2xl font-bold text-on-surface">$42,650</div>
+                    <div class="font-headline-sm text-2xl font-bold text-on-surface">₹4,26,500</div>
                     <span class="text-[11px] text-outline mt-1">Baggage &amp; Priority Clearance</span>
                 </div>
             </div>
@@ -427,44 +625,347 @@
                 </div>
             </div>
 
-            <!-- SUB-TAB 4: TERMINAL 1 MAP & GATES -->
-            <div id="cmd-pane-map" class="cmd-pane hidden flex flex-col gap-4">
-                <div class="bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high shadow-xs flex flex-col gap-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="font-headline-sm text-base font-bold text-on-surface">Terminal 1 Concourse Map</h3>
-                            <p class="text-xs text-on-surface-variant">Checkpoints, gate corridors, security turnstiles, and transit times.</p>
+            <!-- SUB-TAB 4: TERMINAL 1 MAP & GATES (ARCHITECTURAL NON-CLUSTERED LAYOUT) -->
+            <div id="cmd-pane-map" class="cmd-pane hidden flex flex-col gap-5 animate-[fadeIn_0.3s_ease]">
+                <!-- Header Banner -->
+                <div class="bg-surface-container-lowest p-5 sm:p-6 rounded-3xl border border-surface-container-high shadow-xs flex flex-col gap-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-surface-container-high">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] text-[#831843] border border-[#f472b6] flex items-center justify-center shadow-xs shrink-0">
+                                <span class="material-symbols-outlined text-2xl">map</span>
+                            </div>
+                            <div>
+                                <h3 class="font-headline-sm text-lg sm:text-xl font-bold text-on-surface">Terminal 1 Concourse Map &amp; Security Overview</h3>
+                                <p class="text-xs text-on-surface-variant">Architectural floor plan • Gates A1–A3, Security Checkpoint A Turnstiles, Amenities &amp; Real-time Patrol Routes</p>
+                            </div>
                         </div>
-                        <span class="flex items-center gap-1 text-[11px] font-label-mono-sm text-tertiary">
-                            <span class="w-2 h-2 rounded-full bg-tertiary"></span> Concourse Clear
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-label-mono-sm font-bold flex items-center gap-1.5 shadow-2xs">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Concourse Operational • Turnstiles 1-4 Active
+                            </span>
+                        </div>
                     </div>
 
-                    <div class="w-full h-80 bg-surface-container-low rounded-xl border border-surface-container-high relative overflow-hidden flex items-center justify-center p-4">
-                        <svg viewBox="0 0 800 400" class="w-full h-full">
-                            <pattern id="officer-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#dce9ff" stroke-width="0.8" />
+                    <!-- Destination Navigation Selector Pills -->
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold font-headline-sm text-on-surface uppercase tracking-wider">Quick Concourse Inspection Targets:</span>
+                            <span class="text-[10px] font-label-mono-sm text-outline">Click any gate or sector to trace patrol route</span>
+                        </div>
+                        <div class="flex items-center gap-2 overflow-x-auto pb-1" id="officer-nav-target-pills">
+                            <button type="button" onclick="officerNavigateRoute('A1')" id="officer-nav-pill-A1"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-bold font-headline-sm transition-all whitespace-nowrap bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">flight_takeoff</span>
+                                <span>Gate A1 (SK-492 • London)</span>
+                            </button>
+                            <button type="button" onclick="officerNavigateRoute('A2')" id="officer-nav-pill-A2"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">meeting_room</span>
+                                <span>Gate A2 (Tokyo DL-108)</span>
+                            </button>
+                            <button type="button" onclick="officerNavigateRoute('A3')" id="officer-nav-pill-A3"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">meeting_room</span>
+                                <span>Gate A3 (Frankfurt AA-772)</span>
+                            </button>
+                            <button type="button" onclick="officerNavigateRoute('cafe')" id="officer-nav-pill-cafe"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">local_cafe</span>
+                                <span>Skyline Cafe &amp; Roastery</span>
+                            </button>
+                            <button type="button" onclick="officerNavigateRoute('dutyfree')" id="officer-nav-pill-dutyfree"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">shopping_bag</span>
+                                <span>Duty Free Plaza</span>
+                            </button>
+                            <button type="button" onclick="officerNavigateRoute('lounge')" id="officer-nav-pill-lounge"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">diamond</span>
+                                <span>VIP Club Lounge</span>
+                            </button>
+                            <button type="button" onclick="officerNavigateRoute('services')" id="officer-nav-pill-services"
+                                class="officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px]">atm</span>
+                                <span>ATMs &amp; Restrooms</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Officer Route & Security Stats Info Bar -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div class="bg-surface-container-low p-3.5 rounded-2xl border border-surface-container-high shadow-2xs">
+                            <span class="text-[10px] font-label-mono-sm text-outline block uppercase tracking-wider font-semibold">STATION ORIGIN</span>
+                            <strong class="text-sm font-bold text-primary block mt-0.5">Security Checkpoint A</strong>
+                            <span class="text-[10px] text-tertiary font-label-mono-sm block">Turnstiles 1–4 Active</span>
+                        </div>
+                        <div class="bg-surface-container-low p-3.5 rounded-2xl border border-surface-container-high shadow-2xs">
+                            <span class="text-[10px] font-label-mono-sm text-outline block uppercase tracking-wider font-semibold">SELECTED SECTOR</span>
+                            <strong class="text-sm font-bold text-on-surface block mt-0.5 truncate" id="officer-nav-destination-stat">Gate A1 (Flight SK-492 to London)</strong>
+                            <span class="text-[10px] text-outline font-label-mono-sm block truncate" id="officer-nav-security-stat">Zone 1 Boarding • Turnstiles Active</span>
+                        </div>
+                        <div class="bg-surface-container-low p-3.5 rounded-2xl border border-surface-container-high shadow-2xs">
+                            <span class="text-[10px] font-label-mono-sm text-outline block uppercase tracking-wider font-semibold">TRANSIT DISTANCE</span>
+                            <strong class="text-sm font-bold text-on-surface block mt-0.5" id="officer-nav-distance-stat">320 meters</strong>
+                            <span class="text-[10px] text-outline font-label-mono-sm block">Direct Central Corridor</span>
+                        </div>
+                        <div class="bg-surface-container-low p-3.5 rounded-2xl border border-surface-container-high shadow-2xs">
+                            <span class="text-[10px] font-label-mono-sm text-outline block uppercase tracking-wider font-semibold">ESTIMATED TRANSIT TIME</span>
+                            <strong class="text-sm font-bold text-tertiary block mt-0.5" id="officer-nav-time-stat">4 minutes</strong>
+                            <span class="text-[10px] text-outline font-label-mono-sm block">Travelator Accelerated</span>
+                        </div>
+                    </div>
+
+                    <!-- Spacious High-Resolution Architectural Canvas (1100x560) -->
+                    <div class="w-full bg-surface-container-low rounded-3xl border border-surface-container-high p-4 sm:p-5 overflow-hidden relative shadow-inner">
+                        <svg viewBox="0 0 1100 560" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Grid Pattern for Airport Floor Plan -->
+                            <pattern id="arch-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" stroke-width="0.8" opacity="0.6"/>
                             </pattern>
-                            <rect width="800" height="400" fill="url(#officer-grid)" />
+                            <!-- Linear Gradients for Zones -->
+                            <linearGradient id="grad-active-gate" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fef08a" />
+                                <stop offset="100%" stop-color="#fbcfe8" />
+                            </linearGradient>
+                            <linearGradient id="grad-security" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f0f7ff" />
+                                <stop offset="100%" stop-color="#e0effe" />
+                            </linearGradient>
+                            <linearGradient id="grad-boulevard" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#f8fafc" />
+                                <stop offset="50%" stop-color="#ffffff" />
+                                <stop offset="100%" stop-color="#f8fafc" />
+                            </linearGradient>
+                            <!-- Filter for Soft Drop Shadow -->
+                            <filter id="shadow-soft" x="-10%" y="-10%" width="125%" height="125%">
+                                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0b1c30" flood-opacity="0.08"/>
+                            </filter>
+                        </defs>
 
-                            <rect x="50" y="80" width="700" height="240" rx="20" fill="#ffffff" stroke="#93ccff" stroke-width="2" />
-                            <path d="M 120 200 L 260 200 L 400 140 L 620 140" fill="none" stroke="#006194" stroke-width="3" stroke-dasharray="6,6" class="animate-pulse" />
-                            <path d="M 260 200 L 400 260 L 620 260" fill="none" stroke="#006194" stroke-width="3" stroke-dasharray="6,6" />
+                        <!-- Base Apron / Tarmac Background -->
+                        <rect x="0" y="0" width="1100" height="560" class="map-apron-bg" fill="#f1f5f9" />
 
-                            <rect x="200" y="160" width="120" height="80" rx="10" fill="#eff4ff" stroke="#006194" stroke-width="2" />
-                            <text x="260" y="195" font-family="Space Grotesk" font-size="12" font-weight="bold" fill="#006194" text-anchor="middle">SECURITY CHECKPOINT A</text>
-                            <text x="260" y="215" font-family="JetBrains Mono" font-size="10" fill="#707881" text-anchor="middle">Turnstiles 1-4 Active</text>
+                        <!-- Terminal 1 Building Envelope (Architectural Outline) -->
+                        <rect x="25" y="20" width="1050" height="520" rx="24" class="map-terminal-envelope" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+                        <rect x="25" y="20" width="1050" height="520" rx="24" fill="url(#arch-grid)" />
 
-                            <g class="cursor-pointer hover:opacity-80" onclick="showToast('Gate A1: Flight SK-492 • Turnstile clearance required')">
-                                <circle cx="620" cy="140" r="28" fill="#006948" />
-                                <text x="620" y="145" font-family="Space Grotesk" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GATE A1</text>
+                        <!-- Compass Rose (North Indicator) -->
+                        <g transform="translate(65, 55)">
+                            <circle cx="0" cy="0" r="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+                            <polygon points="0,-14 4,-2 0,0 -4,-2" fill="#006194" />
+                            <polygon points="0,14 4,2 0,0 -4,2" fill="#94a3b8" />
+                            <text x="0" y="-18" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="bold" fill="#006194" text-anchor="middle">N</text>
+                            <text x="0" y="4" font-family="'JetBrains Mono', monospace" font-size="8" fill="#64748b" text-anchor="middle">T1</text>
+                        </g>
+
+                        <!-- Broad Central Concourse Boulevard (Completely Open, Zero Clutter) -->
+                        <rect x="230" y="165" width="490" height="230" rx="18" class="map-boulevard-bg" fill="url(#grad-boulevard)" stroke="#e2e8f0" stroke-width="1.5" />
+                        
+                        <!-- Travelator / Moving Walkway Graphic in Center -->
+                        <g opacity="0.85">
+                            <rect x="270" y="265" width="410" height="30" rx="8" class="map-walkway-bg" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" />
+                            <!-- Center Moving Tread Line -->
+                            <line x1="280" y1="280" x2="670" y2="280" stroke="#94a3b8" stroke-width="2" stroke-dasharray="12 8" />
+                            <text x="475" y="260" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#64748b" letter-spacing="1">CENTRAL CONCOURSE BOULEVARD • MOVING TRAVELATOR</text>
+                        </g>
+
+                        <!-- ========================================== -->
+                        <!-- ZONE 1: SECURITY CHECKPOINT A (LEFT) -->
+                        <!-- ========================================== -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('A1')">
+                            <rect x="45" y="165" width="170" height="230" rx="16" fill="url(#grad-security)" stroke="#006194" stroke-width="2" filter="url(#shadow-soft)" />
+                            <rect x="45" y="165" width="170" height="34" rx="16" fill="#006194" />
+                            <text x="130" y="188" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="12" fill="#ffffff" letter-spacing="1">SECURITY CHECKPOINT A</text>
+
+                            <!-- Optical Biometrics E-Gates Status -->
+                            <text x="130" y="222" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="13" fill="#006194">Biometric E-Gates</text>
+                            <text x="130" y="238" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#51606f">TSA PreCheck / Level 4</text>
+
+                            <!-- 4 Turnstile Lane Indicators with Green LEDs -->
+                            <g transform="translate(65, 255)">
+                                <rect x="0" y="0" width="26" height="50" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2" />
+                                <circle cx="13" cy="12" r="3.5" fill="#16a34a" />
+                                <text x="13" y="38" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#1e40af">G1</text>
+
+                                <rect x="34" y="0" width="26" height="50" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2" />
+                                <circle cx="47" cy="12" r="3.5" fill="#16a34a" />
+                                <text x="47" y="38" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#1e40af">G2</text>
+
+                                <rect x="68" y="0" width="26" height="50" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2" />
+                                <circle cx="81" cy="12" r="3.5" fill="#16a34a" />
+                                <text x="81" y="38" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#1e40af">G3</text>
+
+                                <rect x="102" y="0" width="26" height="50" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2" />
+                                <circle cx="115" cy="12" r="3.5" fill="#16a34a" />
+                                <text x="115" y="38" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#1e40af">G4</text>
                             </g>
 
-                            <g class="cursor-pointer hover:opacity-80" onclick="showToast('Gate A2: Flight DL-108')">
-                                <circle cx="620" cy="260" r="28" fill="#006194" />
-                                <text x="620" y="265" font-family="Space Grotesk" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GATE A2</text>
-                            </g>
-                        </svg>
+                            <!-- FastTrack Clearance Badge -->
+                            <rect x="62" y="325" width="136" height="24" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1" />
+                            <text x="130" y="341" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#166534">FASTTRACK ACTIVE</text>
+
+                            <text x="130" y="375" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#707881">Direct Concourse Access</text>
+                        </g>
+
+                        <!-- ========================================== -->
+                        <!-- ZONE 2: NORTH AMENITIES (TOP - GENEROUS SPACING) -->
+                        <!-- ========================================== -->
+
+                        <!-- Skyline Artisan Cafe & Roastery -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('cafe')">
+                            <rect x="260" y="35" width="200" height="105" rx="14" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" filter="url(#shadow-soft)" />
+                            <rect x="272" y="47" width="28" height="28" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1" />
+                            <text x="286" y="66" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#b45309">☕</text>
+                            
+                            <text x="310" y="62" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="13" fill="#92400e">SKYLINE CAFE</text>
+                            <text x="310" y="76" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#b45309">Artisan Coffee &amp; Espresso</text>
+                            
+                            <line x1="272" y1="90" x2="448" y2="90" stroke="#fde68a" stroke-width="1" />
+                            <text x="274" y="112" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#15803d">★ 4.8 Rating</text>
+                            <text x="446" y="112" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" fill="#78350f">Open 24/7</text>
+                            <text x="360" y="128" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#92400e">Click to map route (180m)</text>
+                        </g>
+
+                        <!-- World Duty Free Plaza & Luxury Tech -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('dutyfree')">
+                            <rect x="490" y="35" width="200" height="105" rx="14" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow-soft)" />
+                            <rect x="502" y="47" width="28" height="28" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="1" />
+                            <text x="516" y="66" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#4f46e5">🛍️</text>
+
+                            <text x="540" y="62" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="13" fill="#3730a3">DUTY FREE PLAZA</text>
+                            <text x="540" y="76" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#4f46e5">Fragrances &amp; Luxury Tech</text>
+
+                            <line x1="502" y1="90" x2="678" y2="90" stroke="#c7d2fe" stroke-width="1" />
+                            <text x="504" y="112" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#4338ca">TAX FREE</text>
+                            <text x="676" y="112" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" fill="#475569">Concourse North</text>
+                            <text x="590" y="128" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#4338ca">Click to map route (240m)</text>
+                        </g>
+
+                        <!-- ========================================== -->
+                        <!-- ZONE 3: SOUTH AMENITIES (BOTTOM - GENEROUS SPACING) -->
+                        <!-- ========================================== -->
+
+                        <!-- SkyPriority VIP Club Lounge -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('lounge')">
+                            <rect x="260" y="415" width="200" height="110" rx="14" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5" filter="url(#shadow-soft)" />
+                            <rect x="272" y="427" width="28" height="28" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+                            <text x="286" y="446" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#7e22ce">👑</text>
+
+                            <text x="310" y="442" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="13" fill="#6b21a8">VIP CLUB LOUNGE</text>
+                            <text x="310" y="456" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#7e22ce">First &amp; Business Class</text>
+
+                            <line x1="272" y1="470" x2="448" y2="470" stroke="#e9d5ff" stroke-width="1" />
+                            <text x="274" y="492" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#7e22ce">BUFFET &amp; SUITES</text>
+                            <text x="446" y="492" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" fill="#15803d">High-Speed WiFi</text>
+                            <text x="360" y="512" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#7e22ce">Click to map route (200m)</text>
+                        </g>
+
+                        <!-- Forex ATMs & Executive Restrooms -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('services')">
+                            <rect x="490" y="415" width="200" height="110" rx="14" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" filter="url(#shadow-soft)" />
+                            <rect x="502" y="427" width="28" height="28" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1" />
+                            <text x="516" y="446" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#334155">🏧</text>
+
+                            <text x="540" y="442" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="13" fill="#1e293b">SERVICES HUB</text>
+                            <text x="540" y="456" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#475569">SBI / HDFC ATMs &amp; Forex</text>
+
+                            <line x1="502" y1="470" x2="678" y2="470" stroke="#cbd5e1" stroke-width="1" />
+                            <text x="504" y="492" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#0284c7">RESTROOMS &amp; WC</text>
+                            <text x="676" y="492" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" fill="#475569">Baby Care</text>
+                            <text x="590" y="512" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#475569">Click to map route (160m)</text>
+                        </g>
+
+                        <!-- ========================================== -->
+                        <!-- ZONE 4: PIER A DEPARTURE GATES (RIGHT WING) -->
+                        <!-- ========================================== -->
+                        <rect x="730" y="25" width="330" height="505" rx="20" class="map-pier-bg" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                        <text x="895" y="42" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#64748b" letter-spacing="1.5">PIER A INTERNATIONAL CONCOURSE</text>
+
+                        <!-- GATE A1 (ACTIVE PASSENGER BOARDING GATE) -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('A1')">
+                            <!-- Jet Bridge Visual to Aircraft -->
+                            <rect x="1035" y="85" width="25" height="35" rx="4" fill="#f472b6" stroke="#fbcfe8" stroke-width="1" />
+
+                            <rect x="745" y="48" width="295" height="130" rx="16" fill="url(#grad-active-gate)" stroke="#f472b6" stroke-width="2.5" filter="url(#shadow-soft)" />
+                            
+                            <!-- Header with Pulsing Radar Circle -->
+                            <text x="765" y="80" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="18" fill="#831843">GATE A1</text>
+                            
+                            <!-- Pulsing Radar Beacon -->
+                            <circle cx="1010" cy="74" r="6" fill="#ec4899" />
+                            <circle cx="1010" cy="74" r="11" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.7">
+                                <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+
+                            <!-- Live Flight Information -->
+                            <rect x="765" y="92" width="130" height="22" rx="6" fill="#ffffff" stroke="#f472b6" stroke-width="1" />
+                            <text x="830" y="107" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="bold" fill="#831843">SK-492 • LONDON LHR</text>
+
+                            <!-- Boarding Status Pill -->
+                            <rect x="905" y="92" width="120" height="22" rx="6" fill="#ec4899" />
+                            <text x="965" y="107" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="10.5" font-weight="bold" fill="#ffffff">BOARDING NOW</text>
+
+                            <line x1="765" y1="126" x2="1025" y2="126" stroke="#f472b6" stroke-width="1" />
+                            <text x="765" y="146" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#831843">Departs: 10:45 AM • Zone 1</text>
+                            <text x="1025" y="146" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="bold" fill="#db2777">SkyPriority Lane</text>
+                            <text x="895" y="166" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#9d174d">Your Assigned Flight Gate • 320m Walk</text>
+                        </g>
+
+                        <!-- GATE A2 (DL-108 TO TOKYO HANEDA) -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('A2')">
+                            <!-- Jet Bridge Visual -->
+                            <rect x="1035" y="240" width="25" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" />
+
+                            <rect x="745" y="195" width="295" height="120" rx="16" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow-soft)" />
+                            
+                            <text x="765" y="228" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="16" fill="#1e3a8a">GATE A2</text>
+                            
+                            <rect x="915" y="212" width="110" height="20" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+                            <text x="970" y="226" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="bold" fill="#1d4ed8">ON SCHEDULE</text>
+
+                            <text x="765" y="254" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="12" fill="#0f172a">Flight DL-108 • Tokyo Haneda (HND)</text>
+                            <text x="765" y="272" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#64748b">Departs: 12:30 PM • International Departure</text>
+
+                            <line x1="765" y1="284" x2="1025" y2="284" stroke="#f1f5f9" stroke-width="1" />
+                            <text x="765" y="302" font-family="'JetBrains Mono', monospace" font-size="9" fill="#0284c7">Distance: 410 meters (5 mins walk)</text>
+                            <text x="1025" y="302" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#2563eb">Click to Map</text>
+                        </g>
+
+                        <!-- GATE A3 (AA-772 TO FRANKFURT FRA) -->
+                        <g class="cursor-pointer" onclick="officerNavigateRoute('A3')">
+                            <!-- Jet Bridge Visual -->
+                            <rect x="1035" y="385" width="25" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" />
+
+                            <rect x="745" y="340" width="295" height="120" rx="16" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow-soft)" />
+
+                            <text x="765" y="373" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="16" fill="#1e3a8a">GATE A3</text>
+                            
+                            <rect x="915" y="357" width="110" height="20" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+                            <text x="970" y="371" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="bold" fill="#1d4ed8">GATE OPEN</text>
+
+                            <text x="765" y="399" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="12" fill="#0f172a">Flight AA-772 • Frankfurt (FRA)</text>
+                            <text x="765" y="417" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#64748b">Departs: 02:15 PM • Terminal 1 International</text>
+
+                            <line x1="765" y1="429" x2="1025" y2="429" stroke="#f1f5f9" stroke-width="1" />
+                            <text x="765" y="447" font-family="'JetBrains Mono', monospace" font-size="9" fill="#0284c7">Distance: 500 meters (6 mins walk)</text>
+                            <text x="1025" y="447" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" fill="#2563eb">Click to Map</text>
+                        </g>
+
+                        <!-- Dynamic Animated Walking Route (Curved & Flowing) -->
+                        <path id="officer-svg-nav-path"
+                            d="M 215 280 L 400 280 L 690 280 L 720 115 L 745 115"
+                            fill="none" stroke="#ec4899" stroke-width="5" stroke-dasharray="10 7" stroke-linecap="round" stroke-linejoin="round"
+                            style="animation: navDash 1.2s linear infinite;" />
+
+                        <!-- Start Beacon at Checkpoint A -->
+                        <circle cx="215" cy="280" r="6" fill="#006194" stroke="#ffffff" stroke-width="2" />
+
+                        <!-- End Target Beacon on Gate A1 -->
+                        <circle id="officer-svg-nav-target-dot" cx="745" cy="115" r="7" fill="#fbcfe8" stroke="#db2777" stroke-width="2.5" />
+                    </svg>
                     </div>
                 </div>
             </div>
@@ -597,21 +1098,23 @@
         </div>
     </div>
 
-    <!-- UNAUTHORIZED LOCKOUT OVERLAY (Shown if user tries to open Officer.html without logging in) -->
+    <!-- UNAUTHORIZED LOCKOUT OVERLAY (Shown if user tries to open Officer.html without logging in or if user is passenger) -->
     <div id="unauthorized-lockout-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-surface-container-lowest max-w-md w-full rounded-2xl border-2 border-error p-6 text-center shadow-2xl animate-[fadeIn_0.3s_ease]">
-            <div class="w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto mb-3 shadow-inner">
-                <span class="material-symbols-outlined text-3xl">lock</span>
+            <div id="lockout-icon-box" class="w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto mb-3 shadow-inner">
+                <span class="material-symbols-outlined text-3xl" id="lockout-icon">lock</span>
             </div>
-            <span class="font-label-mono-sm text-[11px] uppercase tracking-wider text-error font-bold">RESTRICTED AIRPORT AREA • OFFICER AUTHENTICATION REQUIRED</span>
-            <h3 class="font-headline-sm text-xl font-bold text-on-surface mt-1">Authentication Required</h3>
-            <p class="text-xs text-on-surface-variant mt-2 mb-5">
+            <span id="lockout-badge" class="font-label-mono-sm text-[11px] uppercase tracking-wider text-error font-bold">RESTRICTED AIRPORT AREA • OFFICER AUTHENTICATION REQUIRED</span>
+            <h3 id="lockout-title" class="font-headline-sm text-xl font-bold text-on-surface mt-1">Authentication Required</h3>
+            <p id="lockout-desc" class="text-xs text-on-surface-variant mt-2 mb-5 leading-relaxed">
                 Access to Terminal 1 Command Centre and Gate Turnstile controls is restricted to authorized officers. Please sign in with your officer credentials to unlock this station.
             </p>
-            <a href="Admin.html#login" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-lg">login</span>
-                <span>Proceed to Officer Sign In</span>
-            </a>
+            <div id="lockout-action-container" class="space-y-2">
+                <a id="lockout-primary-btn" href="Admin.html#login" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">login</span>
+                    <span>Proceed to Officer Sign In</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -684,17 +1187,70 @@
 
         // --- AUTHENTICATION ENFORCEMENT ---
         function checkOfficerAuthentication() {
-            const rawSession = sessionStorage.getItem('aeropass_officer_session');
+            const rawOfficerSession = sessionStorage.getItem('aeropass_officer_session');
+            const rawPassengerSession = sessionStorage.getItem('aeropass_user_session') || localStorage.getItem('aeropass_user_session');
             const lockoutModal = document.getElementById('unauthorized-lockout-modal');
-            
-            if (!rawSession) {
-                // Not authenticated: Show lockout overlay
+            const iconBox = document.getElementById('lockout-icon-box');
+            const icon = document.getElementById('lockout-icon');
+            const badge = document.getElementById('lockout-badge');
+            const title = document.getElementById('lockout-title');
+            const desc = document.getElementById('lockout-desc');
+            const actionContainer = document.getElementById('lockout-action-container');
+
+            // 1. STRICT PASSENGER ISOLATION:
+            // If active passenger session exists, travelers are completely barred from accessing Officer Station
+            if (rawPassengerSession) {
+                // Remove stale officer credentials to prevent cross-contamination
+                sessionStorage.removeItem('aeropass_officer_session');
+                localStorage.removeItem('aeropass_officer_session');
+
                 lockoutModal.classList.remove('hidden');
+                try {
+                    const passUser = JSON.parse(rawPassengerSession);
+                    const passengerName = passUser.name || 'Passenger';
+                    badge.textContent = 'RESTRICTED AIRPORT ZONE • PASSENGERS PROHIBITED';
+                    badge.className = 'font-label-mono-sm text-[11px] uppercase tracking-wider text-error font-bold';
+                    icon.textContent = 'gpp_bad';
+                    iconBox.className = 'w-16 h-16 rounded-full bg-error text-white flex items-center justify-center mx-auto mb-3 shadow-lg';
+                    title.textContent = 'Access Denied: Officer Clearance Required';
+                    title.className = 'font-headline-sm text-xl font-bold text-error mt-1';
+                    desc.innerHTML = `You are currently signed in as passenger <strong>${passengerName}</strong>. Under TSA Directive 1542 &amp; ICAO Annex 9 regulations, passenger travelers are strictly forbidden from accessing Officer Turnstiles, Command Console, and Security Adjudication systems.`;
+                    
+                    actionContainer.innerHTML = `
+                        <a href="Dashboard.html" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-lg">arrow_back</span>
+                            <span>Return to Passenger Dashboard</span>
+                        </a>
+                        <button onclick="officerSignOut()" class="w-full py-2.5 bg-surface-container-high hover:bg-surface-variant text-on-surface font-headline-sm text-xs font-semibold rounded-xl transition-all border border-surface-container-high flex items-center justify-center gap-1.5">
+                            <span class="material-symbols-outlined text-base">badge</span>
+                            <span>Sign Out &amp; Staff Login</span>
+                        </button>
+                    `;
+                } catch (e) {}
                 return false;
             }
 
+            // 2. Unauthenticated check:
+            if (!rawOfficerSession) {
+                lockoutModal.classList.remove('hidden');
+                badge.textContent = 'RESTRICTED AIRPORT AREA • OFFICER AUTHENTICATION REQUIRED';
+                icon.textContent = 'lock';
+                iconBox.className = 'w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto mb-3 shadow-inner';
+                title.textContent = 'Authentication Required';
+                title.className = 'font-headline-sm text-xl font-bold text-on-surface mt-1';
+                desc.textContent = 'Access to Terminal 1 Command Centre and Gate Turnstile controls is restricted to authorized officers. Please sign in with your officer credentials to unlock this station.';
+                actionContainer.innerHTML = `
+                    <a href="Admin.html#login" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">login</span>
+                        <span>Proceed to Officer Sign In</span>
+                    </a>
+                `;
+                return false;
+            }
+
+            // 3. Officer verified:
             try {
-                const session = JSON.parse(rawSession);
+                const session = JSON.parse(rawOfficerSession);
                 officerState.currentOfficer = session;
                 lockoutModal.classList.add('hidden');
 
@@ -713,6 +1269,9 @@
 
         function officerSignOut() {
             sessionStorage.removeItem('aeropass_officer_session');
+            localStorage.removeItem('aeropass_officer_session');
+            sessionStorage.removeItem('aeropass_user_session');
+            localStorage.removeItem('aeropass_user_session');
             showToast('Officer session locked. Returning to sign-in portal...', 'info');
             setTimeout(() => {
                 window.location.href = 'Admin.html#login';
@@ -799,6 +1358,10 @@
                     btn.className = "cmd-subtab-btn px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-secondary hover:text-on-surface flex items-center gap-1.5";
                 }
             });
+
+            if (tab === 'map') {
+                officerNavigateRoute('A1');
+            }
         }
 
         function renderCommandCentre() {
@@ -899,12 +1462,29 @@
             officerState.currentlyReviewingDocId = null;
         }
 
-        function submitReviewDecision(decision) {
+        async function submitReviewDecision(decision) {
             const docId = officerState.currentlyReviewingDocId;
             const doc = officerState.pendingDocuments.find(d => d.id === docId);
             if (!doc) return;
 
             officerState.pendingDocuments = officerState.pendingDocuments.filter(d => d.id !== docId);
+
+            // If backend is online, persist review
+            if (isBackendOnline && officerState.token) {
+                try {
+                    await fetch(`${API_BASE}/documents/review/${docId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${officerState.token}`
+                        },
+                        body: JSON.stringify({
+                            decision,
+                            notes: `Adjudicated by Station Officer (${officerState.sessionRole || 'SEC-01'})`
+                        })
+                    });
+                } catch (e) {}
+            }
 
             if (decision === 'approved') {
                 const newCode = `SEC-PASS-${Math.floor(10000 + Math.random() * 90000)}-OK`;
@@ -1057,13 +1637,50 @@
             renderCommandCentre();
         }
 
+        // --- SYNCHRONIZE PASSES FROM PASSENGER DASHBOARD & ENROLLMENT ---
+        function syncSharedPassesFromStorage() {
+            try {
+                const rawShared = localStorage.getItem('aeropass_shared_passes');
+                if (rawShared) {
+                    const sharedPasses = JSON.parse(rawShared);
+                    sharedPasses.forEach(sp => {
+                        const existingIdx = officerState.securityPasses.findIndex(p => p.code === sp.code);
+                        if (existingIdx >= 0) {
+                            officerState.securityPasses[existingIdx] = { ...officerState.securityPasses[existingIdx], ...sp };
+                        } else {
+                            officerState.securityPasses.unshift(sp);
+                        }
+                    });
+                }
+                // Check if user updated their name in profile
+                const rawProfile = localStorage.getItem('aeropass_user_profile');
+                if (rawProfile) {
+                    const profile = JSON.parse(rawProfile);
+                    if (profile && profile.name) {
+                        officerState.securityPasses.forEach(p => {
+                            if (p.code === 'SEC-PASS-98214-ER' || p.code === profile.passCode) {
+                                p.passenger = profile.name.toUpperCase();
+                            }
+                        });
+                        officerState.manifest.forEach(m => {
+                            if (m.passCode === 'SEC-PASS-98214-ER' || m.passCode === profile.passCode) {
+                                m.name = profile.name;
+                            }
+                        });
+                    }
+                }
+            } catch (e) {}
+        }
+
         // --- TURNSTILE SCANNER ---
         function fillAndScanTurnstile(code) {
+            syncSharedPassesFromStorage();
             document.getElementById('turnstile-pass-input').value = code;
             scanPassAtTurnstile();
         }
 
         function scanPassAtTurnstile() {
+            syncSharedPassesFromStorage();
             const input = document.getElementById('turnstile-pass-input');
             const code = (input.value || '').trim();
             const resultBanner = document.getElementById('turnstile-result-banner');
@@ -1144,12 +1761,176 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            syncSharedPassesFromStorage();
+
             const isAuth = checkOfficerAuthentication();
             if (isAuth) {
                 renderCommandCentre();
                 checkBackendConnectivity();
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const scanCodeParam = urlParams.get('scanCode');
+                if (scanCodeParam) {
+                    switchOfficerView('turnstile');
+                    setTimeout(() => {
+                        fillAndScanTurnstile(scanCodeParam);
+                    }, 350);
+                }
             }
         });
+    
+        // ==============================================================
+        // AERO PASS: PASTEL THEME SWITCHER (LIGHT & DARK MODE)
+        // ==============================================================
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            if (newTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            localStorage.setItem('aeropass_theme', newTheme);
+            updateThemeToggleIcons(newTheme);
+            if (typeof showToast === 'function') {
+                showToast(newTheme === 'dark' ? 'Switched to Midnight Pastel Dark Theme' : 'Switched to Ethereal Pastel Light Theme', 'info');
+            }
+        }
+
+        function updateThemeToggleIcons(theme) {
+            const isDark = theme === 'dark';
+            document.querySelectorAll('.theme-toggle-icon').forEach(icon => {
+                icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+            });
+            document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+                btn.setAttribute('title', isDark ? 'Switch to Pastel Light Mode' : 'Switch to Midnight Pastel Dark Mode');
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            updateThemeToggleIcons(currentTheme);
+        });
+
+    
+        // ==============================================================
+        // OFFICER CONCOURSE MAP NAVIGATION & PATROL HUD
+        // ==============================================================
+        const OFFICER_NAV_ROUTES = {
+            'A1': {
+                name: 'Gate A1 (Flight SK-492 to London Heathrow)',
+                distance: '320 meters',
+                time: '4 minutes',
+                d: 'M 215 280 L 400 280 L 690 280 L 720 115 L 745 115',
+                targetDot: { cx: 745, cy: 115 },
+                color: '#ec4899',
+                dotColor: '#fbcfe8',
+                securityStatus: 'Zone 1 Boarding • Biometric Turnstile Clearance Verified • 142 Passengers Cleared'
+            },
+            'A2': {
+                name: 'Gate A2 (Flight DL-108 to Tokyo Haneda)',
+                distance: '410 meters',
+                time: '5 minutes',
+                d: 'M 215 280 L 400 280 L 690 280 L 720 255 L 745 255',
+                targetDot: { cx: 745, cy: 255 },
+                color: '#2563eb',
+                dotColor: '#60a5fa',
+                securityStatus: 'On Schedule (12:30 PM) • Turnstile E-Gate Standby • Security Patrol Assigned'
+            },
+            'A3': {
+                name: 'Gate A3 (Flight AA-772 to Frankfurt FRA)',
+                distance: '500 meters',
+                time: '6 minutes',
+                d: 'M 215 280 L 400 280 L 690 280 L 720 400 L 745 400',
+                targetDot: { cx: 745, cy: 400 },
+                color: '#2563eb',
+                dotColor: '#60a5fa',
+                securityStatus: 'Gate Open for Crew Inspection • Turnstiles 3 & 4 Ready'
+            },
+            'cafe': {
+                name: 'Skyline Artisan Cafe & Roastery',
+                distance: '180 meters',
+                time: '2 minutes',
+                d: 'M 215 280 L 360 280 L 360 140',
+                targetDot: { cx: 360, cy: 140 },
+                color: '#f59e0b',
+                dotColor: '#fef08a',
+                securityStatus: 'Concourse North Commercial Zone • CCTV Coverage 100% Active • Zero Incidents'
+            },
+            'dutyfree': {
+                name: 'World Duty Free Plaza & Luxury Tech',
+                distance: '240 meters',
+                time: '3 minutes',
+                d: 'M 215 280 L 590 280 L 590 140',
+                targetDot: { cx: 590, cy: 140 },
+                color: '#8b5cf6',
+                dotColor: '#ddd6fe',
+                securityStatus: 'Tax-Free Retail Sector • Anti-Theft RFID Sensors Operational • Customs Officer on Duty'
+            },
+            'lounge': {
+                name: 'SkyPriority First Class VIP Lounge',
+                distance: '200 meters',
+                time: '2.5 minutes',
+                d: 'M 215 280 L 360 280 L 360 415',
+                targetDot: { cx: 360, cy: 415 },
+                color: '#ec4899',
+                dotColor: '#fce7f3',
+                securityStatus: 'VIP Access Restricted • Biometric Pass Verification Required at Entrance'
+            },
+            'services': {
+                name: 'Executive Restrooms, ATMs & Currency Forex',
+                distance: '160 meters',
+                time: '2 minutes',
+                d: 'M 215 280 L 590 280 L 590 415',
+                targetDot: { cx: 590, cy: 415 },
+                color: '#64748b',
+                dotColor: '#cbd5e1',
+                securityStatus: 'Public Amenities Hub • Automated Security Defibrillator & Fire Suppression Online'
+            }
+        };
+
+        function officerNavigateRoute(destKey) {
+            const route = OFFICER_NAV_ROUTES[destKey];
+            if (!route) return;
+
+            const path = document.getElementById('officer-svg-nav-path');
+            const dot = document.getElementById('officer-svg-nav-target-dot');
+            if (path) {
+                path.setAttribute('d', route.d);
+                path.setAttribute('stroke', route.color);
+            }
+            if (dot) {
+                dot.setAttribute('cx', route.targetDot.cx);
+                dot.setAttribute('cy', route.targetDot.cy);
+                dot.setAttribute('fill', route.dotColor);
+                dot.setAttribute('stroke', route.color);
+            }
+
+            // Update Info Stats
+            const destEl = document.getElementById('officer-nav-destination-stat');
+            const distEl = document.getElementById('officer-nav-distance-stat');
+            const timeEl = document.getElementById('officer-nav-time-stat');
+            const secEl = document.getElementById('officer-nav-security-stat');
+
+            if (destEl) destEl.textContent = route.name;
+            if (distEl) distEl.textContent = route.distance;
+            if (timeEl) timeEl.textContent = route.time;
+            if (secEl) secEl.textContent = route.securityStatus;
+
+            // Highlight destination pill button
+            document.querySelectorAll('.officer-nav-dest-pill').forEach(btn => {
+                btn.className = 'officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-semibold font-headline-sm transition-all whitespace-nowrap bg-surface-container-low text-on-surface hover:bg-surface-container-high border border-surface-container-high flex items-center gap-1.5';
+            });
+            const activeBtn = document.getElementById(`officer-nav-pill-${destKey}`);
+            if (activeBtn) {
+                activeBtn.className = 'officer-nav-dest-pill px-3.5 py-2 rounded-xl text-xs font-bold font-headline-sm transition-all whitespace-nowrap bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center gap-1.5';
+            }
+
+            showToast(`Concourse Sector Mapped: ${route.name} (${route.distance})`, 'info');
+        }
+
     </script>
 </body>
 

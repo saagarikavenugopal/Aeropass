@@ -4,6 +4,7 @@ const baggageSchema = new mongoose.Schema(
   {
     passenger: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     flight: { type: mongoose.Schema.Types.ObjectId, ref: 'Flight', required: true },
+    quantity: { type: Number, default: 1 },
     weightKg: { type: Number, required: true },
     freeAllowanceKg: { type: Number, required: true },
     excessKg: { type: Number, default: 0 },
