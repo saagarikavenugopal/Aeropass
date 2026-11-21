@@ -172,7 +172,8 @@ airport-security-platform/
 │   ├── ARCHITECTURE.md
 │   ├── WORKFLOW.md
 │   ├── API.md
-│   └── ER-DIAGRAM.md
+│   ├── ER-DIAGRAM.md
+│   └── NON_FUNCTIONAL_REQUIREMENTS.md
 ├── postman/
 │   └── Airport-Platform.postman_collection.json
 ├── frontend/
@@ -207,3 +208,10 @@ airport-security-platform/
   OCR.
 - This is a scaffold: replace stub secrets, add HTTPS/TLS termination, and run
   a real threat-model pass before any production or airport-facing deployment.
+
+## 8. Non-Functional Requirements (NFR) Verification
+
+The platform satisfies 15 enterprise Non-Functional Requirements covering Security, Privacy, Performance, Availability, Reliability, Scalability, Usability, Accessibility, Compatibility, Maintainability, Data Integrity, Fault Tolerance, Auditability, Backup & Recovery, and Extensibility.
+
+For the full requirement-by-requirement audit matrix and implementation details, see [docs/NON_FUNCTIONAL_REQUIREMENTS.md](docs/NON_FUNCTIONAL_REQUIREMENTS.md).
+
