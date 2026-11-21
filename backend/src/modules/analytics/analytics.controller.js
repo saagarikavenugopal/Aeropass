@@ -36,7 +36,7 @@ async function revenueStats(req, res, next) {
         { $group: { _id: null, totalExcessFeeIssued: { $sum: '$excessFee' }, count: { $sum: 1 } } },
       ]),
       Payment.aggregate([
-        { $match: { status: 'success' } },
+        { $match: { status: { $in: ['completed', 'success'] } } },
         { $group: { _id: null, totalCollected: { $sum: '$amount' }, count: { $sum: 1 } } },
       ]),
     ]);

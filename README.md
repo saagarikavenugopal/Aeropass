@@ -204,6 +204,11 @@ airport-security-platform/
   via `audit.middleware.js`.
 - Role-based access control (`passenger`, `admin`, `checkpoint_officer`) enforced
   in `middleware/auth.js`.
+- Registration endpoint (`/api/auth/register`) enforces role safeguards: public
+  self-registration is strictly restricted to `passenger` and `checkpoint_officer`.
+  Self-registering with `role: 'admin'` is rejected with HTTP 403 Forbidden to
+  prevent privilege escalation. Admins are provisioned via `scripts/seed.js` or
+  an authenticated admin session.
 - File uploads are type/size-validated in `middleware/upload.js` before hitting
   OCR.
 - This is a scaffold: replace stub secrets, add HTTPS/TLS termination, and run

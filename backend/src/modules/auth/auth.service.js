@@ -12,8 +12,16 @@ async function register({ fullName, email, password, phone, role = 'passenger' }
     throw err;
   }
 
+  // Prevent privilege escalation: public self-registration with 'admin' role is strictly prohibited.
+  // Administrator accounts must be provisioned by an existing administrator or initialized via system seed.
+  if (role === 'admin') {
+    const err = new Error('Public registration with admin role is prohibited. Administrator accounts must be provisioned by an existing administrator.');
+    err.statusCode = 403;
+    throw err;
+  }
+
   const passwordHash = await bcrypt.hash(password, 10);
-  const userRole = ['checkpoint_officer', 'admin'].includes(role) ? role : 'passenger';
+  const userRole = role === 'checkpoint_officer' ? 'checkpoint_officer' : 'passenger';
   const user = await User.create({ fullName, email, passwordHash, phone, role: userRole });
   if (userRole === 'passenger') {
     await Passenger.create({ user: user._id });

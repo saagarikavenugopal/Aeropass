@@ -11,7 +11,7 @@ async function dashboardSummary(req, res, next) {
       Document.countDocuments({ status: 'ai_uncertain' }),
       SecurityPass.countDocuments({ status: 'active' }),
       Payment.aggregate([
-        { $match: { status: 'success', createdAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) } } },
+        { $match: { status: { $in: ['completed', 'success'] }, createdAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) } } },
         { $group: { _id: null, total: { $sum: '$amount' } } },
       ]),
     ]);

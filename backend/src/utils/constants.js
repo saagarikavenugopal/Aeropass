@@ -22,6 +22,7 @@ module.exports = {
   },
   PAYMENT_STATUS: {
     PENDING: 'pending',
+    COMPLETED: 'completed',
     SUCCESS: 'success',
     FAILED: 'failed',
     REFUNDED: 'refunded',

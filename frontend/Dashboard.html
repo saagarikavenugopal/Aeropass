@@ -2632,8 +2632,8 @@
             weightKg: 26.0,
             freeAllowanceKg: 20.0,
             excessKg: 6.0,
-            excessRate: 8.0,
-            excessFee: 48.0,
+            excessRate: 650.0,
+            excessFee: 3900.0,
             paymentStatus: 'pending'
         };
 
@@ -3761,9 +3761,12 @@
             baggageRecord.weightKg = weight;
 
             const freeAllowance = 20.0;
+            const excessRatePerKg = 650.0;
             const excessKg = Math.max(0, weight - freeAllowance);
-            const excessFee = excessKg * 8.0;
+            const excessFee = Math.round(excessKg * excessRatePerKg * 100) / 100;
 
+            baggageRecord.freeAllowanceKg = freeAllowance;
+            baggageRecord.excessRate = excessRatePerKg;
             baggageRecord.excessKg = excessKg;
             baggageRecord.excessFee = excessFee;
 

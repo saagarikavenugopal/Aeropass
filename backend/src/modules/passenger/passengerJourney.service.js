@@ -56,7 +56,7 @@ async function getJourneyState(userId, flightId) {
 
   if (pass && pass.status === 'active') currentStep = 'BAGGAGE';
   if (baggage) currentStep = 'AIRPORT_NAVIGATION';
-  if (baggage && baggage.paymentStatus === 'pending' && (!payment || payment.status !== 'success')) {
+  if (baggage && baggage.paymentStatus === 'pending' && (!payment || !['completed', 'success'].includes(payment.status))) {
     currentStep = 'PAYMENT';
   }
   if (pass && pass.status === 'used') currentStep = 'DONE';
