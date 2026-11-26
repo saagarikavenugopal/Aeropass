@@ -9,7 +9,16 @@ async function register(req, res, next) {
     }
     const user = await authService.register({ fullName, email, password, phone, role });
     const tokens = authService.issueTokens(user);
-    return success(res, { userId: user._id, email: user.email, role: user.role, token: tokens.accessToken }, 'Registered successfully', 201);
+    return success(res, {
+      userId: user._id,
+      user: { id: user._id, fullName: user.fullName, email: user.email, role: user.role },
+      email: user.email,
+      role: user.role,
+      token: tokens.accessToken,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      tokens,
+    }, 'Registered successfully', 201);
   } catch (err) {
     next(err);
   }
@@ -26,6 +35,10 @@ async function login(req, res, next) {
     await authService.storeRefreshToken(user, tokens.refreshToken);
     return success(res, {
       user: { id: user._id, fullName: user.fullName, email: user.email, role: user.role },
+      token: tokens.accessToken,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      tokens,
       ...tokens,
     }, 'Login successful');
   } catch (err) {

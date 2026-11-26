@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- AeroPass Pastel Theme Initialization (Prevents FOUC) -->
+<head>
+    <!-- AeroPass Theme Initialization (Prevents FOUC) -->
     <script>
         (function() {
             const theme = localStorage.getItem('aeropass_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -17,96 +17,548 @@
 
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AeroPass | Airport Security &amp; Passenger Platform</title>
-    <script>
-      const hasPassenger = sessionStorage.getItem('aeropass_user_session') || localStorage.getItem('aeropass_user_session');
-      const hasOfficer = sessionStorage.getItem('aeropass_officer_session');
-      if (hasPassenger) {
-        window.location.replace('/Dashboard.html');
-      } else if (hasOfficer) {
-        window.location.replace('/Officer.html');
-      } else {
-        window.location.replace('/Admin.html');
-      }
-    </script>
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="AeroPass - Premium Aviation & Airport Biometric Experience Platform" />
+    <title>AEROPASS | Your Journey. Elevated. - Premium Aviation Platform</title>
+
+    <!-- Google Fonts: Playfair Display (Headlines) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
     <style>
         :root {
-            --color-surface: #fffdfa;
-            --color-card: #ffffff;
-            --color-border: #fce7f3;
-            --color-text: #2d132c;
-            --color-muted: #6b4360;
-            --color-primary: #ec4899;
-            --color-primary-light: #fdf2f8;
-            --color-yellow: #f59e0b;
-            --color-yellow-light: #fef9c3;
-            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #fdf2f8 0%, #fefce8 50%, #fff7ed 100%), #fffaf8;
+            --aero-burgundy: #641C32;
+            --aero-deep-burgundy: #421322;
+            --aero-gold: #C5A46D;
+            --aero-gold-light: #EDD9B0;
+            --aero-gold-dark: #9A7A45;
+            --color-surface: #FAF8F4;
+            --color-surface-container-lowest: #FFFFFF;
+            --color-surface-container-low: #F5F1EB;
+            --color-surface-container-high: #EAE4DD;
+            --color-surface-variant: #F0EAE2;
+            --color-on-surface: #292526;
+            --color-on-surface-variant: #89837F;
+            --color-outline: #A09890;
+            --color-outline-variant: #EAE4DD;
+            --color-primary: #641C32;
+            --color-primary-container: #F5E8EC;
+            --color-on-primary: #FFFFFF;
+            --color-on-primary-container: #421322;
+            --color-primary-fixed: #FAEDF0;
+            --color-on-primary-fixed-variant: #641C32;
+            --color-secondary: #C5A46D;
+            --color-secondary-container: #F7EDD8;
+            --color-on-secondary: #FFFFFF;
+            --color-on-secondary-container: #7A6035;
+            --color-secondary-fixed: #EDD9B0;
+            --color-secondary-fixed-dim: #C5A46D;
+            --color-tertiary: #387A5B;
+            --color-tertiary-container: #D4EDE1;
+            --color-on-tertiary: #FFFFFF;
+            --color-error: #B94B4B;
+            --color-error-container: #FAE5E5;
+            --color-on-error: #FFFFFF;
+            --color-warning: #C58B36;
+            --ticket-notch-bg: #F5F1EB;
+            --page-ambient-gradient: #FAF8F4;
         }
-        html.dark {
-            --color-surface: #120e18;
-            --color-card: #1b1424;
-            --color-border: #3d284e;
-            --color-text: #fdf2f8;
-            --color-muted: #d4b8ca;
-            --color-primary: #f472b6;
-            --color-primary-light: #500724;
-            --color-yellow: #fde047;
-            --color-yellow-light: #451a03;
-            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #291227 0%, #1d172e 50%, #261c10 100%), #120e18;
+
+        html.dark, [data-theme="dark"] {
+            --color-surface: #1C1917;
+            --color-surface-container-lowest: #262220;
+            --color-surface-container-low: #2E2927;
+            --color-surface-container-high: #443E3B;
+            --color-surface-variant: #383330;
+            --color-on-surface: #FAF8F4;
+            --color-on-surface-variant: #D5CEC7;
+            --color-outline: #89837F;
+            --color-outline-variant: #443E3B;
+            --color-primary: #C5A46D;
+            --color-primary-container: #421322;
+            --color-on-primary: #1C1917;
+            --color-on-primary-container: #F7EDD8;
+            --color-primary-fixed: #3D1220;
+            --color-on-primary-fixed-variant: #EDD9B0;
+            --color-secondary: #EDD9B0;
+            --color-secondary-container: #421322;
+            --color-on-secondary: #1C1917;
+            --color-on-secondary-container: #FAF8F4;
+            --color-secondary-fixed: #2E2416;
+            --color-secondary-fixed-dim: #C5A46D;
+            --color-tertiary: #529E78;
+            --color-tertiary-container: #173826;
+            --color-on-tertiary: #FFFFFF;
+            --color-error: #E57373;
+            --color-error-container: #4A1B1B;
+            --color-on-error: #FFFFFF;
+            --color-warning: #E0A654;
+            --ticket-notch-bg: #2E2927;
+            --page-ambient-gradient: #1C1917;
             color-scheme: dark;
         }
+
         body {
-            background: var(--page-ambient-gradient) !important;
-            background-attachment: fixed !important;
+            background-color: var(--color-surface) !important;
+            color: var(--color-on-surface) !important;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             transition: background 0.25s ease, color 0.25s ease;
+            margin: 0;
+            padding: 0;
         }
+
+        .font-headline {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .luxury-brand-badge {
+            background: linear-gradient(135deg, #641C32 0%, #421322 100%) !important;
+            color: #C5A46D !important;
+            border: 1.5px solid #9A7A45 !important;
+        }
+
+        .btn-luxury-primary {
+            background: linear-gradient(135deg, #641C32 0%, #421322 100%) !important;
+            color: #FFFFFF !important;
+            border: 1px solid #C5A46D !important;
+            box-shadow: 0 4px 16px rgba(100, 28, 50, 0.25) !important;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .btn-luxury-primary:hover {
+            background: linear-gradient(135deg, #7D2340 0%, #521829 100%) !important;
+            box-shadow: 0 8px 24px rgba(100, 28, 50, 0.35) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn-luxury-gold {
+            background: linear-gradient(135deg, #C5A46D 0%, #A8894E 100%) !important;
+            color: #FFFFFF !important;
+            border: 1px solid #EDD9B0 !important;
+            box-shadow: 0 4px 16px rgba(197, 164, 109, 0.25) !important;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .btn-luxury-gold:hover {
+            background: linear-gradient(135deg, #D4B87E 0%, #B8995F 100%) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn-luxury-outline {
+            background: var(--color-surface-container-lowest) !important;
+            color: var(--color-on-surface) !important;
+            border: 1px solid var(--color-surface-container-high) !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-luxury-outline:hover {
+            border-color: #C5A46D !important;
+            background: var(--color-surface-container-low) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .hero-luxury-overlay {
+            background: linear-gradient(180deg, rgba(66, 19, 34, 0.88) 0%, rgba(100, 28, 50, 0.78) 50%, rgba(28, 25, 23, 0.95) 100%);
+        }
+
+        .card-luxury {
+            background: var(--color-surface-container-lowest);
+            border: 1px solid var(--color-surface-container-high);
+            border-radius: 16px;
+            transition: all 0.25s ease;
+        }
+        .card-luxury:hover {
+            border-color: #C5A46D;
+            box-shadow: 0 12px 30px rgba(100, 28, 50, 0.08);
+            transform: translateY(-3px);
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F5F1EB; }
+        ::-webkit-scrollbar-thumb { background: #C5A46D; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #641C32; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "var(--color-surface)",
+                        "surface-container-lowest": "var(--color-surface-container-lowest)",
+                        "surface-container-low": "var(--color-surface-container-low)",
+                        "surface-container-high": "var(--color-surface-container-high)",
+                        "surface-variant": "var(--color-surface-variant)",
+                        "on-surface": "var(--color-on-surface)",
+                        "on-surface-variant": "var(--color-on-surface-variant)",
+                        "outline": "var(--color-outline)",
+                        "outline-variant": "var(--color-outline-variant)",
+                        "primary": "var(--color-primary)",
+                        "on-primary": "var(--color-on-primary)",
+                        "primary-container": "var(--color-primary-container)",
+                        "on-primary-container": "var(--color-on-primary-container)",
+                        "secondary": "var(--color-secondary)",
+                        "on-secondary": "var(--color-on-secondary)",
+                        "tertiary": "var(--color-tertiary)",
+                        "error": "var(--color-error)",
+                        "warning": "var(--color-warning)"
+                    },
+                    fontFamily: {
+                        "headline": ["Playfair Display", "Georgia", "serif"],
+                        "body": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
 </head>
-  <body style="font-family: system-ui, -apple-system, sans-serif; background: var(--color-surface); color: var(--color-text); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;">
-    <div style="text-align: center; padding: 2.5rem; max-width: 520px; background: var(--color-card); border-radius: 1.25rem; border: 1px solid var(--color-border); box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
-      <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
-        <button onclick="toggleTheme()" class="theme-toggle-btn" style="background: none; border: 1px solid var(--color-border); color: var(--color-text); border-radius: 0.75rem; padding: 0.4rem 0.6rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem;">
-            <span class="theme-toggle-icon material-symbols-outlined" style="font-size: 1.1rem;">dark_mode</span>
-            <span>Theme</span>
-        </button>
-      </div>
-      <h2 style="margin-bottom: 0.5rem; color: var(--color-primary); font-size: 1.4rem; font-weight: 800;">AeroPass Airport Security Platform</h2>
-      <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
-        Global biometric passenger identity, turnstile clearance, and officer operations.
-      </p>
-      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <a href="/Dashboard.html" style="padding: 0.75rem 1.25rem; background: linear-gradient(135deg, #fef08a 0%, #fbcfe8 100%); color: #831843; border-radius: 0.75rem; text-decoration: none; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #f472b6; box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);">
-          Enter Passenger Dashboard
-        </a>
-        <a href="/Admin.html" style="padding: 0.75rem 1.25rem; background: var(--color-surface); color: var(--color-text); border-radius: 0.75rem; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--color-border);">
-          Sign In &amp; Enrollment Portal
-        </a>
-        <a href="/Officer.html" style="padding: 0.75rem 1.25rem; background: var(--color-surface); color: var(--color-text); border-radius: 0.75rem; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--color-border);">
-          Officer Turnstile Station
-        </a>
-      </div>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Luxury Navigation Header -->
+    <header class="w-full bg-surface-container-lowest/95 backdrop-blur-md border-b border-surface-container-high sticky top-0 z-50 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="/index.html" class="flex items-center gap-3.5 group">
+                <div class="w-11 h-11 rounded-xl luxury-brand-badge flex items-center justify-center p-1.5 shadow-md transition-transform group-hover:scale-105">
+                    <span class="material-symbols-outlined text-[#C5A46D] text-[26px]">flight_takeoff</span>
+                </div>
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2">
+                        <span class="font-headline text-2xl font-bold tracking-tight text-on-surface">AEROPASS</span>
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#FAF8F4] text-[#641C32] border border-[#C5A46D] uppercase tracking-wider font-sans">Premier</span>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-medium">International Aviation Identity</span>
+                </div>
+            </a>
+
+            <!-- Center Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-on-surface">
+                <a href="#features" class="hover:text-primary transition-colors">Platform Capabilities</a>
+                <a href="#experience" class="hover:text-primary transition-colors">Airport Journey</a>
+                <a href="#compliance" class="hover:text-primary transition-colors">ICAO Standards</a>
+            </nav>
+
+            <!-- Actions & Theme Toggle -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl border border-surface-container-high bg-surface-container-low text-on-surface hover:border-[#C5A46D] transition-colors" title="Toggle Theme">
+                    <span class="theme-toggle-icon material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
+                <a href="/Admin.html" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold btn-luxury-outline">
+                    <span class="material-symbols-outlined text-[16px] text-[#C5A46D]">lock</span>
+                    <span>Sign In</span>
+                </a>
+                <a href="/Dashboard.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold btn-luxury-primary">
+                    <span>Passenger Portal</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Active Session Notification Banner (if returning user) -->
+    <div id="session-alert" class="hidden w-full bg-[#F5E8EC] dark:bg-[#421322] border-b border-[#C5A46D]/40 px-4 py-2.5 text-center text-xs text-[#641C32] dark:text-[#EDD9B0]">
+        <div class="max-w-4xl mx-auto flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-[#C5A46D]">verified_user</span>
+            <span id="session-alert-text">Active session detected.</span>
+            <a id="session-alert-link" href="/Dashboard.html" class="font-bold underline ml-1 hover:text-[#421322] dark:hover:text-white">Proceed to Dashboard &rarr;</a>
+        </div>
     </div>
-  
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[620px] lg:min-h-[720px] flex items-center justify-center overflow-hidden">
+        <!-- Aviation Airport Background Image with Luxury Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=2000&q=85" 
+                 alt="Luxury International Airport Terminal" 
+                 class="w-full h-full object-cover object-center filter brightness-[0.65]" />
+            <div class="absolute inset-0 hero-luxury-overlay"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center text-white">
+            <!-- Luxury Gold Pill -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A46D]/60 bg-black/40 backdrop-blur-md mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-[#C5A46D] animate-ping"></span>
+                <span class="text-xs font-semibold tracking-wider uppercase text-[#EDD9B0]">Next-Generation Biometric Clearance</span>
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="font-headline text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#FAF8F4] leading-[1.1] mb-6">
+                Your Journey. <span class="italic font-normal text-[#EDD9B0]">Elevated.</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="max-w-2xl mx-auto text-base sm:text-lg lg:text-xl text-[#FAF8F4]/80 font-normal leading-relaxed mb-10">
+                Experience a smarter, smoother and more seamless airport journey with Aeropass. Biometric gate clearance, real-time telemetry, and certified travel credentials.
+            </p>
+
+            <!-- 3 Primary Portal Action Cards / Buttons -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                <a href="/Dashboard.html" class="group p-5 rounded-2xl bg-white/10 hover:bg-white/15 backdrop-blur-md border border-[#C5A46D]/50 hover:border-[#C5A46D] transition-all text-left flex flex-col justify-between shadow-lg hover:-translate-y-1">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-[#641C32] flex items-center justify-center text-[#C5A46D] mb-3 group-hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined text-[22px]">airline_seat_recline_extra</span>
+                        </div>
+                        <h2 class="text-base font-bold text-white mb-1">Passenger Portal</h2>
+                        <p class="text-xs text-[#FAF8F4]/70">Digital boarding pass, flights radar & baggage telemetry.</p>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-[#EDD9B0] mt-4">
+                        <span>Enter Dashboard</span>
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                </a>
+
+                <a href="/Admin.html" class="group p-5 rounded-2xl bg-white/10 hover:bg-white/15 backdrop-blur-md border border-[#C5A46D]/50 hover:border-[#C5A46D] transition-all text-left flex flex-col justify-between shadow-lg hover:-translate-y-1">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-[#421322] flex items-center justify-center text-[#C5A46D] mb-3 group-hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined text-[22px]">badge</span>
+                        </div>
+                        <h2 class="text-base font-bold text-white mb-1">Sign In &amp; Register</h2>
+                        <p class="text-xs text-[#FAF8F4]/70">Create traveler profile or sign in with existing credentials.</p>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-[#EDD9B0] mt-4">
+                        <span>Identity Gateway</span>
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                </a>
+
+                <a href="/Officer.html" class="group p-5 rounded-2xl bg-white/10 hover:bg-white/15 backdrop-blur-md border border-[#C5A46D]/50 hover:border-[#C5A46D] transition-all text-left flex flex-col justify-between shadow-lg hover:-translate-y-1">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-[#292526] flex items-center justify-center text-[#C5A46D] mb-3 group-hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined text-[22px]">shield_lock</span>
+                        </div>
+                        <h2 class="text-base font-bold text-white mb-1">Officer Station</h2>
+                        <p class="text-xs text-[#FAF8F4]/70">Turnstile clearance, boarding gate scanner & security audit.</p>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-[#EDD9B0] mt-4">
+                        <span>Security Command</span>
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aviation Telemetry & Trust Metrics Bar -->
+    <section class="w-full bg-[#FAF8F4] dark:bg-[#262220] border-y border-surface-container-high py-8 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="flex flex-col items-center">
+                    <span class="font-headline text-3xl sm:text-4xl font-bold text-primary">180+</span>
+                    <span class="text-xs uppercase tracking-wider text-on-surface-variant mt-1 font-semibold">Global Airports Connected</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="font-headline text-3xl sm:text-4xl font-bold text-primary">&lt; 0.4s</span>
+                    <span class="text-xs uppercase tracking-wider text-on-surface-variant mt-1 font-semibold">Turnstile Biometric Speed</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="font-headline text-3xl sm:text-4xl font-bold text-primary">ICAO</span>
+                    <span class="text-xs uppercase tracking-wider text-on-surface-variant mt-1 font-semibold">Doc 9303 MRZ Certified</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="font-headline text-3xl sm:text-4xl font-bold text-primary">256-Bit</span>
+                    <span class="text-xs uppercase tracking-wider text-on-surface-variant mt-1 font-semibold">Encrypted Pass Generation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Capabilities (Features) -->
+    <section id="features" class="py-20 bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold uppercase tracking-widest text-[#C5A46D]">Aviation Intelligence</span>
+                <h2 class="font-headline text-3xl sm:text-4xl font-bold text-on-surface mt-2 mb-4">
+                    Architected for International Excellence
+                </h2>
+                <p class="text-on-surface-variant text-sm sm:text-base leading-relaxed">
+                    AeroPass eliminates terminal friction through an integrated suite of airport security, flight dispatch and baggage tracing services.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="card-luxury p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-primary-container text-primary flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-[28px]">qr_code_2</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold text-on-surface mb-2">Cryptographic Digital Pass</h3>
+                        <p class="text-sm text-on-surface-variant leading-relaxed mb-6">
+                            Dynamically minted digital security pass with high-entropy cryptographic QR codes for instant turnstile validation.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-on-surface-variant space-y-2 border-t border-surface-container-high pt-4">
+                        <li class="flex items-center gap-2"><span class="text-tertiary material-symbols-outlined text-[16px]">check_circle</span> Instant QR generation</li>
+                        <li class="flex items-center gap-2"><span class="text-tertiary material-symbols-outlined text-[16px]">check_circle</span> Anti-counterfeiting token</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-luxury p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-[#F7EDD8] text-[#7A6035] flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-[28px]">radar</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold text-on-surface mb-2">Real-Time Flight Telemetry</h3>
+                        <p class="text-sm text-on-surface-variant leading-relaxed mb-6">
+                            Live gate updates, departure runway countdowns, baggage claim carousel mapping, and international airspace status.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-on-surface-variant space-y-2 border-t border-surface-container-high pt-4">
+                        <li class="flex items-center gap-2"><span class="text-tertiary material-symbols-outlined text-[16px]">check_circle</span> Live gate departure countdown</li>
+                        <li class="flex items-center gap-2"><span class="text-tertiary material-symbols-outlined text-[16px]">check_circle</span> Terminal vector indoor pathfinding</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-luxury p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-tertiary-container text-tertiary flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-[28px]">policy</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold text-on-surface mb-2">Officer Command Suite</h3>
+                        <p class="text-sm text-on-surface-variant leading-relaxed mb-6">
+                            Checkpoint officers possess real-time passenger verification, turnstile barcode scanning, and document adjudication controls.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-on-surface-variant space-y-2 border-t border-surface-container-high pt-4">
+                        <li class="flex items-center gap-2"><span class="text-tertiary material-symbols-outlined text-[16px]">check_circle</span> High-throughput barcode turnstile</li>
+                        <li class="flex items-center gap-2"><span class="text-tertiary material-symbols-outlined text-[16px]">check_circle</span> Tamper-proof audit trails</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seamless Airport Journey (Timeline) -->
+    <section id="experience" class="py-20 bg-surface-container-low transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold uppercase tracking-widest text-[#C5A46D]">The Flow</span>
+                <h2 class="font-headline text-3xl sm:text-4xl font-bold text-on-surface mt-2 mb-4">
+                    Three Steps from Curb to Cabin
+                </h2>
+                <p class="text-on-surface-variant text-sm sm:text-base leading-relaxed">
+                    Designed around the passenger experience to remove all airport bottlenecks.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card-luxury p-6 relative">
+                    <span class="font-headline text-4xl font-bold text-[#C5A46D]/30 absolute top-4 right-6">01</span>
+                    <h3 class="font-headline text-lg font-bold text-on-surface mb-2">Digital Pre-Clearance</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                        Register your government passport or Known Traveler Number (KTN) in seconds. Our automated OCR extracts and verifies credentials.
+                    </p>
+                </div>
+
+                <div class="card-luxury p-6 relative">
+                    <span class="font-headline text-4xl font-bold text-[#C5A46D]/30 absolute top-4 right-6">02</span>
+                    <h3 class="font-headline text-lg font-bold text-on-surface mb-2">Biometric Fast-Track</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                        Generate your digital security pass on your mobile device. Scan at security turnstiles for sub-second checkpoint validation.
+                    </p>
+                </div>
+
+                <div class="card-luxury p-6 relative">
+                    <span class="font-headline text-4xl font-bold text-[#C5A46D]/30 absolute top-4 right-6">03</span>
+                    <h3 class="font-headline text-lg font-bold text-on-surface mb-2">Boarding Gate Access</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                        Receive live gate route directions, track checked baggage telemetry to the cargo hold, and board with priority elegance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="compliance" class="w-full bg-[#1C1917] text-[#FAF8F4] py-12 border-t border-[#443E3B]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-[#443E3B]/60">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl luxury-brand-badge flex items-center justify-center p-1.5">
+                        <span class="material-symbols-outlined text-[#C5A46D] text-[22px]">flight_takeoff</span>
+                    </div>
+                    <div>
+                        <span class="font-headline text-xl font-bold tracking-tight text-white">AEROPASS</span>
+                        <p class="text-[11px] text-[#A09890]">Global Aviation Platform &amp; Airport Biometric Clearance</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6 text-xs text-[#FAF8F4]/80">
+                    <a href="/Dashboard.html" class="hover:text-[#EDD9B0] transition-colors">Passenger Dashboard</a>
+                    <a href="/Admin.html" class="hover:text-[#EDD9B0] transition-colors">Enrollment &amp; Login</a>
+                    <a href="/Officer.html" class="hover:text-[#EDD9B0] transition-colors">Officer Station</a>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#A09890] gap-4">
+                <p>&copy; 2026 AEROPASS Aviation Technologies. All rights reserved. ICAO Doc 9303 Compliant.</p>
+                <div class="flex items-center gap-4">
+                    <span>Privacy &amp; Biometrics</span>
+                    <span>&bull;</span>
+                    <span>Airport Security Protocols</span>
+                    <span>&bull;</span>
+                    <span>Terms of Carriage</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Client-Side State Scripts & Active Session Detection -->
     <script>
         function toggleTheme() {
             const isDark = document.documentElement.classList.contains('dark');
             const newTheme = isDark ? 'light' : 'dark';
             if (newTheme === 'dark') {
                 document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
             } else {
                 document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme', 'light');
             }
             localStorage.setItem('aeropass_theme', newTheme);
             const icon = document.querySelector('.theme-toggle-icon');
             if (icon) icon.textContent = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
         }
+
         window.addEventListener('DOMContentLoaded', () => {
             const isDark = document.documentElement.classList.contains('dark');
             const icon = document.querySelector('.theme-toggle-icon');
             if (icon) icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+
+            // Active session detection
+            const hasPassenger = sessionStorage.getItem('aeropass_user_session') || localStorage.getItem('aeropass_user_session');
+            const hasOfficer = sessionStorage.getItem('aeropass_officer_session');
+            const banner = document.getElementById('session-alert');
+            const bannerText = document.getElementById('session-alert-text');
+            const bannerLink = document.getElementById('session-alert-link');
+
+            if (hasPassenger) {
+                try {
+                    const user = JSON.parse(hasPassenger);
+                    if (banner && bannerText && bannerLink) {
+                        banner.classList.remove('hidden');
+                        bannerText.textContent = `Welcome back, ${user.legalName || user.email || 'Traveler'}. Active Passenger Session Detected.`;
+                        bannerLink.href = '/Dashboard.html';
+                        bannerLink.innerHTML = 'Enter Dashboard &rarr;';
+                    }
+                } catch(e) {
+                    if (banner) banner.classList.remove('hidden');
+                }
+            } else if (hasOfficer) {
+                try {
+                    const officer = JSON.parse(hasOfficer);
+                    if (banner && bannerText && bannerLink) {
+                        banner.classList.remove('hidden');
+                        bannerText.textContent = `Welcome back, Officer ${officer.officerBadge || officer.username || ''}. Checkpoint Session Active.`;
+                        bannerLink.href = '/Officer.html';
+                        bannerLink.innerHTML = 'Enter Officer Station &rarr;';
+                    }
+                } catch(e) {
+                    if (banner) banner.classList.remove('hidden');
+                }
+            }
         });
     </script>
 </body>

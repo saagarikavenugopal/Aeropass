@@ -1,122 +1,169 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [passenger, setPassenger] = useState(null)
+  const [officer, setOfficer] = useState(null)
+
+  useEffect(() => {
+    try {
+      const p = sessionStorage.getItem('aeropass_user_session') || localStorage.getItem('aeropass_user_session')
+      const o = sessionStorage.getItem('aeropass_officer_session')
+      if (p) setPassenger(JSON.parse(p))
+      if (o) setOfficer(JSON.parse(o))
+    } catch (e) {
+      // ignore JSON errors
+    }
+  }, [])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div style={{
+      minHeight: '100vh',
+      backgroundColor: '#FAF8F4',
+      color: '#292526',
+      fontFamily: "'Inter', system-ui, sans-serif",
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem'
+    }}>
+      <div style={{
+        maxWidth: '560px',
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '16px',
+        border: '1px solid #EAE4DD',
+        boxShadow: '0 12px 35px rgba(100, 28, 50, 0.08)',
+        padding: '2.5rem',
+        textAlign: 'center'
+      }}>
+        {/* Crest Logo */}
+        <div style={{
+          width: '56px',
+          height: '56px',
+          borderRadius: '14px',
+          background: 'linear-gradient(135deg, #641C32 0%, #421322 100%)',
+          border: '1.5px solid #9A7A45',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 1.5rem',
+          boxShadow: '0 4px 12px rgba(100, 28, 50, 0.25)'
+        }}>
+          <span style={{ color: '#C5A46D', fontSize: '28px', fontWeight: 'bold' }}>✈</span>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div style={{
+          display: 'inline-block',
+          padding: '0.25rem 0.75rem',
+          borderRadius: '9999px',
+          backgroundColor: '#FAF8F4',
+          border: '1px solid #C5A46D',
+          color: '#641C32',
+          fontSize: '11px',
+          fontWeight: 600,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          marginBottom: '1rem'
+        }}>
+          Luxury Aviation Platform
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <h1 style={{
+          fontFamily: "'Playfair Display', Georgia, serif",
+          fontSize: '2rem',
+          fontWeight: 700,
+          color: '#641C32',
+          margin: '0 0 0.5rem',
+          lineHeight: 1.2
+        }}>
+          Your Journey. <span style={{ fontStyle: 'italic', fontWeight: 400, color: '#C5A46D' }}>Elevated.</span>
+        </h1>
+
+        <p style={{
+          fontSize: '0.9rem',
+          color: '#89837F',
+          lineHeight: 1.6,
+          margin: '0 0 2rem'
+        }}>
+          Experience a smarter, smoother and more seamless airport journey with Aeropass international biometric clearance.
+        </p>
+
+        {passenger && (
+          <div style={{
+            backgroundColor: '#F5E8EC',
+            border: '1px solid #C5A46D',
+            borderRadius: '10px',
+            padding: '0.75rem 1rem',
+            marginBottom: '1.5rem',
+            fontSize: '0.85rem',
+            color: '#641C32',
+            fontWeight: 600
+          }}>
+            Active Passenger: {passenger.legalName || passenger.email}
+          </div>
+        )}
+
+        {officer && (
+          <div style={{
+            backgroundColor: '#FAF8F4',
+            border: '1px solid #C5A46D',
+            borderRadius: '10px',
+            padding: '0.75rem 1rem',
+            marginBottom: '1.5rem',
+            fontSize: '0.85rem',
+            color: '#421322',
+            fontWeight: 600
+          }}>
+            Active Officer Badge: {officer.officerBadge || officer.username}
+          </div>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          <a href="/Dashboard.html" style={{
+            display: 'block',
+            padding: '0.85rem 1.25rem',
+            background: 'linear-gradient(135deg, #641C32 0%, #421322 100%)',
+            color: '#FFFFFF',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            fontWeight: 600,
+            fontSize: '0.95rem',
+            border: '1px solid #C5A46D',
+            boxShadow: '0 4px 14px rgba(100, 28, 50, 0.25)'
+          }}>
+            Passenger Dashboard &rarr;
+          </a>
+
+          <a href="/Admin.html" style={{
+            display: 'block',
+            padding: '0.85rem 1.25rem',
+            backgroundColor: '#FAF8F4',
+            color: '#292526',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            fontWeight: 600,
+            fontSize: '0.95rem',
+            border: '1px solid #EAE4DD'
+          }}>
+            Sign In &amp; Registration Portal
+          </a>
+
+          <a href="/Officer.html" style={{
+            display: 'block',
+            padding: '0.85rem 1.25rem',
+            backgroundColor: '#FAF8F4',
+            color: '#292526',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            fontWeight: 600,
+            fontSize: '0.95rem',
+            border: '1px solid #EAE4DD'
+          }}>
+            Officer Turnstile Station
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
-
-export default App

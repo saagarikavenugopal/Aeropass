@@ -7,192 +7,226 @@
         name="viewport" />
     <meta content="airport-security-platform" name="description" />
     <title>AeroPass | Admin &amp; Identity Portal - Sign In &amp; Registration</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
-        rel="stylesheet" />
-    
-        <style>
+    <!-- Google Fonts: Playfair Display (Headlines) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+<style>
         :root {
-            /* ================================================================= */
-            /* AERO PASS: PASTEL YELLOW & PINK COMBO (LIGHT MODE)                */
-            /* Creamy Lemon Chiffon (#fef08a) + Strawberry Milk Pink (#fbcfe8)  */
-            /* ================================================================= */
-            --color-surface: #fffdfa;                 /* Soft milky cream mist */
-            --color-surface-container-lowest: #ffffff; /* Crisp porcelain white card */
-            --color-surface-container-low: #fff8f8;    /* Soft pastel strawberry-cream */
-            --color-surface-container-high: #fce7f3;   /* Delicate pastel pink border */
-            --color-surface-variant: #fef2f2;
-            --color-surface-tint: #ec4899;
+            /* ═══════════════════════════════════════════════════════ */
+            /* AEROPASS LUXURY AVIATION DESIGN SYSTEM                  */
+            /* Emirates-Inspired Burgundy & Champagne Gold             */
+            /* ═══════════════════════════════════════════════════════ */
 
-            --color-on-surface: #2d132c;               /* Deep plum slate contrast */
-            --color-on-surface-variant: #6b4360;       /* Muted berry slate */
-            --color-outline: #a78b9b;                  /* Gentle outline */
-            --color-outline-variant: #fbcfe8;
+            /* Core Brand Colours */
+            --aero-burgundy:        #641C32;   /* Primary brand */
+            --aero-deep-burgundy:   #421322;   /* Hover / pressed states */
+            --aero-gold:            #C5A46D;   /* Champagne gold accent */
+            --aero-gold-light:      #EDD9B0;   /* Gold tint for badges */
+            --aero-gold-dark:       #9A7A45;   /* Gold on dark bg */
 
-            /* Pastel Yellow & Pink Accents */
-            --color-primary: #ec4899;                  /* Pastel Vibrant Rose Pink */
-            --color-primary-container: #fce7f3;        /* Soft pastel pink pill */
-            --color-on-primary: #ffffff;
-            --color-on-primary-container: #9d174d;
-            --color-primary-fixed: #fdf2f8;
-            --color-on-primary-fixed-variant: #831843;
+            /* Surface & Background */
+            --color-surface:                 #FAF8F4;  /* Warm Ivory */
+            --color-surface-container-lowest:#FFFFFF;  /* Pure White cards */
+            --color-surface-container-low:   #F5F1EB;  /* Subtle card bg */
+            --color-surface-container-high:  #EAE4DD;  /* Border colour */
+            --color-surface-variant:         #F0EAE2;
+            --color-surface-tint:            #641C32;
 
-            --color-secondary: #f59e0b;                /* Warm Pastel Honey Yellow */
-            --color-secondary-container: #fef9c3;      /* Soft butter yellow pill */
-            --color-on-secondary: #ffffff;
-            --color-on-secondary-container: #713f12;
-            --color-secondary-fixed: #fef08a;
-            --color-secondary-fixed-dim: #fde047;
+            /* Text Colours */
+            --color-on-surface:         #292526;   /* Charcoal — primary text */
+            --color-on-surface-variant: #89837F;   /* Muted Grey — secondary text */
+            --color-outline:            #A09890;   /* Placeholder / disabled */
+            --color-outline-variant:    #EAE4DD;   /* Subtle borders */
 
-            --color-tertiary: #10b981;                 /* Soft Pastel Mint */
-            --color-tertiary-container: #d1fae5;
-            --color-on-tertiary: #ffffff;
-            --color-tertiary-fixed: #d1fae5;
-            --color-on-tertiary-fixed: #065f46;
-            --color-tertiary-fixed-dim: #a7f3d0;
+            /* Primary — Burgundy */
+            --color-primary:            #641C32;
+            --color-primary-container:  #F5E8EC;   /* Soft burgundy tint */
+            --color-on-primary:         #FFFFFF;
+            --color-on-primary-container: #421322;
+            --color-primary-fixed:      #FAEDF0;   /* Lightest tint */
+            --color-on-primary-fixed-variant: #641C32;
 
-            --color-error: #f43f5e;                    /* Pastel Coral */
-            --color-error-container: #ffe4e6;
-            --color-on-error: #ffffff;
-            --color-on-error-container: #9f1239;
+            /* Secondary — Champagne Gold */
+            --color-secondary:          #C5A46D;
+            --color-secondary-container:#F7EDD8;
+            --color-on-secondary:       #FFFFFF;
+            --color-on-secondary-container: #7A6035;
+            --color-secondary-fixed:    #EDD9B0;
+            --color-secondary-fixed-dim: #C5A46D;
 
-            --ticket-notch-bg: #fff8f8;
-            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #fdf2f8 0%, #fefce8 50%, #fff7ed 100%), #fffaf8;
+            /* Tertiary — Success Green */
+            --color-tertiary:           #387A5B;
+            --color-tertiary-container: #D4EDE1;
+            --color-on-tertiary:        #FFFFFF;
+            --color-tertiary-fixed:     #D4EDE1;
+            --color-on-tertiary-fixed:  #1E5C3F;
+            --color-tertiary-fixed-dim: #A3CFBA;
+
+            /* Semantic */
+            --color-error:              #B94B4B;
+            --color-error-container:    #FAE5E5;
+            --color-on-error:           #FFFFFF;
+            --color-on-error-container: #7A2020;
+
+            --color-warning:            #C58B36;
+            --color-warning-container:  #F9EDDA;
+
+            /* Ticket & boarding pass specific */
+            --ticket-notch-bg: #F5F1EB;
+            --boarding-pass-header: #641C32;
+
+            /* Page background — clean warm ivory */
+            --page-ambient-gradient: #FAF8F4;
         }
 
         html.dark, [data-theme="dark"] {
-            /* ================================================================= */
-            /* AERO PASS: MIDNIGHT SUNSET PASTEL (DARK MODE)                     */
-            /* Deep twilight plum & midnight velvet with glowing pink & gold     */
-            /* ================================================================= */
-            --color-surface: #120e18;                  /* Deep twilight velvet */
-            --color-surface-container-lowest: #1b1424; /* Elevated dark plum card */
-            --color-surface-container-low: #251b32;    /* Elevated container */
-            --color-surface-container-high: #3d284e;   /* Soft luminous plum border */
-            --color-surface-variant: #281d36;
-            --color-surface-tint: #f472b6;
+            /* ═══════════════════════════════════════════════════════ */
+            /* AEROPASS LUXURY AVIATION: MIDNIGHT VELVET (DARK MODE)   */
+            /* Deep charcoal slate with glowing champagne gold accents  */
+            /* ═══════════════════════════════════════════════════════ */
+            --color-surface:                 #1C1917;  /* Deep charcoal slate */
+            --color-surface-container-lowest:#262220;  /* Elevated card */
+            --color-surface-container-low:   #2E2927;  /* Nested container */
+            --color-surface-container-high:  #443E3B;  /* Subtle dark border */
+            --color-surface-variant:         #383330;
+            --color-surface-tint:            #C5A46D;
 
-            --color-on-surface: #fdf2f8;               /* Moonlight rose-white text */
-            --color-on-surface-variant: #d4b8ca;       /* Soft moonlit plum text */
-            --color-outline: #8c6882;
-            --color-outline-variant: #4e3247;
+            --color-on-surface:         #FAF8F4;       /* Warm ivory text */
+            --color-on-surface-variant: #D5CEC7;       /* Soft muted ivory */
+            --color-outline:            #89837F;
+            --color-outline-variant:    #443E3B;
 
-            /* Luminous Pastel Pink & Gold Dark Accents */
-            --color-primary: #f472b6;                  /* Luminous pastel pink */
-            --color-primary-container: #500724;        /* Deep midnight plum container */
-            --color-on-primary: #120e18;
-            --color-on-primary-container: #fbcfe8;
-            --color-primary-fixed: #2e1025;
-            --color-on-primary-fixed-variant: #f472b6;
+            /* Primary — Champagne Gold on Dark */
+            --color-primary:            #C5A46D;
+            --color-primary-container:  #421322;
+            --color-on-primary:         #1C1917;
+            --color-on-primary-container: #F7EDD8;
+            --color-primary-fixed:      #3D1220;
+            --color-on-primary-fixed-variant: #EDD9B0;
 
-            --color-secondary: #fde047;                /* Luminous pastel gold */
-            --color-secondary-container: #451a03;      /* Deep honey amber container */
-            --color-on-secondary: #120e18;
-            --color-on-secondary-container: #fef08a;
-            --color-secondary-fixed: #2b1704;
-            --color-secondary-fixed-dim: #eab308;
+            --color-secondary:          #EDD9B0;
+            --color-secondary-container:#421322;
+            --color-on-secondary:       #1C1917;
+            --color-on-secondary-container: #FAF8F4;
+            --color-secondary-fixed:    #2E2416;
+            --color-secondary-fixed-dim:#C5A46D;
 
-            --color-tertiary: #86efac;                 /* Luminous pastel mint */
-            --color-tertiary-container: #064e3b;
-            --color-on-tertiary: #120e18;
-            --color-tertiary-fixed: #064e3b;
-            --color-on-tertiary-fixed: #a7f3d0;
-            --color-tertiary-fixed-dim: #059669;
+            --color-tertiary:           #529E78;
+            --color-tertiary-container: #173826;
+            --color-on-tertiary:        #FFFFFF;
+            --color-tertiary-fixed:     #173826;
+            --color-on-tertiary-fixed:  #A3CFBA;
+            --color-tertiary-fixed-dim: #387A5B;
 
-            --color-error: #fda4af;
-            --color-error-container: #4c0519;
-            --color-on-error: #120e18;
-            --color-on-error-container: #fecdd3;
+            --color-error:              #E57373;
+            --color-error-container:    #4A1B1B;
+            --color-on-error:           #FFFFFF;
+            --color-on-error-container: #FFCDD2;
 
-            --ticket-notch-bg: #251b32;
-            --page-ambient-gradient: radial-gradient(1300px 850px at 15% 0%, #291227 0%, #1d172e 50%, #261c10 100%), #120e18;
+            --color-warning:            #E0A654;
+            --color-warning-container:  #452E10;
+
+            --ticket-notch-bg: #2E2927;
+            --page-ambient-gradient: #1C1917;
+            color-scheme: dark;
         }
 
-        /* Ambient Pastel Page Background */
+        /* Ambient Page Background */
         body {
             background: var(--page-ambient-gradient) !important;
             background-attachment: fixed !important;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.25s ease, color 0.25s ease;
         }
 
-        /* Hero Banner Pastel Yellow & Pink Combo */
-        .pastel-hero-banner {
-            background: linear-gradient(135deg, #fef08a 0%, #fed7aa 35%, #fbcfe8 75%, #f472b6 100%) !important;
-            color: #3b122d !important;
-            border: 2px solid #f9a8d4 !important;
-            box-shadow: 0 12px 35px -5px rgba(244, 114, 182, 0.28) !important;
+        /* ═══════════ BRAND BADGE ═══════════ */
+        .luxury-brand-badge, .luxury-brand-badge {
+            background: linear-gradient(135deg, #641C32 0%, #421322 100%) !important;
+            color: #C5A46D !important;
+            border: 1.5px solid #9A7A45 !important;
         }
-        html.dark .pastel-hero-banner {
-            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
-            color: #fdf2f8 !important;
-            border: 2px solid #f472b6 !important;
-            box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.5) !important;
+        html.dark .luxury-brand-badge, html.dark .luxury-brand-badge {
+            background: linear-gradient(135deg, #421322 0%, #29121B 100%) !important;
+            color: #EDD9B0 !important;
+            border: 1.5px solid #C5A46D !important;
         }
 
-        /* Boarding Pass Pastel Header */
-        .pastel-pass-header {
-            background: linear-gradient(135deg, #fef9c3 0%, #fed7aa 50%, #fce7f3 100%) !important;
-            color: #3b122d !important;
-            border-bottom: 2px solid #f9a8d4 !important;
+        /* ═══════════ HERO BANNER ═══════════ */
+        .luxury-hero-banner, .luxury-hero-banner {
+            background: linear-gradient(135deg, #421322 0%, #641C32 60%, #7D2340 100%) !important;
+            color: #FAF8F4 !important;
+            border: 1.5px solid #9A7A45 !important;
+            box-shadow: 0 12px 40px -8px rgba(66, 19, 34, 0.35) !important;
         }
-        html.dark .pastel-pass-header {
-            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
-            color: #fdf2f8 !important;
-            border-bottom: 2px solid #f472b6 !important;
-        }
-
-        /* Flight Spotlight Card Pastel Header */
-        .pastel-flight-header {
-            background: linear-gradient(135deg, #fef08a 0%, #fed7aa 40%, #fbcfe8 100%) !important;
-            color: #3b122d !important;
-            border: 2px solid #f9a8d4 !important;
-            box-shadow: 0 10px 30px -5px rgba(244, 114, 182, 0.25) !important;
-        }
-        html.dark .pastel-flight-header {
-            background: linear-gradient(135deg, #3d1c2c 0%, #2e1738 50%, #362713 100%) !important;
-            color: #fdf2f8 !important;
-            border: 2px solid #f472b6 !important;
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
+        html.dark .luxury-hero-banner, html.dark .luxury-hero-banner {
+            background: linear-gradient(135deg, #2D0E17 0%, #421322 60%, #521829 100%) !important;
+            color: #FAF8F4 !important;
+            border: 1.5px solid #C5A46D !important;
+            box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.6) !important;
         }
 
-        /* Pastel Brand Logo Badge (Yellow-Pink Gradient) */
-        .pastel-brand-badge {
-            background: linear-gradient(135deg, #fde047 0%, #f472b6 100%) !important;
-            color: #3b122d !important;
-            border: 1.5px solid #f9a8d4 !important;
+        /* ═══════════ BOARDING PASS HEADER ═══════════ */
+        .luxury-pass-header, .luxury-pass-header {
+            background: linear-gradient(135deg, #421322 0%, #641C32 100%) !important;
+            color: #FAF8F4 !important;
+            border-bottom: 2px solid #C5A46D !important;
         }
-        html.dark .pastel-brand-badge {
-            background: linear-gradient(135deg, #ca8a04 0%, #db2777 100%) !important;
-            color: #fdf2f8 !important;
-            border: 1.5px solid #f472b6 !important;
+        html.dark .luxury-pass-header, html.dark .luxury-pass-header {
+            background: linear-gradient(135deg, #2D0E17 0%, #421322 100%) !important;
+            color: #FAF8F4 !important;
+            border-bottom: 2px solid #C5A46D !important;
         }
 
-        /* Primary Button (Radiant Pastel Pink to Orange-Yellow) */
-        .btn-pastel-primary {
-            background: linear-gradient(135deg, #f472b6 0%, #fb923c 100%) !important;
-            color: #ffffff !important;
-            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.35) !important;
+        /* ═══════════ FLIGHT SPOTLIGHT CARD HEADER ═══════════ */
+        .luxury-flight-header, .luxury-flight-header {
+            background: linear-gradient(135deg, #421322 0%, #641C32 70%, #7D2340 100%) !important;
+            color: #FAF8F4 !important;
+            border: 1.5px solid #9A7A45 !important;
+            box-shadow: 0 12px 40px -8px rgba(66, 19, 34, 0.30) !important;
+        }
+        html.dark .luxury-flight-header, html.dark .luxury-flight-header {
+            background: linear-gradient(135deg, #2D0E17 0%, #421322 70%, #521829 100%) !important;
+            color: #FAF8F4 !important;
+            border: 1.5px solid #C5A46D !important;
+            box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ═══════════ PRIMARY BUTTON ═══════════ */
+        .btn-luxury-primary, .btn-luxury-primary {
+            background: linear-gradient(135deg, #641C32 0%, #421322 100%) !important;
+            color: #FFFFFF !important;
+            border: 1px solid #C5A46D !important;
+            box-shadow: 0 4px 16px rgba(100, 28, 50, 0.25) !important;
             transition: all 0.2s ease !important;
         }
-        .btn-pastel-primary:hover {
-            background: linear-gradient(135deg, #ec4899 0%, #f97316 100%) !important;
-            box-shadow: 0 6px 18px rgba(244, 114, 182, 0.45) !important;
+        .btn-luxury-primary:hover, .btn-luxury-primary:hover {
+            background: linear-gradient(135deg, #7D2340 0%, #521829 100%) !important;
+            box-shadow: 0 6px 20px rgba(100, 28, 50, 0.35) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* ═══════════ GOLD ACCENT BUTTON ═══════════ */
+        .btn-luxury-gold {
+            background: linear-gradient(135deg, #C5A46D 0%, #A8894E 100%) !important;
+            color: #FFFFFF !important;
+            border: 1px solid #EDD9B0 !important;
+            box-shadow: 0 4px 16px rgba(197, 164, 109, 0.25) !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn-luxury-gold:hover {
+            background: linear-gradient(135deg, #D4B87E 0%, #B8995F 100%) !important;
             transform: translateY(-1px) !important;
         }
 
         /* Glass card styling */
         .glass-card {
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
         }
         html.dark .glass-card {
-            background: rgba(27, 20, 36, 0.92);
+            background: rgba(38, 34, 32, 0.94);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
         }
@@ -230,30 +264,30 @@
 
         /* SVG Map Elements in Dark Mode */
         html.dark .map-terminal-envelope {
-            fill: #1b1424 !important;
-            stroke: #3d284e !important;
+            fill: #262220 !important;
+            stroke: #443E3B !important;
         }
         html.dark .map-apron-bg {
-            fill: #120e18 !important;
+            fill: #1C1917 !important;
         }
         html.dark .map-boulevard-bg {
-            fill: #22182d !important;
-            stroke: #3d284e !important;
+            fill: #2E2927 !important;
+            stroke: #443E3B !important;
         }
         html.dark .map-walkway-bg {
-            fill: #271a33 !important;
-            stroke: #3d284e !important;
+            fill: #342F2D !important;
+            stroke: #443E3B !important;
         }
         html.dark .map-pier-bg {
-            fill: #1f1528 !important;
-            stroke: #3d284e !important;
+            fill: #2B2624 !important;
+            stroke: #443E3B !important;
         }
         html.dark .map-grid-line {
-            stroke: #2e1d3d !important;
+            stroke: #383330 !important;
         }
         html.dark .map-gate-card {
-            fill: #271731 !important;
-            stroke: #f472b6 !important;
+            fill: #2E2927 !important;
+            stroke: #C5A46D !important;
         }
 
         @keyframes navDash {
@@ -262,19 +296,19 @@
             }
         }
         @keyframes scanLaser {
-            0% { top: 4%; opacity: 0.8; }
+            0% { top: 4%; opacity: 0.7; }
             50% { top: 92%; opacity: 1; }
-            100% { top: 4%; opacity: 0.8; }
+            100% { top: 4%; opacity: 0.7; }
         }
         .animate-scan-laser {
             animation: scanLaser 2s ease-in-out infinite;
         }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.3); }
-            50% { box-shadow: 0 0 32px rgba(244, 114, 182, 0.6); }
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 0 10px rgba(197, 164, 109, 0.3); }
+            50% { box-shadow: 0 0 24px rgba(197, 164, 109, 0.6); }
         }
-        .pulse-glow-emerald {
-            animation: pulseGlow 2.5s infinite;
+        .pulse-glow-gold, .pulse-glow-gold {
+            animation: pulseGold 2.5s infinite;
         }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -285,12 +319,12 @@
             animation: shake 0.35s ease-in-out;
         }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(252, 231, 243, 0.5); }
-        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 9999px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
-        html.dark ::-webkit-scrollbar-track { background: rgba(37, 27, 50, 0.7); }
-        html.dark ::-webkit-scrollbar-thumb { background: #3d284e; }
-        html.dark ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
+        ::-webkit-scrollbar-track { background: #F5F1EB; }
+        ::-webkit-scrollbar-thumb { background: #C5A46D; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #641C32; }
+        html.dark ::-webkit-scrollbar-track { background: #262220; }
+        html.dark ::-webkit-scrollbar-thumb { background: #C5A46D; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #EDD9B0; }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script id="tailwind-config">
@@ -330,12 +364,18 @@
                         "error": "var(--color-error)",
                         "on-error": "var(--color-on-error)",
                         "error-container": "var(--color-error-container)",
-                        "on-error-container": "var(--color-on-error-container)"
+                        "on-error-container": "var(--color-on-error-container)",
+                        "warning": "var(--color-warning)"
                     },
                     fontFamily: {
-                        "headline-sm": ["Space Grotesk", "sans-serif"],
-                        "body-sm": ["Inter", "sans-serif"],
-                        "label-mono-sm": ["JetBrains Mono", "monospace"]
+                        "headline-sm": ["Playfair Display", "Georgia", "serif"],
+                        "body-sm": ["Inter", "system-ui", "sans-serif"],
+                        "label-mono-sm": ["Inter", "system-ui", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "xl": "12px",
+                        "2xl": "16px",
+                        "3xl": "20px"
                     }
                 }
             }
@@ -363,7 +403,7 @@
         <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
             <!-- Brand & Authority Badge -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg pastel-brand-badge flex items-center justify-center p-1 shadow-sm shrink-0">
+                <div class="w-10 h-10 rounded-lg luxury-brand-badge flex items-center justify-center p-1 shadow-sm shrink-0">
                     <img alt="AeroPass Airport Identity Logo" class="w-full h-full object-contain"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuChknAMnAP6DAmrc2YaGvJO5rKOgPelU1HSwqr9DFYFRyrBqKIqo6h_8lIxXEI5aEt4yd4DmIdO3GhsY7flm8SjPqVE-uwyMgBsjgOLa7g3YhP_Qv0UykmHtqqBEbIEUhTJS9EtKgT5NDKKPSqhlKJC_deI6aNZFJLP_Jvh9okPugD7pqcMQlFV0TT0l67CfGJC3UJtyWr56MTu1aRdoUGpmxHJNXIiAZcpWlkDlGkn9q-Z7q_smjhU" />
                 </div>
@@ -416,7 +456,7 @@
                 <!-- Role Switcher for Registration: Passenger vs Airport Security Officer -->
                 <div class="flex items-center p-1 bg-surface-container-low rounded-2xl border border-surface-container-high mb-5">
                     <button id="reg-subtab-passenger" onclick="switchRegisterRole('passenger')" type="button"
-                        class="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center justify-center gap-1.5">
+                        class="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-primary text-on-primary border border-secondary shadow-xs flex items-center justify-center gap-1.5">
                         <span class="material-symbols-outlined text-[16px]">flight_takeoff</span>
                         <span>Passenger / Traveler Registration</span>
                     </button>
@@ -781,15 +821,15 @@
 
                     <!-- Digital Boarding Pass Display -->
                     <div id="issued-pass-container" class="hidden flex flex-col items-center mt-2 animate-[fadeIn_0.5s_ease]">
-                        <div class="w-full pastel-pass-header p-4 rounded-t-2xl flex items-center justify-between shadow-md">
+                        <div class="w-full luxury-pass-header p-4 rounded-t-2xl flex items-center justify-between shadow-md">
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-2xl text-[#db2777] dark:text-[#f472b6]">airplane_ticket</span>
+                                <span class="material-symbols-outlined text-2xl text-[#C5A46D] dark:text-[#EDD9B0]">airplane_ticket</span>
                                 <div>
                                     <h3 class="font-headline-sm text-base font-bold text-[#4a1532] dark:text-[#fdf2f8]">Digital Security Boarding Pass</h3>
-                                    <p class="text-xs text-[#831843] dark:text-[#fbcfe8] font-medium">Ready for Airport Security Checkpoints</p>
+                                    <p class="text-xs text-[#FAF8F4] font-medium">Ready for Airport Security Checkpoints</p>
                                 </div>
                             </div>
-                            <span class="font-label-mono-sm text-xs bg-gradient-to-r from-[#f472b6] to-[#fb923c] text-white px-2.5 py-1 rounded-full font-bold shadow-xs">ACTIVE</span>
+                            <span class="font-label-mono-sm text-xs btn-luxury-primary text-white px-2.5 py-1 rounded-full font-bold shadow-xs">ACTIVE</span>
                         </div>
                         <div class="w-full bg-surface-container-lowest border-x border-b border-surface-container-high p-5 rounded-b-2xl shadow-lg">
                             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -831,7 +871,7 @@
                     <!-- Officer Branding Card -->
                     <div class="flex flex-col bg-surface-container-lowest rounded-2xl p-5 sm:p-6 shadow-sm border border-surface-container-high">
                         <div class="flex items-center gap-3 mb-3">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] text-[#831843] border border-[#f472b6] flex items-center justify-center shadow-xs">
+                            <div class="w-12 h-12 rounded-xl bg-primary text-on-primary border border-secondary flex items-center justify-center shadow-xs">
                                 <span class="material-symbols-outlined text-2xl">shield_person</span>
                             </div>
                             <div>
@@ -938,7 +978,7 @@
 
                         <!-- Submit Button -->
                         <button type="submit" id="btn-officer-reg-submit"
-                            class="w-full py-3.5 bg-gradient-to-r from-[#f472b6] to-[#fb923c] hover:from-[#ec4899] hover:to-[#f97316] text-white font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform active:scale-98">
+                            class="w-full py-3.5 btn-luxury-primary text-white font-headline-sm font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform active:scale-98">
                             <span class="material-symbols-outlined text-[18px]">verified_user</span>
                             <span>Register as Airport Security Officer &amp; Open Station</span>
                             <span class="material-symbols-outlined text-sm">arrow_forward</span>
@@ -1533,7 +1573,7 @@
                             email: data.data.user.email,
                             role: data.data.user.role || 'passenger',
                             name: data.data.user.fullName,
-                            token: data.data.tokens?.accessToken || 'token-auth'
+                            token: data.data.tokens?.accessToken || data.data.accessToken || data.data.token || 'token-auth'
                         };
                     }
                 } catch (err) {}
@@ -1685,7 +1725,7 @@
                             email: data.data.user.email,
                             role: data.data.user.role,
                             name: data.data.user.fullName,
-                            token: data.data.tokens?.accessToken || 'token-auth'
+                            token: data.data.tokens?.accessToken || data.data.accessToken || data.data.token || 'token-auth'
                         };
                     }
                 } catch (err) {}
@@ -1937,7 +1977,7 @@
             localStorage.setItem('aeropass_theme', newTheme);
             updateThemeToggleIcons(newTheme);
             if (typeof showToast === 'function') {
-                showToast(newTheme === 'dark' ? 'Switched to Midnight Pastel Dark Theme' : 'Switched to Ethereal Pastel Light Theme', 'info');
+                showToast(newTheme === 'dark' ? 'Switched to Midnight Velvet Dark Theme' : 'Switched to Luxury Warm Ivory Theme', 'info');
             }
         }
 
@@ -1947,7 +1987,7 @@
                 icon.textContent = isDark ? 'light_mode' : 'dark_mode';
             });
             document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
-                btn.setAttribute('title', isDark ? 'Switch to Pastel Light Mode' : 'Switch to Midnight Pastel Dark Mode');
+                btn.setAttribute('title', isDark ? 'Switch to Warm Ivory Light Mode' : 'Switch to Midnight Velvet Dark Mode');
             });
         }
 
@@ -1966,12 +2006,12 @@
             if (role === 'passenger') {
                 if (passView) passView.classList.remove('hidden');
                 if (offView) offView.classList.add('hidden');
-                if (passBtn) passBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center justify-center gap-1.5";
+                if (passBtn) passBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-primary text-on-primary border border-secondary shadow-xs flex items-center justify-center gap-1.5";
                 if (offBtn) offBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
             } else {
                 if (passView) passView.classList.add('hidden');
                 if (offView) offView.classList.remove('hidden');
-                if (offBtn) offBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-[#fef08a] to-[#fbcfe8] dark:from-[#451a03] dark:to-[#500724] text-[#831843] dark:text-[#fbcfe8] border border-[#f472b6] shadow-xs flex items-center justify-center gap-1.5";
+                if (offBtn) offBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all bg-primary text-on-primary border border-secondary shadow-xs flex items-center justify-center gap-1.5";
                 if (passBtn) passBtn.className = "flex-1 py-2.5 rounded-xl text-xs font-semibold text-secondary hover:text-on-surface transition-all flex items-center justify-center gap-1.5";
             }
         }
